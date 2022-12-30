@@ -33,6 +33,7 @@ export const AppDataSource = new DataSource({
   ssl,
   logging: false,
   synchronize: process.env.NODE_ENV === 'develop',
+  migrationsRun: process.env.NODE_ENV !== 'develop',
   entities: [
     AccountCreation,
     DiscordAccountCreation,
