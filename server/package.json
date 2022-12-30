@@ -6,7 +6,7 @@
     "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
     "build": "tsoa spec-and-routes && npx tsc --build",
     "clean": "npx tsc --clean",
-    "start": "node ./dist/server/main.js",
+    "start": "ts-node ./main.ts",
     "format": "npx prettier --write ."
   },
   "author": "raftmodding.com",
