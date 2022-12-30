@@ -33,8 +33,14 @@ export const AppDataSource = new DataSource({
   password,
   database: name,
   ssl,
+<<<<<<< HEAD
   logging,
   synchronize: false, //todo: this ain't working so good right now. You need a db-schema dump :P
+=======
+  logging: false,
+  synchronize: process.env.NODE_ENV === 'develop',
+  migrationsRun: process.env.NODE_ENV !== 'develop',
+>>>>>>> 53bfe7c (database: add setup migration)
   entities: [
     AccountCreation,
     DiscordAccountCreation,
