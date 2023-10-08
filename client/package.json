@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "build:strict": "vue-tsc --noEmit && vite build",
-    "start": "vite preview",
+    "preview": "vite preview",
+    "start": "serve dist",
     "format": "npx prettier --write ."
   },
   "dependencies": {
@@ -26,6 +27,7 @@
     "markdown-it-highlight": "^0.2.0",
     "notyf": "^3.9.0",
     "popper.js": "^1.16.1",
+    "serve": "^14.2.1",
     "simplemde": "^1.11.2",
     "tslib": "^1.14.1",
     "vue": "^3.0.5",
