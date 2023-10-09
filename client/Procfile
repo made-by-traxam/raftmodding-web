@@ -1,1 +1,1 @@
-web: npm run start --workspace=@raftmodding/app
+web: npm run start --workspace=@hmodding/client
