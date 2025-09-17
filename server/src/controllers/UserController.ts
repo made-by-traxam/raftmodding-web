@@ -151,7 +151,7 @@ export class UserController extends Controller {
     const dbUsername = await UserService.login(username, password);
     const dbRoles = await UserService.getRoles(dbUsername);
     const secret = cfg.server.jwtSecret;
-    const options: SignOptions = {expiresIn: cfg.server.jwtTtl};
+    const options: SignOptions = {expiresIn: cfg.server.jwtTtl as SignOptions['expiresIn']};
     const payload = {username: dbUsername, roles: dbRoles};
     const token = jwt.sign(payload, secret, options);
     const decodedToken = jwt.decode(token) as JwtPayload;

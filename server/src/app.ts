@@ -13,7 +13,6 @@ import express, {
   Response as ExResponse,
 } from 'express';
 import { cfg } from './cfg';
-import swaggerUi from 'swagger-ui-express';
 import { errorHandler } from './handlers/errorHandler';
 import {
   serveClientHandler,
@@ -28,9 +27,6 @@ export const startServer = async () => {
   console.log(`⏳ starting server...`);
   const jsonOptions: OptionsJson = { limit: cfg.requestSizeLimit };
   const urlencodedOptions: OptionsUrlencoded = { extended: false };
-  const swaggerUiHandler = async (_req: ExRequest, res: ExResponse) => {
-    return res.send(swaggerUi.generateHTML(swaggerJson));
-  };
 
   app.use(cors());
   app.use(morgan('dev'));
@@ -47,8 +43,6 @@ export const startServer = async () => {
 
   RegisterRoutes(app);
   console.log('    ✔️ registered routes');
-
-  app.use('/api/swagger-ui', swaggerUi.serve, swaggerUiHandler);
 
   // DO NOT use error handlers before registering routes!
   app.use(notFoundHandler);
