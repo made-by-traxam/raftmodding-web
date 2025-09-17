@@ -251,7 +251,7 @@ export class FileManagerService {
     return await new Promise<string[]>((resolve, reject) => {
       const names: string[] = [];
       const stream = this.client!.listObjectsV2(bucket, dir, true);
-      stream.on('data', (item) => names.push(item.name));
+      stream.on('data', (item) => names.push(item.name!));
       stream.on('error', (err) => reject(err));
       stream.on('end', () => resolve(names));
     });
