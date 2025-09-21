@@ -1,6 +1,6 @@
 // noinspection ES6PreferShortImport
 
-import FileType from "file-type";
+import { fileTypeFromBuffer } from "file-type";
 import {
   ModVersionCreateDto,
   ModVersionDto
@@ -33,7 +33,7 @@ export class ModVersionService extends AbstractService {
 
     const encoding = "base64";
     const buffer = Buffer.from(data.file.base64, encoding);
-    const fileType = await FileType.fromBuffer(buffer);
+    const fileType = await fileTypeFromBuffer(buffer);
 
     if (!fileType || !cfg.validMimeTypes.includes(fileType.mime)) {
       console.warn("    ❗ fileType: ", fileType);
