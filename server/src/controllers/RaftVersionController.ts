@@ -39,7 +39,7 @@ export class RaftVersionController extends Controller {
 
     if (!isValidCreateData) {
       this.setStatus(HttpStatusCode.BadRequest);
-      return ajv.errors;
+      return {error: 'Invalid form'};
     }
 
     this.setStatus(HttpStatusCode.Created);

@@ -18,7 +18,16 @@ export interface ModDto extends WithCreatedAndUpdatedDto {
   likes?: number;
 }
 
-export interface ModCreateDto extends ModDto {
+export interface ModCreateDto extends WithCreatedAndUpdatedDto {
+  id: string;
+  title: string;
+  description: string;
+  readme: string;
+  category: string;
+  author: string;
+  bannerImageUrl?: string;
+  iconImageUrl?: string;
+  repositoryUrl?: string;
   version: string;
   minRaftVersionId: number;
   maxRaftVersionId: number;

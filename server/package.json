@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/json-schema": "^7.0.15",
-    "ajv": "^6.10.2",
+    "ajv": "^8.17.1",
     "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
