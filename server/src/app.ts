@@ -38,7 +38,7 @@ export const startServer = async () => {
 
   //serve client
   app.use(staticClientFilesMiddleware);
-  app.get('*', serveClientHandler);
+  app.get('*splat', serveClientHandler);
   console.log('    ✔️ client files ready to serve');
 
   RegisterRoutes(app);
