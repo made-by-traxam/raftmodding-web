@@ -146,8 +146,9 @@ export class UserController extends Controller {
   @Security('everyone')
   public async login(
     @Request() request: Express.Request,
-    @Body() {username, password}: LoginDto,
+    @Body() loginDto: LoginDto,
   ) {
+    const {username, password} = loginDto;
     const dbUsername = await UserService.login(username, password);
     const dbRoles = await UserService.getRoles(dbUsername);
     const secret = cfg.server.jwtSecret;
