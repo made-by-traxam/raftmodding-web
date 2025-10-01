@@ -14,10 +14,6 @@ import express, {
 } from 'express';
 import { cfg } from './cfg';
 import { errorHandler } from './handlers/errorHandler';
-import {
-  serveClientHandler,
-  staticClientFilesMiddleware,
-} from './handlers/serveClientHandler';
 import { notFoundHandler } from './handlers/notFoundHandler';
 import morgan from 'morgan';
 
@@ -35,11 +31,6 @@ export const startServer = async () => {
   console.log(`    ✔️ bound json body-parser: `, jsonOptions);
   app.use(urlencoded(urlencodedOptions) as RequestHandler);
   console.log(`    ✔️ bound url-encoded: `, urlencodedOptions);
-
-  //serve client
-  app.use(staticClientFilesMiddleware);
-  app.get('*splat', serveClientHandler);
-  console.log('    ✔️ client files ready to serve');
 
   RegisterRoutes(app);
   console.log('    ✔️ registered routes');
