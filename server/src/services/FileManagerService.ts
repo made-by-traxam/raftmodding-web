@@ -37,11 +37,13 @@ export class FileManagerService {
 
     const storage = this.cfg.storage as StorageCfg | undefined;
 
-    if (storage?.accessKey && storage?.secretKey && storage?.endPoint) {
+    if (storage !== undefined) {
       this.client = new Client({
-        accessKey: storage?.accessKey || '',
-        secretKey: storage?.secretKey || '',
-        endPoint: storage?.endPoint || '',
+        accessKey: storage.accessKey,
+        secretKey: storage.secretKey,
+        endPoint: storage.endPoint,
+        port: storage.port,
+        useSSL: storage.useSsl,
       });
     } else {
       console.warn(

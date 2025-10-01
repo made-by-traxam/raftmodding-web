@@ -86,6 +86,8 @@ export class DownloadCounterService {
         accessKey: storage.accessKey,
         secretKey: storage.secretKey,
         endPoint: storage.endPoint,
+        port: storage.port,
+        useSSL: storage.useSsl,
       });
     } else {
       console.log(
@@ -115,7 +117,7 @@ export class DownloadCounterService {
     );
 
     this.modNotificationEmitter.on('error', (err) => {
-      console.error(err);
+      console.error("Error in bucket notification listener:", err);
     });
     this.modNotificationEmitter.on(
       'notification',
