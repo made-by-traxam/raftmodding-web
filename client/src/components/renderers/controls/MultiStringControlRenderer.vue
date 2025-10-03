@@ -38,7 +38,7 @@ import { defineComponent } from 'vue';
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
 import { default as ControlWrapper } from './ControlWrapper.vue';
 import { useVanillaControl } from '../util';
-import SimpleMDE from 'simplemde';
+import EasyMDE from 'easymde';
 
 const controlRenderer = defineComponent({
   name: 'multi-string-control-renderer',
@@ -53,7 +53,7 @@ const controlRenderer = defineComponent({
   },
   mounted() {
     if (this.appliedOptions.markdown) {
-      const simpleMde = new SimpleMDE({
+      const simpleMde = new EasyMDE({
         element: this.$refs.textarea as HTMLElement,
         forceSync: true,
         placeholder: this.placeholder,
