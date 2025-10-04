@@ -33,6 +33,7 @@ export default defineConfig(({mode}) => {
           quietDeps: true,
         }
       }
-    }
+    },
+    envDir: '../',
   };
 });
