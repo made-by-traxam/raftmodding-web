@@ -1,4 +1,4 @@
-@import './variables';
+@use './variables';
 
 .multiselect {
   border-radius: 0;
@@ -33,8 +33,8 @@
       transition: background-color 0.25s linear;
 
       &.multiselect__option--highlight {
-        color: $light-text;
-        background-color: $light-hover-background;
+        color: variables.$light-text;
+        background-color: variables.$light-hover-background;
       }
 
       &.multiselect__option--selected {
@@ -53,19 +53,19 @@
 body[data-theme='dark'] {
   .multiselect {
     .multiselect__tags {
-      background-color: $dark-input;
-      border-color: $dark-border;
+      background-color: variables.$dark-input;
+      border-color: variables.$dark-border;
 
       .multiselect__single {
-        background-color: $dark-input;
+        background-color: variables.$dark-input;
       }
     }
     .multiselect__content-wrapper {
-      border-color: $dark-border;
+      border-color: variables.$dark-border;
 
       .multiselect__option {
-        background-color: $dark-input;
-        color: $dark-text;
+        background-color: variables.$dark-input;
+        color: variables.$dark-text;
 
         &.multiselect__option--highlight {
           background-color: #2b2f33;

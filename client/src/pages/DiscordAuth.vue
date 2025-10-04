@@ -90,18 +90,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/styles/variables';
+@use '../assets/styles/variables';
 .spinner-border {
-  border-top-color: $discord;
-  border-left-color: $discord;
-  border-bottom-color: $discord;
+  border-top-color: variables.$discord;
+  border-left-color: variables.$discord;
+  border-bottom-color: variables.$discord;
   width: 10rem;
   height: 10rem;
 }
 
 .icon {
   &.fa-discord {
-    color: $discord;
+    color: variables.$discord;
   }
 }
 
@@ -119,13 +119,13 @@ export default defineComponent({
 
 @keyframes discordLoading {
   0% {
-    color: $discord;
+    color: variables.$discord;
   }
   50% {
     color: #fff;
   }
   100% {
-    color: $discord;
+    color: variables.$discord;
   }
 }
 </style>

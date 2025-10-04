@@ -92,9 +92,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables';
+@use '../assets/styles/variables';
 
 .discord-login {
-  background-color: $discord;
+  background-color: variables.$discord;
 }
 </style>

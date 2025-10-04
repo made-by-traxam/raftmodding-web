@@ -44,11 +44,11 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import './assets/styles/variables';
+@use './assets/styles/variables';
 
 #scrollable-content {
-  height: calc(100vh - #{$main-nav-height});
-  max-height: calc(100vh - #{$main-nav-height});
+  height: calc(100vh - #{variables.$main-nav-height});
+  max-height: calc(100vh - #{variables.$main-nav-height});
   overflow-y: scroll;
   position: relative;
   display: flex;

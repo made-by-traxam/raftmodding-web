@@ -69,8 +69,6 @@ export const entry: JsonFormsRendererRegistryEntry = {
 </script>
 
 <style scoped lang="scss">
-@import '../../../assets/styles/variables';
-
 .custom-range-selection {
   .input-group-prepend {
     width: 33px;

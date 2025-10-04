@@ -24,5 +24,15 @@ export default defineConfig(({mode}) => {
       port,
       proxy,
     },
+    css: {
+      preprocessorOptions: {
+        sass: {
+          quietDeps: true,
+        },
+        scss: {
+          quietDeps: true,
+        }
+      }
+    }
   };
 });

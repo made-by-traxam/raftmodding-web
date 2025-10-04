@@ -98,8 +98,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables';
-
 .input-group-text {
   cursor: pointer;
   padding: 0.2rem;

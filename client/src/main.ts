@@ -1,4 +1,3 @@
-import 'notyf/notyf.min.css';
 import './assets/styles/global.scss';
 
 import { Modal, Tooltip } from 'bootstrap';

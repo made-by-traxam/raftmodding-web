@@ -4,7 +4,6 @@ import {useRouter} from 'vue-router';
 import {useToaster} from '../compositions/useToaster';
 import {isSessionExpired as isSessionExpiredAction, killSession} from '../store/actions/session.actions';
 import {state, Theme} from '../store/store';
-import {Session, User} from '../types';
 import Icon from './Icon.vue';
 import JwtState from "../types/JwtState";
 
@@ -271,10 +270,10 @@ const logout = async () => {
 </template>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables';
+@use '../assets/styles/variables';
 
 .navbar {
-  transition: background-color $dark-mode-transition-duration $dark-mode-transition-type;
+  transition: background-color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
 
   .nav-link {
     transition: color 0.25s ease-in-out;

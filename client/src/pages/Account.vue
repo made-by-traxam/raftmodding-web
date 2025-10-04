@@ -112,13 +112,13 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables';
+@use '../assets/styles/variables';
 
 body {
   label.btn.btn-outline-secondary {
     opacity: 1;
     color: #000;
-    transition: color $dark-mode-transition-duration $dark-mode-transition-type;
+    transition: color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
   }
 
   &[data-theme='dark'] {
