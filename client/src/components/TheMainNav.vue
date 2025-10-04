@@ -6,6 +6,7 @@ import {isSessionExpired as isSessionExpiredAction, killSession} from '../store/
 import {state, Theme} from '../store/store';
 import Icon from './Icon.vue';
 import JwtState from "../types/JwtState";
+import TheDonationModal from './modals/TheDonationModal.vue';
 
 const router = useRouter();
 const toaster = useToaster();
