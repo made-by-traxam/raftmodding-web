@@ -1,5 +1,4 @@
 import { ref } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { useRoute } from 'vue-router';
 import { ModVersionDto } from '../../../shared/dto/ModVersionDto';
 import { api } from '../modules/api';
@@ -7,14 +6,12 @@ import { useLoading } from './useLoading';
 import { useRouteLeaveConfirm } from './useRouteLeaveConfirm';
 
 export const useAddModVersion = () => {
-  const meta = useActiveMeta();
   const routeLeaveConfirm = useRouteLeaveConfirm();
   const route = useRoute();
   const ready = ref(false);
   const showErrors = ref(false);
   const modVersion = ref<ModVersionDto>();
 
-  meta.title = 'Add mod Version';
 
   (async () => {
     modVersion.value = await api.getModVersion(Number(route.params.id));

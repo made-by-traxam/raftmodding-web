@@ -17,14 +17,13 @@ import { useRoute } from 'vue-router';
 import { api } from '../modules/api';
 import { LauncherVersion } from '../types';
 
-import { useActiveMeta } from 'vue-meta';
 import Changelog from '../components/Changelog.vue';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'LauncherChangelogPage',
   components: { Changelog },
   setup() {
-    const meta = useActiveMeta();
     const launcherVersion: Ref<LauncherVersion> = ref({} as LauncherVersion);
 
     (async () => {
@@ -33,7 +32,9 @@ export default defineComponent({
         route.params.version as string,
       );
 
-      meta.title = `RML Launcher v${launcherVersion.value.version}`;
+      useSeoMeta({
+        title: `RML Launcher v${launcherVersion.value.version}`,
+      });
     })();
 
     return {

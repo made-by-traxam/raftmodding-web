@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@jsonforms/core": "^3.6.0",
     "@jsonforms/vue": "^3.6.0",
+    "@unhead/vue": "^2.0.17",
     "ajv": "^8.17.1",
     "ajv-errors": "^3.0.0",
     "animate.css": "^4.1.1",
@@ -27,7 +28,6 @@
     "notyf": "^3.10.0",
     "popper.js": "^1.16.1",
     "vue": "^3.5.22",
-    "vue-meta": "^3.0.0-alpha.8",
     "vue-multiselect": "^3.3.1",
     "vue-router": "^4.5.1",
     "vue3-markdown-it": "^1.0.10"

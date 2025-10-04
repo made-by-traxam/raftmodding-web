@@ -264,18 +264,19 @@ import { api } from '../modules/api';
 import { LauncherVersion, LoaderVersion } from '../types';
 import { toDateStr } from '../utils';
 
-import { useActiveMeta } from 'vue-meta';
 import Icon from '../components/Icon.vue';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'DownloadPage',
   components: { Icon },
   setup() {
-    const meta = useActiveMeta();
     const launcherVersions: Ref<LauncherVersion[]> = ref([]);
     const loaderVersions: Ref<LoaderVersion[]> = ref([]);
 
-    meta.title = 'Download';
+    useSeoMeta({
+      title: 'Download',
+    });
 
     (async () => {
       launcherVersions.value = await api.getLauncherVersions();

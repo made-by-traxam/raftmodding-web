@@ -102,14 +102,14 @@
 </template>
 
 <script lang="ts">
+import { useSeoMeta } from '@unhead/vue';
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 
 export default defineComponent({
   setup() {
-    const meta = useActiveMeta();
-
-    meta.title = 'Privacy policy';
+    useSeoMeta({
+      title: 'Privacy policy',
+    });
   },
 });
 </script>

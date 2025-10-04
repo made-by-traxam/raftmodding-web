@@ -29,20 +29,20 @@
 
 <script lang="ts">
 import { defineComponent, Ref, ref } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { NavigationGuardNext, RouteLocation } from 'vue-router';
 import Icon from '../components/Icon.vue';
 import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'DiscordAuth',
   components: { Icon },
   setup() {
+    useSeoMeta({
+      title: 'Discord authentication',
+    });
     const loading: Ref<boolean> = ref(false);
-    const meta = useActiveMeta();
-
-    meta.title = 'Discord authentication';
 
     return {
       loading,

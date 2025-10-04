@@ -80,7 +80,6 @@
 <script lang="ts">
 import { data, ready } from 'jquery';
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Changelog from '../components/Changelog.vue';
 import Icon from '../components/Icon.vue';
@@ -89,6 +88,7 @@ import { useAddLoaderVersion } from '../compositions/useAddLoaderVersion';
 import { TOAST_FORM_INVALID, TOAST_GENERIC_SERVER_ERROR } from '../const/toasts.const';
 import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'AddLoaderVersionPage',
@@ -99,9 +99,9 @@ export default defineComponent({
     Changelog,
   },
   setup(_props, ctx) {
-    const meta = useActiveMeta();
-
-    meta.title = 'Add loader version';
+    useSeoMeta({
+      title: 'Add loader version',
+    });
 
     return {
       ...useAddLoaderVersion(ctx),

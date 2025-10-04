@@ -32,7 +32,6 @@
 <script lang="ts">
 import { data } from 'jquery';
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
 import { useForm } from '../compositions/useForm';
@@ -40,14 +39,15 @@ import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
 import { killSession } from '../store/actions/session.actions';
 import { $passwordValidator } from '../_legacy/passwordValidator';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'ChangePasswordPage',
   components: { ApiProvidedForm, Icon },
   setup(_props, ctx) {
-    const meta = useActiveMeta();
-
-    meta.title = 'Change your password';
+    useSeoMeta({
+      title: 'Change your password',
+    });
 
     return useForm(ctx);
   },

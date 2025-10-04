@@ -56,7 +56,6 @@
 import dayjs from 'dayjs';
 import { data, ready } from 'jquery';
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
 import ConfirmModal from '../components/modals/ConfirmModal.vue';
@@ -65,6 +64,7 @@ import { DATE_FORMAT } from '../const/formats.const';
 import { TOAST_FORM_INVALID } from '../const/toasts.const';
 import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'AddRaftVersionPage',
@@ -74,9 +74,9 @@ export default defineComponent({
     ConfirmModal,
   },
   setup(_props, ctx) {
-    const meta = useActiveMeta();
-
-    meta.title = 'Add Raft version';
+    useSeoMeta({
+      title: 'Add Raft version',
+    });
 
     return {
       ...useEditRaftVersion(ctx),

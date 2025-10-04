@@ -1,10 +1,5 @@
 <template>
   <template v-if="!blank">
-    <metainfo>
-      <template v-slot:title="{ metainfo }">{{
-        metainfo.titleTemplate(metainfo.title)
-      }}</template>
-    </metainfo>
     <transition name="fade">
       <cookie-consent-modal />
     </transition>
@@ -21,16 +16,11 @@ import { defineComponent } from 'vue';
 import CookieConsentModal from './components/modals/CookieConsentModal.vue';
 import TheMainFooter from './components/TheMainFooter.vue';
 import TheMainNav from './components/TheMainNav.vue';
-import { useGeneralMeta } from './compositions/meta/useGeneralMeta';
-import { useMetaAutoMatcher } from './compositions/meta/useMetaAutoMatcher';
 import { state } from './store/store';
 
 export default defineComponent({
   components: { CookieConsentModal, TheMainFooter, TheMainNav },
   setup() {
-    useGeneralMeta();
-    useMetaAutoMatcher();
-
     return {
       blank: state.blankPage
     };

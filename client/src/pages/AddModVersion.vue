@@ -89,20 +89,20 @@ import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
 
 import { ready } from 'jquery';
-import { useActiveMeta } from 'vue-meta';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
 import ConfirmModal from '../components/modals/ConfirmModal.vue';
 import ModVersionDetails from '../components/ModVersionDetails.vue';
 import { useAddModVersion } from '../compositions/useAddModVersion';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'AddModVersionPage',
   components: { ModVersionDetails, Icon, ApiProvidedForm, ConfirmModal },
   setup() {
-    const meta = useActiveMeta();
-
-    meta.title = 'Add mod version';
+    useSeoMeta({
+      title: 'Add mod version',
+    });
 
     return {
       ...useAddModVersion(),

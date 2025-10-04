@@ -1,7 +1,6 @@
 import { JsonFormsChangeEvent } from '@jsonforms/vue';
 import dayjs from 'dayjs';
 import { ref, SetupContext, watch } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { useRoute } from 'vue-router';
 import { DATE_FORMAT } from '../const/formats.const';
 import { api } from '../modules/api';
@@ -15,7 +14,6 @@ export interface ExtendedMod extends Mod {
 }
 
 export const useEditRaftVersion = (ctx: SetupContext) => {
-  const meta = useActiveMeta();
   const form = useForm(ctx);
   const routeLeaveConfirm = useRouteLeaveConfirm();
   const route = useRoute();
@@ -32,7 +30,6 @@ export const useEditRaftVersion = (ctx: SetupContext) => {
       );
     }
 
-    meta.title = `Edit Raft version v${form.data.value.version}`;
     ready.value = true;
   })();
 
@@ -44,12 +41,6 @@ export const useEditRaftVersion = (ctx: SetupContext) => {
     form.errors.value = event.errors;
   }
 
-  watch(
-    () => form.data.value.version,
-    (version) => {
-      meta.title = `Edit Raft version ${version}`;
-    },
-  );
 
   return {
     ...routeLeaveConfirm,

@@ -26,13 +26,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   setup() {
-    const meta = useActiveMeta();
-
-    meta.title = 'Page not found';
+    useSeoMeta({
+      title: 'Page not found',
+    });
   },
 });
 </script>

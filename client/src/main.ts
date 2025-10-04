@@ -3,24 +3,15 @@ import './assets/styles/global.scss';
 import { Modal, Tooltip } from 'bootstrap';
 import $ from 'jquery'; //TODO: get rid of it!
 import { createApp } from 'vue';
-import {
-  createMetaManager,
-  defaultConfig,
-  plugin as metaPlugin,
-} from 'vue-meta';
 import MarkdownIt from 'vue3-markdown-it';
 
 import { router } from './router/router';
 
 import App from './App.vue';
 import { initSession } from './store/actions/session.actions';
+import { createHeadPlugin } from './compositions/meta/createHead';
 
 (async () => {
-  const metaManager = createMetaManager(false, {
-    ...defaultConfig,
-    meta: { tag: 'meta', nameless: true },
-  });
-
   $.extend(Modal);
   $.extend(Tooltip);
   await initSession();
@@ -28,8 +19,7 @@ import { initSession } from './store/actions/session.actions';
   const app = createApp(App);
 
   app.use(router);
-  app.use(metaManager);
-  app.use(metaPlugin);
+  app.use(createHeadPlugin()); // page metadata
   app.use(MarkdownIt);
 
   app.mount('#app');

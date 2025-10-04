@@ -42,13 +42,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import Icon from '../components/Icon.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import ModsCardDeck from '../components/ModsCardDeck.vue';
 import ModSearcher from '../components/ModSearcher.vue';
 import PlaceholderModCard from '../components/PlaceholderModCard.vue';
 import { useMods } from '../compositions/useMods';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'ModsPage',
@@ -60,13 +60,13 @@ export default defineComponent({
     PlaceholderModCard,
   },
   setup() {
-    const meta = useActiveMeta();
     const defaultQuery = {
       sort: '-createdAt',
     };
 
-    meta.title = 'Mods';
-    meta.ogTitle = meta.titleTemplate('Mods');
+    useSeoMeta({
+      title: 'Mods',
+    });
 
     return {
       defaultQuery,

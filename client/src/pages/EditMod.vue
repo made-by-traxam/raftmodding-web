@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, watch } from 'vue';
 
 import { useModEditing } from '../compositions/useModEditing';
 import { api } from '../modules/api';
@@ -108,6 +108,7 @@ import Icon from '../components/Icon.vue';
 import ConfirmModal from '../components/modals/ConfirmModal.vue';
 import ModDangerZone from '../components/ModDangerZoner.vue';
 import ModDetails from '../components/ModDetails.vue';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'EditModPage',
@@ -119,8 +120,19 @@ export default defineComponent({
     ConfirmModal,
   },
   setup() {
+    const modEditingProps = useModEditing();
+    const meta = useSeoMeta({
+      title: `Edit ${modEditingProps.mod.value.title}`,
+    });
+    watch(
+      () => modEditingProps.mod.value.title,
+      (title) => {
+        meta.patch({ title: `Edit ${title}` });
+      },
+    );
+
     return {
-      ...useModEditing(),
+      ...modEditingProps,
     };
   },
   methods: {

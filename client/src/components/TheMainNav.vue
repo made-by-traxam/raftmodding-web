@@ -24,7 +24,7 @@ const vUsername = computed<string>(() => {
 });
 
 watch(session, async () => {
-  console.log(session.value);
+  console.log('Session:', session.value);
 }, { immediate: true })
 
 const logout = async () => {

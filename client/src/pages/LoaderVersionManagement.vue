@@ -33,20 +33,20 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { LoaderVersionDto } from '../../../shared/dto/LoaderVersionDto';
 import Icon from '../components/Icon.vue';
 import { api } from '../modules/api';
 import { toDateStr } from '../utils';
+import { useSeoMeta } from '@unhead/vue';
 export default defineComponent({
   components: { Icon },
   name: 'LoaderVersionManagement',
   setup() {
-    const meta = useActiveMeta();
+    useSeoMeta({
+      title: 'Loader version management',
+    });
+  
     const versions: Ref<LoaderVersionDto[]> = ref([]);
-
-    meta.title = 'Raft versionm anagement';
-
     (async () => {
       versions.value = await api.getLoaderVersions() as LoaderVersionDto[];
     })();

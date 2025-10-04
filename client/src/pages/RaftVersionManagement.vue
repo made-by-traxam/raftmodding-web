@@ -46,22 +46,23 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { useRoute } from 'vue-router';
 import Icon from '../components/Icon.vue';
 import { api } from '../modules/api';
 import { RaftVersion } from '../types';
 import { toDateStr } from '../utils';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   components: { Icon },
   name: 'RaftVersionManagementPage',
   setup() {
-    const meta = useActiveMeta();
     const route = useRoute();
     const versions: Ref<RaftVersion[]> = ref([]);
 
-    meta.title = 'Raft versionm anagement';
+    useSeoMeta({
+      title: 'Raft version management',
+    });
 
     (async () => {
       versions.value = await api.getRaftVersions();

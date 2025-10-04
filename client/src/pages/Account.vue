@@ -86,16 +86,16 @@ import { defineComponent } from 'vue';
 
 import { Session, User } from '../types';
 
-import { useActiveMeta } from 'vue-meta';
 import { state } from '../store/store';
 import { $tooltip } from '../_legacy/tooltip';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'AccountPage',
   setup() {
-    const meta = useActiveMeta();
-
-    meta.title = 'Account';
+    useSeoMeta({
+      title: 'Account',
+    });
   },
   computed: {
     session(): Session {
