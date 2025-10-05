@@ -33,7 +33,7 @@
     "vue3-markdown-it": "^1.0.10"
   },
   "devDependencies": {
-    "@types/bootstrap": "^5.0.12",
+    "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.33",
     "@types/lodash": "^4.17.20",
     "@types/node": "^22.18.8",
