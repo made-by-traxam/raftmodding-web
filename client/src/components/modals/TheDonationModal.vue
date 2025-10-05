@@ -1,6 +1,6 @@
 <template>
   <div
-      class="modal fade show"
+      class="modal fade"
       tabindex="-1"
       role="dialog"
       aria-labelledby="donate-modal-label"
@@ -16,7 +16,7 @@
           <button
               class="close"
               type="button"
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
               aria-label="Close"
           >
             <span aria-hidden="true">×</span>
@@ -67,7 +67,6 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import {$donationModal} from '../../_legacy/donationModal';
 import {PATREON_LINK, PAYPAL_TOKEN} from "../../const/links.const";
 
 export default defineComponent({
@@ -77,9 +76,6 @@ export default defineComponent({
       patreonLink: PATREON_LINK,
       paypalToken: PAYPAL_TOKEN,
     };
-  },
-  mounted() {
-    $donationModal();
-  },
+  }
 });
 </script>

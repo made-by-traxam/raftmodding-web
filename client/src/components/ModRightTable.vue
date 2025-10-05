@@ -80,7 +80,8 @@
         <a
           :href="preview ? '#preview' : currentVersion.downloadUrl || '#'"
           :target="preview ? '_self' : '_blank'"
-          class="download-link"
+          :data-bs-toggle="preview ? '' : 'modal'"
+          :data-bs-target="preview ? '' : '#download-warning-modal'"
           >Download this mod<small class="float-right mx-1"
             ><span
               class="badge badge-pill badge-secondary"
@@ -100,6 +101,8 @@
             :href="preview ? '#preview' : `rmllauncher://installmod/${mod.id}`"
             :target="preview ? '_self' : '_blank'"
             class="text-white stretched-link install-button"
+            :data-bs-toggle="preview ? '' : 'modal'"
+            :data-bs-target="preview ? '' : '#install-modal'"
             >Install mod</a
           >
         </b>
@@ -115,9 +118,9 @@
         />
         <b
           ><a
-            :href="preview ? '#preview' : '#'"
-            :target="preview ? '_self' : '_blank'"
             class="text-white stretched-link support-button"
+            :data-bs-toggle="preview ? '' : 'modal'"
+            :data-bs-target="preview ? '' : '#support-modal'"
             >Need support?</a
           ></b
         >
@@ -139,7 +142,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useMod } from '../compositions/useMod';
-import { $modDetails } from '../_legacy/modDetails';
 import AdminUsageInfo from './AdminUsageInfo.vue';
 import Icon from './Icon.vue';
 import TheDownloadThanksModal from './modals/TheDownloadThanksModal.vue';
@@ -171,10 +173,6 @@ export default defineComponent({
       ...props,
       ...useMod(props),
     };
-  },
-  async mounted() {
-    await this.$nextTick();
-    $modDetails();
   },
   methods: {
     onDownload() {

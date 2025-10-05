@@ -88,7 +88,6 @@ import { defineComponent, version } from 'vue';
 import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
 
-import { ready } from 'jquery';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
 import ConfirmModal from '../components/modals/ConfirmModal.vue';

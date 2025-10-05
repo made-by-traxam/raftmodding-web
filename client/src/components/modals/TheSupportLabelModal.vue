@@ -14,7 +14,7 @@
           <button
             class="close"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             aria-label="Close"
           >
             <span aria-hidden="true">×</span>
@@ -55,6 +55,7 @@
             target="_blank"
             style="background-color: #7289da"
             id="support-discord-link"
+            data-bs-dismiss="modal"
           >
             <icon name="discord" type="b" class="mr-2" /> Join our
             <b>Discord server</b>

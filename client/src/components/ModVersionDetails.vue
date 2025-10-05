@@ -43,7 +43,9 @@
             <a
               :href="preview ? '#preview' : version.downloadUrl"
               :target="preview ? '_self' : '_blank'"
-              class="btn btn-sm btn-primary mx-1 download-link"
+              :data-bs-toggle="preview ? '' : 'modal'"
+              :data-bs-target="preview ? '' : '#download-warning-modal'"
+              class="btn btn-sm btn-primary mx-1"
             >
               Download
               <span
@@ -76,7 +78,6 @@ import { defineComponent, PropType, version } from 'vue';
 import VueMarkdownIt from 'vue3-markdown-it';
 import { ModVersionDto } from '../../../shared/dto/ModVersionDto';
 import { DATETIME_FORMAT, DATE_FORMAT } from '../const/formats.const';
-import { $modDetails } from '../_legacy/modDetails';
 import FileHashes from './FileHashes.vue';
 import Icon from './Icon.vue';
 import RaftVersionMatchingBadge from './RaftVersionMatchingBadge.vue';
@@ -105,10 +106,6 @@ export default defineComponent({
     releaseDateStr(): string {
       return dayjs(this.vReleaseDate).format(DATE_FORMAT);
     },
-  },
-  async mounted() {
-    await this.$nextTick();
-    $modDetails();
   },
 });
 </script>

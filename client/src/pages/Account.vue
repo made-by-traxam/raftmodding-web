@@ -87,7 +87,6 @@ import { defineComponent } from 'vue';
 import { Session, User } from '../types';
 
 import { state } from '../store/store';
-import { $tooltip } from '../_legacy/tooltip';
 import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
@@ -104,9 +103,6 @@ export default defineComponent({
     user(): User {
       return state.jwt?.user || ({} as User);
     },
-  },
-  mounted() {
-    $tooltip();
   },
 });
 </script>

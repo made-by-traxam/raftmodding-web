@@ -16,7 +16,7 @@
           <button
             class="close"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             aria-label="Close"
           >
             <span aria-hidden="true">×</span>
@@ -53,6 +53,7 @@
             target="_blank"
             style="background-color: #7289da"
             id="support-discord-link"
+            data-bs-dismiss="modal"
           >
             <i class="fab fa-discord mr-2"></i> Join our<b>Discord server</b>
           </a>

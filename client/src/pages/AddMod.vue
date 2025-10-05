@@ -81,7 +81,6 @@
 </template>
 
 <script lang="ts">
-import { ready } from 'jquery';
 import { defineComponent } from 'vue';
 import { ModDto } from '../../../shared/dto/ModDto';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';

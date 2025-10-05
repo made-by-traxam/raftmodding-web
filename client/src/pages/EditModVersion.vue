@@ -85,7 +85,6 @@
 </template>
 
 <script lang="ts">
-import { ready } from 'jquery';
 import { defineComponent, version } from 'vue';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';

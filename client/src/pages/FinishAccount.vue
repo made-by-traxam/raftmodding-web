@@ -30,7 +30,6 @@
 </template>
 
 <script lang="ts">
-import { data } from 'jquery';
 import { defineComponent, ref } from 'vue';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';

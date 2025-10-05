@@ -1,7 +1,7 @@
 <script setup lang="ts">import dayjs from 'dayjs';
 import { computed, onMounted } from 'vue';
 import { DATETIME_FORMAT, DATE_FORMAT } from '../const/formats.const';
-import { $changelog } from '../_legacy/changelog';
+import TheSupportLabelModal from './modals/TheSupportLabelModal.vue';
 
 interface ChangelogProps {
   version: string;
@@ -21,10 +21,6 @@ const fullReleaseDateStr = computed<string>(() => dayjs(vReleaseDate.value).form
 const releaseDateStr = computed<string>(() => dayjs(vReleaseDate.value).format(DATE_FORMAT));
 const fullLastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format(DATETIME_FORMAT));
 const lastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format(DATE_FORMAT));
-
-onMounted(() => {
-  $changelog();
-})
 </script>
 
 <template>
@@ -90,10 +86,9 @@ onMounted(() => {
               />
               <b>
                 <a
-                  :href="preview ? '#preview' : '/discord'"
                   class="text-white stretched-link"
-                  :class="{ 'support-button': !preview }"
-                  :target="preview ? '_self' : '_blank'"
+                  :data-bs-toggle="preview ? '' : 'modal'"
+                  :data-bs-target="preview ? '' : '#support-modal'"
                   >Need support?</a
                 >
               </b>

@@ -5,7 +5,7 @@
     role="dialog"
     aria-labelledby="download-warning-modal-label"
     aria-hidden="true"
-    id="download-warning-modal"
+    id="download-thanks-modal"
   >
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content border-0">
@@ -16,7 +16,7 @@
           <button
             class="close"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             aria-label="Close"
           >
             <span aria-hidden="true">×</span>

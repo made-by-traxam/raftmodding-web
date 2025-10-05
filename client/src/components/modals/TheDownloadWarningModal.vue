@@ -16,7 +16,9 @@
           <button
             class="close"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
+            data-bs-toggle="modal"
+            data-bs-target="#download-thanks-modal"
             aria-label="Close"
           >
             <span aria-hidden="true">×</span>
@@ -53,7 +55,9 @@
             :href="modVersion.downloadUrl"
             target="_blank"
             class="btn btn-sm btn-outline-danger mr-auto"
-            id="download-warning-download-button"
+            data-bs-dismiss="modal"
+            data-bs-toggle="modal"
+            data-bs-target="#download-thanks-modal"
             @click="$emit('download')"
           >
             I understand, download anyways

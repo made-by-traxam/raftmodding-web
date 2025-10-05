@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {computed, watch} from 'vue';
+import {computed, onMounted, watch} from 'vue';
 import {useRouter} from 'vue-router';
 import {useToaster} from '../compositions/useToaster';
 import {isSessionExpired as isSessionExpiredAction, killSession} from '../store/actions/session.actions';
-import {state, Theme} from '../store/store';
+import {state} from '../store/store';
 import Icon from './Icon.vue';
 import JwtState from "../types/JwtState";
 import TheDonationModal from './modals/TheDonationModal.vue';
@@ -14,7 +14,6 @@ const toaster = useToaster();
 const session = computed<JwtState | null>(() => state.jwt);
 const username = computed<string>(() => session.value?.username || '');
 const isAdmin = computed<boolean>(() => session.value?.roles.includes('admin') || false);
-const theme = computed<Theme>(() => state.theme);
 const isSessionExpired = computed<boolean>(() => isSessionExpiredAction());
 const vUsername = computed<string>(() => {
   if (username.value.length <= 10) {
@@ -82,10 +81,10 @@ const logout = async () => {
             <a
                 class="nav-link"
                 href="/discord"
-                data-toggle="tooltip"
-                title=""
+                data-bs-toggle="tooltip"
+                data-bs-title="Discord server"
+                data-bs-placement="bottom"
                 target="_blank"
-                data-original-title="Discord server"
             >
               <Icon type="b" name="discord" class="mx-2"/>
               <span class="d-inline d-lg-none">Discord server</span>
@@ -96,21 +95,20 @@ const logout = async () => {
                 class="nav-link"
                 href="/docs"
                 target="_blank"
-                data-toggle="tooltip"
-                title=""
-                data-original-title="Documentation"
+                data-bs-toggle="tooltip"
+                data-bs-title="Documentation"
+                data-bs-placement="bottom"
             >
               <Icon name="book" class="mx-2"/>
               <span class="d-inline d-lg-none">Documentation</span>
             </a>
           </li>
-          <li class="mx-1 nav-item">
+          <li class="mx-1 nav-item" data-bs-toggle="tooltip" data-bs-title="Support us" data-bs-placement="bottom">
             <a
-                class="nav-link donate-button"
+                class="nav-link"
                 href="#"
-                data-toggle="tooltip"
-                title=""
-                data-original-title="Donate"
+                data-bs-toggle="modal"
+                data-bs-target="#donate-modal"
             >
               <Icon name="donate" class="mx-2"/>
               <span class="d-inline d-lg-none">Support us</span>
@@ -132,7 +130,7 @@ const logout = async () => {
                   class="nav-link d-lg-flex justify-content-between align-items-center"
                   href="#"
                   role="button"
-                  data-toggle="dropdown"
+                  data-bs-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                   id="navbarDropdownMenuLink"

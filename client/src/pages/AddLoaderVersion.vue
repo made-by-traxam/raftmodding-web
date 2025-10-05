@@ -78,7 +78,6 @@
 </template>
 
 <script lang="ts">
-import { data, ready } from 'jquery';
 import { defineComponent } from 'vue';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Changelog from '../components/Changelog.vue';

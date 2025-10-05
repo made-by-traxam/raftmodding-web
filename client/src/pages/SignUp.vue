@@ -27,7 +27,6 @@
 </template>
 
 <script lang="ts">
-import { data } from 'jquery';
 import { defineComponent } from 'vue';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import { useForm } from '../compositions/useForm';

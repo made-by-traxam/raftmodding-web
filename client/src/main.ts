@@ -1,9 +1,13 @@
 import './assets/styles/global.scss';
 
-import { Modal, Tooltip } from 'bootstrap';
-import $ from 'jquery'; //TODO: get rid of it!
 import { createApp } from 'vue';
 import MarkdownIt from 'vue3-markdown-it';
+import 'popper.js'
+import 'bootstrap';
+import { Tooltip } from 'bootstrap';
+new Tooltip(document.body, {
+  selector: "[data-bs-toggle='tooltip']",
+})
 
 import { router } from './router/router';
 
@@ -12,8 +16,6 @@ import { initSession } from './store/actions/session.actions';
 import { createHeadPlugin } from './compositions/meta/createHead';
 
 (async () => {
-  $.extend(Modal);
-  $.extend(Tooltip);
   await initSession();
 
   const app = createApp(App);

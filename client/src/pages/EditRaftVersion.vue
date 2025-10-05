@@ -53,7 +53,6 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { data, ready } from 'jquery';
 import { defineComponent, watch } from 'vue';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
