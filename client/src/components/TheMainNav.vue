@@ -55,22 +55,29 @@ const logout = async () => {
         <ul class="navbar-nav me-auto">
           <li
               class="mx-2 nav-item"
-              :class="{
-              active:
-                $route.path.startsWith('/download') ||
-                $route.path.startsWith('/loader'),
-            }"
           >
-            <router-link :to="{ name: 'download' }" class="nav-link">
+            <router-link :to="{ name: 'download' }"
+              :class="{
+                'nav-link': true,
+                active:
+                  $route.path.startsWith('/download') ||
+                  $route.path.startsWith('/loader'),
+              }"
+            >
               <Icon name="bolt" class="mx-1"/>
               Mod loader
             </router-link>
           </li>
           <li
               class="mx-2 nav-item"
-              :class="{ active: $route.path.startsWith('/mods') }"
           >
-            <router-link :to="{ name: 'mods' }" class="nav-link">
+            <router-link
+              :to="{ name: 'mods' }"
+              :class="{
+                'nav-link': true,
+                active: $route.path.startsWith('/mods'),
+              }"
+            >
               <Icon name="plug" class="mx-1"/>
               Mods
             </router-link>
@@ -159,7 +166,7 @@ const logout = async () => {
                 </button>
               </div>
             </li>
-            <li class="mx-1 nav-item dropdown active">
+            <li class="mx-1 nav-item dropdown">
               <a
                   class="nav-link"
                   href="#"
