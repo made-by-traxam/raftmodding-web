@@ -85,72 +85,84 @@
         If you have any further questions, please feel free to ask us on our
         <a href="/discord" target="_blank">Discord server</a>.
       </p>
-      <div class="card-deck my-3">
-        <div class="card">
-          <div class="card-body m-2">
-            <h5 class="mb-3">
-              <i
-                >What's the difference between the launcher and the mod
-                loader?</i
-              >
-            </h5>
-            The launcher is a handy piece of software that installs the Raft Mod
-            Loader for you. Using the launcher, your mod loader installation is
-            automatically kept up to date.<br />The mod loader on the other hand
-            modifies parts of the code of Raft so that you can easily play with
-            mods.
+      <div class="row row-cols-sm-1 row-cols-lg-2 my-3">
+        <div class="col p-3">
+          <div class="card">
+            <div class="card-body m-2">
+              <h5 class="mb-3">
+                <i
+                  >What's the difference between the launcher and the mod
+                  loader?</i
+                >
+              </h5>
+              The launcher is a handy piece of software that installs the Raft Mod
+              Loader for you. Using the launcher, your mod loader installation is
+              automatically kept up to date.<br />The mod loader on the other hand
+              modifies parts of the code of Raft so that you can easily play with
+              mods.
+            </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-body m-2">
-            <h5 class="mb-3">
-              <i>Something isn't working! Who can help me?</i>
-            </h5>
-            If you encounter any bugs or run into problems while installing or
-            using our software, please feel free to contact us on our
-            <a href="/discord" target="_blank">Discord server</a>.
-          </div>
-        </div>
-      </div>
-      <div class="card-deck my-3">
-        <div class="card">
-          <div class="card-body m-2">
-            <h5 class="mb-3"><i>What do I need to play with mods?</i></h5>
-            The Raft Mod Loader should work with any Raft installation that was
-            bought with Steam.
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body m-2">
-            <h5 class="mb-3"><i>Is the mod loader official</i></h5>
-            No, this project is
-            <u>not</u>
-            affiliated with, endorsed by or in any way associated with Redbeet
-            Interactive or Raft.
+        <div class="col p-3">
+          <div class="card">
+            <div class="card-body m-2">
+              <h5 class="mb-3">
+                <i>Something isn't working! Who can help me?</i>
+              </h5>
+              If you encounter any bugs or run into problems while installing or
+              using our software, please feel free to contact us on our
+              <a href="/discord" target="_blank">Discord server</a>.
+            </div>
           </div>
         </div>
       </div>
-      <div class="card-deck my-3">
-        <div class="card">
-          <div class="card-body m-2">
-            <h5 class="mb-3"><i>Where do I get mods?</i></h5>
-            Find our best and most popular mods on our
-            <router-link :to="{ name: 'home' }">hompage</router-link>
-            or head over to the
-            <router-link :to="{ name: 'mods' }">mods directory</router-link>
-            to browse all mods.
+      <div class="row row-cols-sm-1 row-cols-lg-2 my-3">
+        <div class="col p-3">
+          <div class="card">
+            <div class="card-body m-2">
+              <h5 class="mb-3"><i>What do I need to play with mods?</i></h5>
+              The Raft Mod Loader should work with any Raft installation that was
+              bought with Steam.
+            </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-body m-2">
-            <h5 class="mb-3"><i>Can I make mods myself?</i></h5>
-            Sure! Whether you're a programmer, a graphic designer or a modeler,
-            we always appreciate your help. To get started with modding, feel
-            free to ask us on the
-            <a href="/discord" target="_blank">Discord server</a>
-            or have a look at our
-            <a href="/docs" target="_blank">Documentation</a>
-            .
+        <div class="col p-3">
+          <div class="card">
+            <div class="card-body m-2">
+              <h5 class="mb-3"><i>Is the mod loader official?</i></h5>
+              No, this project is
+              <u>not</u>
+              affiliated with, endorsed by or in any way associated with Redbeet
+              Interactive or Raft.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-cols-sm-1 row-cols-lg-2 my-3">
+        <div class="col p-3">
+          <div class="card">
+            <div class="card-body m-2">
+              <h5 class="mb-3"><i>Where do I get mods?</i></h5>
+              Find our best and most popular mods on our
+              <router-link :to="{ name: 'home' }">hompage</router-link>
+              or head over to the
+              <router-link :to="{ name: 'mods' }">mods directory</router-link>
+              to browse all mods.
+            </div>
+          </div>
+        </div>
+        <div class="col p-3">
+          <div class="card">
+            <div class="card-body m-2">
+              <h5 class="mb-3"><i>Can I make mods myself?</i></h5>
+              Sure! Whether you're a programmer, a graphic designer or a modeler,
+              we always appreciate your help. To get started with modding, feel
+              free to ask us on the
+              <a href="/discord" target="_blank">Discord server</a>
+              or have a look at our
+              <a href="/docs" target="_blank">Documentation</a>
+              .
+            </div>
           </div>
         </div>
       </div>

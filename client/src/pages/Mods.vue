@@ -24,15 +24,21 @@
       />
 
       <div v-else class="mx-auto w-100 search-results-empty">
-        <div class="card-deck">
-          <placeholder-mod-card
-            transparent
-            class="d-flex justify-content-center align-items-center"
-          >
-            <div class="">No results</div>
-          </placeholder-mod-card>
-          <placeholder-mod-card transparent />
-          <placeholder-mod-card />
+        <div class="row row-cols-3">
+          <div class="col p-3">
+            <placeholder-mod-card
+              transparent
+              class="d-flex justify-content-center align-items-center"
+            >
+              <div class="">No results</div>
+            </placeholder-mod-card>
+          </div>
+          <div class="col p-3">
+            <placeholder-mod-card transparent />
+          </div>
+          <div class="col p-3">
+            <placeholder-mod-card />
+          </div>
         </div>
       </div>
     </template>
