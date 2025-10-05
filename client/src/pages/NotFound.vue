@@ -13,7 +13,7 @@
             :to="{ name: 'contact' }"
             class="btn btn-sm btn-outline-secondary"
           >
-            <i class="far fa-envelope mr-2"></i> Contact us
+            <i class="far fa-envelope me-2"></i> Contact us
           </router-link>
           <button class="btn btn-success" @click="$router.go(-1)">
             Go back

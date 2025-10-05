@@ -3,7 +3,7 @@
     <section>
       <h1>Launcher Version Management</h1>
       <router-link :to="{ name: 'addLauncherVersion' }" class="btn btn-success">
-        <icon name="plus" class="mr-2" /> Add a version
+        <icon name="plus" class="me-2" /> Add a version
       </router-link>
     </section>
     <section class="my-5">

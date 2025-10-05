@@ -4,7 +4,7 @@
       <h5 class="card-title">
         Danger zone
         <button
-          class="btn btn-sm float-right btn-outline-danger"
+          class="btn btn-sm float-end btn-outline-danger"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#danger-zone"

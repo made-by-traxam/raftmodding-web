@@ -48,7 +48,7 @@ defineExpose({
               v-model="search"
               aria-describedby="addon1"
               aria-label="test"
-              class="form-control form-control-lg border-top-0 border-right-0 border-left-0 border-bottom-0"
+              class="form-control form-control-lg border-top-0 border-end-0 border-start-0 border-bottom-0"
               name="q"
               placeholder="Search..."
               type="search"

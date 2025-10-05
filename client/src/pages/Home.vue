@@ -23,7 +23,7 @@
           </div>
           <div class="col-sm-8">
             <h2>Modding your game</h2>
-            <p class="text-left">
+            <p class="text-start">
               To get started with modding, you will first need to install
               <router-link :to="{ name: 'download' }"
                 >our ModLoader</router-link
@@ -36,15 +36,15 @@
             </p>
             <router-link
               :to="{ name: 'download' }"
-              class="btn btn-success btn-lg mr-2 mt-2"
+              class="btn btn-success btn-lg me-2 mt-2"
             >
-              <i class="fas fa-download mr-2"></i> Download ModLoader
+              <i class="fas fa-download me-2"></i> Download ModLoader
             </router-link>
             <router-link
               :to="{ name: 'mods' }"
-              class="btn btn-primary btn-lg mr-2 mt-2"
+              class="btn btn-primary btn-lg me-2 mt-2"
             >
-              <i class="fas fa-plug mr-2"></i> Browse mods
+              <i class="fas fa-plug me-2"></i> Browse mods
             </router-link>
           </div>
           <div class="col-sm-1"></div>

@@ -21,7 +21,7 @@
             </div>
             <p class="card-text">
               <small class="text-muted">
-                <i class="far fa-clock mr-1"></i>
+                <i class="far fa-clock me-1"></i>
                 Description last changed on 2021-03-22
               </small>
             </p>

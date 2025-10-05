@@ -18,7 +18,7 @@
                   !latestLauncherVersion.downloadUrl &&
                   !latestLauncherVersion.version,
               }"
-              class="btn btn-success btn-lg mr-2 mb-2"
+              class="btn btn-success btn-lg me-2 mb-2"
             >
               Download launcher v{{ latestLauncherVersion.version }}
             </a>
@@ -27,9 +27,9 @@
                 name: 'launcherChangelog',
                 params: { version: latestLauncherVersion.version },
               }"
-              class="btn btn-outline-secondary mr-2 mb-2"
+              class="btn btn-outline-secondary me-2 mb-2"
             >
-              <i class="fas fa-list-ul mr-2"></i> View changelog
+              <i class="fas fa-list-ul me-2"></i> View changelog
             </router-link>
           </div>
         </div>
@@ -37,7 +37,7 @@
           <div class="col-sm-4"></div>
           <div class="col-sm-8">
             <span class="text-muted">
-              <i class="fas fa-info-circle mr-1"></i>
+              <i class="fas fa-info-circle me-1"></i>
               The Raft Mod Loader only supports the official
               <a
                 href="https://store.steampowered.com/app/648800/Raft/"
@@ -55,7 +55,7 @@
         <div class="col-sm-4 p-5">
           <i class="far fa-check-circle fa-7x m-3"></i>
           <h5>Up to date</h5>
-          <p class="m-1 text-left">
+          <p class="m-1 text-start">
             Our installer comes with a launcher that always keeps your mod
             loader version up to date - no action required!
           </p>
@@ -63,7 +63,7 @@
         <div class="col-sm-4 p-5">
           <i class="fas fa-lock fa-7x m-3"></i>
           <h5>Secure</h5>
-          <p class="m-1 text-left">
+          <p class="m-1 text-start">
             The RML launcher uses a secure channel to download the mod loader so
             that you don't have to worry about the bad guys.
           </p>
@@ -71,7 +71,7 @@
         <div class="col-sm-4 p-5">
           <i class="fas fa-plug fa-7x m-3"></i>
           <h5>Easy to use</h5>
-          <p class="m-1 text-left">
+          <p class="m-1 text-start">
             Installing and using the RML launcher is as easy as pie. We'll do
             all the setup for you so you can get into modding right away.
           </p>

@@ -14,13 +14,11 @@
             This might be dangerous
           </h4>
           <button
-            class="close"
+            class="btn-close"
             type="button"
             data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
           <b
@@ -49,7 +47,7 @@
           class="modal-footer border-top-0 pt-0 d-flex justify-content-between align-items-center"
         >
           <a
-            class="btn btn-sm btn-outline-danger mr-auto"
+            class="btn btn-sm btn-outline-danger me-auto"
             href="/mods/extra-settings-api/1.5.8/ExtraSettingsAPI.rmod?ignoreVirusScan=true"
             target="_blank"
             id="download-warning-download-button"

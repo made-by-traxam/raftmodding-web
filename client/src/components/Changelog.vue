@@ -36,7 +36,7 @@ const lastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format
               </div>
               <p class="card-text">
                 <small class="text-muted" :title="fullLastUpdateDateStr"
-                  ><i class="far fa-clock mr-1"></i> Changelog last updated on
+                  ><i class="far fa-clock me-1"></i> Changelog last updated on
                   {{ lastUpdateDateStr }}</small
                 >
               </p>
@@ -53,7 +53,7 @@ const lastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format
               <b>{{ releaseDateStr }}</b>
             </li>
             <li v-if="downloadUrl" class="list-group-item download">
-              <i class="fas fa-arrow-alt-circle-down mr-2"></i>
+              <i class="fas fa-arrow-alt-circle-down me-2"></i>
               <b>
                 <a :href="preview ? '#preview' : downloadUrl">Download</a>
               </b>
@@ -65,7 +65,7 @@ const lastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format
                 name="download"
                 type="s"
                 size="lg"
-                class="mr-2 text-white"
+                class="me-2 text-white"
               />
               <b>
                 <router-link
@@ -82,7 +82,7 @@ const lastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format
                 name="question-circle"
                 type="r"
                 size="lg"
-                class="mr-2 text-white"
+                class="me-2 text-white"
               />
               <b>
                 <a

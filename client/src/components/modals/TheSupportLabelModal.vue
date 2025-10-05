@@ -12,13 +12,11 @@
         <div class="modal-header border-bottom-0">
           <h4 class="modal-title" id="support-modal-label">Need support?</h4>
           <button
-            class="close"
+            class="btn-close"
             type="button"
             data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
           <p>
@@ -45,7 +43,7 @@
             :to="{ name: 'contact' }"
             class="btn btn-sm btn-outline-secondary"
           >
-            <span data-bs-dismiss="modal" aria-label="Close"><icon name="envelope" class="mr-2" /> Contact us</span>
+            <span data-bs-dismiss="modal" aria-label="Close"><icon name="envelope" class="me-2" /> Contact us</span>
           </router-link>
           <a
             class="btn btn-primary border-0 px-3 py-2"
@@ -55,7 +53,7 @@
             id="support-discord-link"
             data-bs-dismiss="modal"
           >
-            <icon name="discord" type="b" class="mr-2" /> Join our
+            <icon name="discord" type="b" class="me-2" /> Join our
             <b>Discord server</b>
           </a>
         </div>

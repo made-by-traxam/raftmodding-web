@@ -37,7 +37,7 @@ const logout = async () => {
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-blue sticky-top">
     <div class="container">
-      <router-link :to="{ name: 'home' }" class="navbar-brand mr-2 logo">
+      <router-link :to="{ name: 'home' }" class="navbar-brand me-2 logo">
         <img src="/logo.png" alt="logo"/>
       </router-link>
       <button
@@ -52,7 +52,7 @@ const logout = async () => {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
           <li
               class="mx-2 nav-item"
               :class="{
@@ -138,7 +138,7 @@ const logout = async () => {
               >
                 <Icon name="user" class="mx-2"/>
                 {{ vUsername }}
-                <icon name="caret-down" class="float-right ml-md-1"/>
+                <icon name="caret-down" class="float-end ms-md-1"/>
               </a>
               <div
                   class="dropdown-menu mb-2"
@@ -148,14 +148,14 @@ const logout = async () => {
                     :to="{ name: 'user', params: { username } }"
                     class="dropdown-item"
                 >
-                  <i class="fas fa-user-circle mr-1"></i>
+                  <i class="fas fa-user-circle me-1"></i>
                   {{ username }} profile
                 </router-link>
                 <router-link :to="{ name: 'account' }" class="dropdown-item">
-                  <i class="fas fa-cog mr-1"></i> Account settings
+                  <i class="fas fa-cog me-1"></i> Account settings
                 </router-link>
                 <button class="dropdown-item" @click="logout">
-                  <i class="fas fa-sign-out-alt mr-1"></i> Sign out
+                  <i class="fas fa-sign-out-alt me-1"></i> Sign out
                 </button>
               </div>
             </li>
@@ -171,14 +171,14 @@ const logout = async () => {
               >
                 <span class="d-none d-lg-inline">
                   <i
-                      class="fas fa-plus-circle ml-3"
+                      class="fas fa-plus-circle ms-3"
                       style="transform: scale(2)"
                   ></i>
                 </span>
                 <span class="d-inline d-lg-none">
                   <i class="fas fa-plus mx-2"></i>
                   Add
-                  <icon name="caret-down" class="float-right"/>
+                  <icon name="caret-down" class="float-end"/>
                 </span>
               </a>
               <div
@@ -186,31 +186,31 @@ const logout = async () => {
                   aria-labelledby="navbarAddDropdown"
               >
                 <router-link :to="{ name: 'addMod' }" class="dropdown-item">
-                  <i class="fas fa-plug mr-1" style="width: 20px"></i>
+                  <i class="fas fa-plug me-1" style="width: 20px"></i>
                   Add a mod
                 </router-link>
                 <template v-if="isAdmin">
                   <hr class="mt-2 mb-1"/>
-                  <small class="text-muted ml-4">ADMIN TOOLS</small>
+                  <small class="text-muted ms-4">ADMIN TOOLS</small>
                   <router-link
                       :to="{ name: 'addLoaderVersion' }"
                       class="dropdown-item"
                   >
-                    <i class="fas fa-bolt mr-1" style="width: 20px"></i>
+                    <i class="fas fa-bolt me-1" style="width: 20px"></i>
                     Add a loader version
                   </router-link>
                   <router-link
                       :to="{ name: 'addLauncherVersion' }"
                       class="dropdown-item"
                   >
-                    <i class="fas fa-desktop mr-1" style="width: 20px"></i>
+                    <i class="fas fa-desktop me-1" style="width: 20px"></i>
                     Add a launcher version
                   </router-link>
                   <router-link
                       :to="{ name: 'addRaftVersion' }"
                       class="dropdown-item"
                   >
-                    <i class="fas fa-anchor mr-1" style="width: 20px"></i>
+                    <i class="fas fa-anchor me-1" style="width: 20px"></i>
                     Add a Raft version
                   </router-link>
                 </template>
@@ -227,7 +227,7 @@ const logout = async () => {
                   id="navbarAdminDropdown"
               >
                 <span class="d-none d-lg-inline">
-                  <i class="fas fa-cogs ml-3"></i>
+                  <i class="fas fa-cogs ms-3"></i>
                 </span>
                 <span class="d-inline d-lg-none">
                   <i class="fas fa-cogs mx-2"></i> Admin options
@@ -241,21 +241,21 @@ const logout = async () => {
                     :to="{ name: 'launcherVersionManagement' }"
                     class="dropdown-item"
                 >
-                  <i class="fas fa-desktop mr-1" style="width: 20px"></i>
+                  <i class="fas fa-desktop me-1" style="width: 20px"></i>
                   Launcher version management
                 </router-link>
                 <router-link
                     :to="{ name: 'loaderVersionManagement' }"
                     class="dropdown-item"
                 >
-                  <i class="fas fa-bolt mr-1" style="width: 20px"></i>
+                  <i class="fas fa-bolt me-1" style="width: 20px"></i>
                   Loader version management
                 </router-link>
                 <router-link
                     :to="{ name: 'raftVersionManagement' }"
                     class="dropdown-item"
                 >
-                  <i class="fas fa-anchor mr-1" style="width: 20px"></i>
+                  <i class="fas fa-anchor me-1" style="width: 20px"></i>
                   Raft version management
                 </router-link>
               </div>

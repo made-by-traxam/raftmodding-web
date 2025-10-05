@@ -12,12 +12,10 @@
           <h5 class="modal-title">{{ title }}</h5>
           <button
             type="button"
-            class="close"
+            class="btn-close"
             @click="$emit('cancel')"
             aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
           <p>{{ message }}</p>

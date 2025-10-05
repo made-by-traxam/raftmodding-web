@@ -8,7 +8,7 @@
             <small class="text-muted mx-1">
               <span
                 v-if="installable"
-                class="badge badge-pill badge-success mx-1"
+                class="badge rounded-pill bg-success mx-1"
                 >Latest</span
               >
               <raft-version-matching-badge :mod-version="version" />
@@ -49,7 +49,7 @@
             >
               Download
               <span
-                class="ml-2 badge badge-pill badge-light text-primary"
+                class="ms-2 badge rounded-pill bg-light text-primary"
                 :title="`${version.downloadCount} downloads`"
               >
                 {{ version.downloadCount }}
@@ -63,7 +63,7 @@
       </div>
       <p class="card-text">
         <small class="text-muted" :title="fullReleaseDateStr">
-          <icon name="clock" class="mr-1" />
+          <icon name="clock" class="me-1" />
           Released on {{ releaseDateStr }}
         </small>
       </p>

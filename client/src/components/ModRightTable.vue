@@ -4,7 +4,7 @@
       <li class="list-group-item">
         <router-link
           :to="{ name: 'mod', params: { id: mod.id } }"
-          class="font-weight-bolder"
+          class="fw-bolder"
         >
           {{ mod.title }}
         </router-link>
@@ -76,15 +76,15 @@
         </li>
       </template>
       <li class="list-group-item">
-        <icon name="arrow-alt-circle-down" class="mr-2" />
+        <icon name="arrow-alt-circle-down" class="me-2" />
         <a
           :href="preview ? '#preview' : currentVersion.downloadUrl || '#'"
           :target="preview ? '_self' : '_blank'"
           :data-bs-toggle="preview ? '' : 'modal'"
           :data-bs-target="preview ? '' : '#download-warning-modal'"
-          >Download this mod<small class="float-right mx-1"
+          >Download this mod<small class="float-end mx-1"
             ><span
-              class="badge badge-pill badge-secondary"
+              class="badge rounded-pill bg-secondary"
               :title="`${currentVersionDownloads} downloads`"
             >
               {{ currentVersionDownloads }}
@@ -95,7 +95,7 @@
     </ul>
     <ul class="list-group my-4">
       <li class="list-group-item bg-success d-none d-sm-inline-block">
-        <icon name="play-circle" type="r" size="lg" class="mr-2 text-white" />
+        <icon name="play-circle" type="r" size="lg" class="me-2 text-white" />
         <b>
           <a
             :href="preview ? '#preview' : `rmllauncher://installmod/${mod.id}`"
@@ -114,7 +114,7 @@
           name="question-circle"
           type="r"
           size="lg"
-          class="mr-2 text-white"
+          class="me-2 text-white"
         />
         <b
           ><a

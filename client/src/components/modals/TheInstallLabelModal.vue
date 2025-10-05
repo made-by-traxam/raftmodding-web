@@ -14,13 +14,11 @@
             Installation will begin shortly!
           </h4>
           <button
-            class="close"
+            class="btn-close"
             type="button"
             data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
           <p>
@@ -44,7 +42,7 @@
             class="btn btn-sm btn-outline-secondary"
             aria-label="Close"
           >
-            <span data-bs-dismiss="modal"><i class="far fa-envelope mr-2"></i> Contact us</span>
+            <span data-bs-dismiss="modal"><i class="far fa-envelope me-2"></i> Contact us</span>
           </router-link>
           <a
             class="btn btn-primary border-0 px-3 py-2"
@@ -53,7 +51,7 @@
             style="background-color: #7289da"
             id="support-discord-link"
           >
-            <span data-bs-dismiss="modal"><i class="fab fa-discord mr-2"></i> Join our <b>Discord server</b></span>
+            <span data-bs-dismiss="modal"><i class="fab fa-discord me-2"></i> Join our <b>Discord server</b></span>
           </a>
         </div>
       </div>

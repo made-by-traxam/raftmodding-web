@@ -14,15 +14,13 @@
             This might be dangerous
           </h4>
           <button
-            class="close"
+            class="btn-close"
             type="button"
             data-bs-dismiss="modal"
             data-bs-toggle="modal"
             data-bs-target="#download-thanks-modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
           <b>
@@ -54,7 +52,7 @@
           <a
             :href="modVersion.downloadUrl"
             target="_blank"
-            class="btn btn-sm btn-outline-danger mr-auto"
+            class="btn btn-sm btn-outline-danger me-auto"
             data-bs-dismiss="modal"
             data-bs-toggle="modal"
             data-bs-target="#download-thanks-modal"

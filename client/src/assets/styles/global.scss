@@ -47,6 +47,10 @@ body {
     transition: color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   .card {
     background-color: variables.$light-card;
     transition: background-color variables.$dark-mode-transition-duration
@@ -136,7 +140,7 @@ body {
       variables.$dark-mode-transition-type;
   }
 
-  .close {
+  .btn-close {
     transition: color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
   }
 
@@ -167,7 +171,7 @@ body {
       }
     }
 
-    .badge-success {
+    .badge.bg-success {
       background-color: variables.$dark-success;
       border-color: variables.$dark-success;
 
@@ -275,7 +279,7 @@ body {
         variables.$dark-mode-transition-type;
     }
 
-    .close {
+    .btn-close {
       color: variables.$dark-text;
       transition: color variables.$dark-mode-transition-duration
         variables.$dark-mode-transition-type;
@@ -495,12 +499,6 @@ div.g-recaptcha.g-recaptcha-disabled {
 @media (max-width: 575px) {
   .responsive-3-col-arrow {
     transform: rotate(90deg);
-  }
-}
-
-@media (min-width: 576px) {
-  .card-columns.card-columns-2 {
-    column-count: 2;
   }
 }
 
