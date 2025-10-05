@@ -25,6 +25,9 @@ export default defineComponent({
   components: { Changelog },
   setup() {
     const launcherVersion: Ref<LauncherVersion> = ref({} as LauncherVersion);
+    const meta = useSeoMeta({
+      title: 'Loading launcher version...',
+    });
 
     (async () => {
       const route = useRoute();
@@ -32,7 +35,7 @@ export default defineComponent({
         route.params.version as string,
       );
 
-      useSeoMeta({
+      meta.patch({
         title: `RML Launcher v${launcherVersion.value.version}`,
       });
     })();

@@ -18,7 +18,7 @@
     "ajv-errors": "^3.0.0",
     "animate.css": "^4.1.1",
     "axios": "^1.12.2",
-    "bootstrap": "^4.6.2",
+    "bootstrap": "^5.3.8",
     "dayjs": "^1.11.18",
     "easymde": "^2.20.0",
     "jquery": "^3.7.1",
