@@ -13,7 +13,7 @@
           <button
             type="button"
             class="close"
-            data-dismiss="modal"
+            @click="$emit('cancel')"
             aria-label="Close"
           >
             <span aria-hidden="true">&times;</span>
@@ -33,7 +33,6 @@
           <button
             type="button"
             class="btn btn-outline-primary"
-            data-dismiss="modal"
             @click="$emit('cancel')"
           >
             {{ btnCancel }}

@@ -39,8 +39,8 @@
                 class="btn btn-outline-primary m-2"
                 :disabled="loading"
                 :class="{ disabled: loading }"
-                data-toggle="collapse"
-                data-target="#preview"
+                data-bs-toggle="collapse"
+                data-bs-target="#preview"
                 aria-expanded="false"
                 aria-controls="preview"
               >

@@ -44,10 +44,8 @@
           <router-link
             :to="{ name: 'contact' }"
             class="btn btn-sm btn-outline-secondary"
-            data-dismiss="modal"
-            aria-label="Close"
           >
-            <icon name="envelope" class="mr-2" /> Contact us
+            <span data-bs-dismiss="modal" aria-label="Close"><icon name="envelope" class="mr-2" /> Contact us</span>
           </router-link>
           <a
             class="btn btn-primary border-0 px-3 py-2"

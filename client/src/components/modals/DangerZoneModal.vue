@@ -14,7 +14,7 @@
           <button
             class="close"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             aria-label="Close"
           >
             <span aria-hidden="true">×</span>
@@ -29,7 +29,7 @@
             class="btn btn-outline-danger btn-danger"
             type="button"
             id="confirmModalRedButton"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             @click="$emit('confirm')"
           >
             I know what I am doing, continue
@@ -37,7 +37,7 @@
           <button
             class="btn btn-success"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             @click="$emit('cancel')"
           >
             I've changed my mind

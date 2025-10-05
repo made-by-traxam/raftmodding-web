@@ -6,8 +6,8 @@
         <button
           class="btn btn-sm float-right btn-outline-danger"
           type="button"
-          data-toggle="collapse"
-          data-target="#danger-zone"
+          data-bs-toggle="collapse"
+          data-bs-target="#danger-zone"
           aria-expanded="false"
           aria-controls="danger-zone"
         >
@@ -36,9 +36,8 @@
           </div>
           <button
             class="btn btn-danger"
-            data-toggle="modal"
-            data-target="#confirmModal"
-            data-action="transfer"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmModal"
             @click="onTransfer"
           >
             Transfer mod
@@ -66,9 +65,8 @@
           </div>
           <button
             class="btn btn-danger"
-            data-toggle="modal"
-            data-target="#confirmModal"
-            data-action="delete"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmModal"
             @click="onDelete"
           >
             Delete mod

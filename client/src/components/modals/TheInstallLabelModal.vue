@@ -29,10 +29,10 @@
             install the latest version from our
             <router-link
               :to="{ name: 'download' }"
-              data-dismiss="modal"
               aria-label="Close"
-              >downloads</router-link
             >
+              <span data-bs-dismiss="modal">downloads</span>
+            </router-link>
             page.
           </p>
         </div>
@@ -42,10 +42,9 @@
           <router-link
             :to="{ name: 'contact' }"
             class="btn btn-sm btn-outline-secondary"
-            data-dismiss="modal"
             aria-label="Close"
           >
-            <i class="far fa-envelope mr-2"></i> Contact us
+            <span data-bs-dismiss="modal"><i class="far fa-envelope mr-2"></i> Contact us</span>
           </router-link>
           <a
             class="btn btn-primary border-0 px-3 py-2"
@@ -53,9 +52,8 @@
             target="_blank"
             style="background-color: #7289da"
             id="support-discord-link"
-            data-bs-dismiss="modal"
           >
-            <i class="fab fa-discord mr-2"></i> Join our<b>Discord server</b>
+            <span data-bs-dismiss="modal"><i class="fab fa-discord mr-2"></i> Join our <b>Discord server</b></span>
           </a>
         </div>
       </div>

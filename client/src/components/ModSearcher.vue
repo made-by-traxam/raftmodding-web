@@ -54,15 +54,6 @@ defineExpose({
               type="search"
             />
             <div class="input-group-append">
-              <!-- button
-                aria-controls="search-filters"
-                class="btn btn-outline-primary border-0"
-                data-target="#search-filters"
-                data-toggle="collapse"
-                type="button"
-              >
-                <icon name="filter" />
-              </button -->
               <button class="btn btn-primary" type="submit">
                 <Icon name="search" />
               </button>
@@ -71,10 +62,5 @@ defineExpose({
         </div>
       </div>
     </div>
-    <!-- div id="search-filters" class="collapse w-100">
-      <div class="card card-body mt-3">
-        <fieldset class="form-group mb-0"></fieldset>
-      </div>
-    </div -->
   </form>
 </template>

@@ -34,18 +34,18 @@
           but you can
           <router-link
             :to="{ name: 'contact' }"
-            data-dismiss="modal"
             aria-label="Close"
-            >contact us</router-link
           >
+            <span data-bs-dismiss="modal">contact us</span>
+          </router-link>
           if you find anything suspicious. We will take down everything from our
           website that does not comply with
           <router-link
             :to="{ name: 'terms' }"
-            data-dismiss="modal"
             aria-label="Close"
-            >our terms</router-link
-          >.
+          >
+            <span data-bs-dismiss="modal">our terms</span>
+          </router-link>.
           <hr class="mb-0" />
         </div>
         <div
@@ -65,7 +65,7 @@
           <!--a href="#" class="btn btn-sm btn-outline-info mx-1 disabled"
             >View scan report</a
           -->
-          <button class="btn btn-success" data-dismiss="modal">Go back</button>
+          <button class="btn btn-success" data-bs-dismiss="modal">Go back</button>
         </div>
       </div>
     </div>

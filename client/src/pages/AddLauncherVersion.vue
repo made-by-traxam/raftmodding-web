@@ -29,8 +29,8 @@
               <button
                 class="btn btn-outline-primary m-2"
                 type="button"
-                data-toggle="collapse"
-                data-target="#preview"
+                data-bs-toggle="collapse"
+                data-bs-target="#preview"
                 aria-expanded="false"
                 aria-controls="preview"
               >
