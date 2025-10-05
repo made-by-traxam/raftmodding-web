@@ -1,14 +1,12 @@
 <template>
   <div class="wrapper">
     <div class="container">
-      <section class="my-5">
-        <div class="jumbotron my-5 mx-1 bg-transparent">
-          <div>
-            <h1 class="display-4">Welcome to {{ brand }}!</h1>
-            <p class="lead">
-              The largest community for mods, scripts and utilities for Raft!
-            </p>
-          </div>
+      <section class="my-5 py-5 mx-1">
+        <div>
+          <h1 class="display-4">Welcome to {{ brand }}!</h1>
+          <p class="lead">
+            The largest community for mods, scripts and utilities for Raft!
+          </p>
         </div>
       </section>
       <section class="my-5">

@@ -1,52 +1,51 @@
 <template>
   <div class="container">
     <section>
-      <div class="jumbotron">
-        <div class="row">
-          <div class="col-sm-1"></div>
-          <div class="col-sm-3 text-center">
-            <icon name="desktop" size="10x" />
-          </div>
-          <div class="col-sm-8">
-            <h1>Raft Mod Loader</h1>
-            <p class="lead">It's boring to go alone. Take this.</p>
-            <a
-              :href="latestLauncherVersion.downloadUrl"
-              target="_blank"
-              :class="{
-                disabled:
-                  !latestLauncherVersion.downloadUrl &&
-                  !latestLauncherVersion.version,
-              }"
-              class="btn btn-success btn-lg me-2 mb-2"
-            >
-              Download launcher v{{ latestLauncherVersion.version }}
-            </a>
-            <router-link
-              :to="{
-                name: 'launcherChangelog',
-                params: { version: latestLauncherVersion.version },
-              }"
-              class="btn btn-outline-secondary me-2 mb-2"
-            >
-              <i class="fas fa-list-ul me-2"></i> View changelog
-            </router-link>
-          </div>
+      <div class="row mt-5">
+        <div class="col-1"></div>
+        <div class="col-3 d-sm-none d-md-block text-center">
+          <icon name="desktop" size="10x" />
         </div>
-        <div class="row mt-15">
-          <div class="col-sm-4"></div>
-          <div class="col-sm-8">
-            <span class="text-muted">
-              <i class="fas fa-info-circle me-1"></i>
-              The Raft Mod Loader only supports the official
-              <a
-                href="https://store.steampowered.com/app/648800/Raft/"
-                target="_blank"
-                >Raft Steam release</a
-              >
-              on Windows 10.
-            </span>
-          </div>
+        <div class="col-sm-8">
+          <h1>Raft Mod Loader</h1>
+          <p class="lead">It's boring to go alone. Take this.</p>
+          <a
+            :href="latestLauncherVersion.downloadUrl"
+            target="_blank"
+            :class="{
+              disabled:
+                !latestLauncherVersion.downloadUrl &&
+                !latestLauncherVersion.version,
+            }"
+            class="btn btn-success btn-lg me-2 mb-2"
+          >
+            Download launcher v{{ latestLauncherVersion.version }}
+          </a>
+          <router-link
+            :to="{
+              name: 'launcherChangelog',
+              params: { version: latestLauncherVersion.version },
+            }"
+            class="btn btn-outline-secondary me-2 mb-2"
+          >
+            <i class="fas fa-list-ul me-2"></i> View changelog
+          </router-link>
+        </div>
+      </div>
+      <div class="row mt-15">
+        <div class="col-1"></div>
+        <div class="col-3 d-none d-md-block"></div>
+        <div class="col-sm-8">
+          <span class="text-muted">
+            <i class="fas fa-info-circle me-1"></i>
+            The Raft Mod Loader only supports the official
+            <a
+              href="https://store.steampowered.com/app/648800/Raft/"
+              target="_blank"
+              >Raft Steam release</a
+            >
+            on Windows 10.
+          </span>
         </div>
       </div>
     </section>

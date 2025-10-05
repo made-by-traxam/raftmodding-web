@@ -32,12 +32,6 @@ body {
     max-height: 100%;
   }
 
-  .jumbotron {
-    background-color: variables.$light-background;
-    transition: background-color variables.$dark-mode-transition-duration
-      variables.$dark-mode-transition-type;
-  }
-
   h1,
   h2,
   h3,
@@ -186,10 +180,6 @@ body {
         background-color: variables.$dark-background;
         color: variables.$dark-text;
       }
-    }
-
-    .jumbotron {
-      background-color: variables.$dark-background;
     }
 
     h1,
