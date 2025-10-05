@@ -2,7 +2,7 @@ import './assets/styles/global.scss';
 
 import { createApp } from 'vue';
 import MarkdownIt from 'vue3-markdown-it';
-import 'popper.js'
+import '@popperjs/core'
 import 'bootstrap';
 import { Tooltip } from 'bootstrap';
 new Tooltip(document.body, {
