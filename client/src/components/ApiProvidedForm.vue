@@ -69,16 +69,16 @@ export default defineComponent({
       'focus:outline-none text-sm py-2.5 px-5 rounded-full border';
     const customStyles = {
       verticalLayout: {
-        item: 'form-group',
+        item: 'mb-3',
         label: 'card-title',
       },
       horizontalLayout: {
-        item: 'form-group',
+        item: 'mb-3',
         label: 'card-title',
       },
       control: {
         input: formControlStyles,
-        select: formControlStyles + ' custom-select',
+        select: formControlStyles + ' form-select',
         textarea: formControlStyles,
         option: formControlStyles,
         label: '',

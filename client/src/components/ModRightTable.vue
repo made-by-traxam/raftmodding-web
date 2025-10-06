@@ -3,11 +3,19 @@
     <ul class="list-group text-break">
       <li class="list-group-item">
         <router-link
+          v-if="!preview"
           :to="{ name: 'mod', params: { id: mod.id } }"
           class="fw-bolder"
         >
           {{ mod.title }}
         </router-link>
+        <a
+          v-else
+          href="#preview"
+          class="fw-bolder"
+        >
+          {{ mod.title }}
+        </a>
       </li>
       <li class="list-group-item">
         <icon name="list-ul" />This is a

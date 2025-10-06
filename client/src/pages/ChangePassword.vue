@@ -10,7 +10,7 @@
                 @change="onFormChange"
                 :data="data"
               />
-              <div class="form-group mb-0 d-flex justify-content-between">
+              <div class="mb-0 d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">
                   <icon name="paper-plane" /> Submit password change
                 </button>

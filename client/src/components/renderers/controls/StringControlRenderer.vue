@@ -20,15 +20,14 @@
         @focus="isFocused = true"
         @blur="isFocused = false"
       />
-      <div v-if="appliedOptions.password" class="input-group-append">
-        <span
-          class="input-group-text show-password"
-          :title="`${showPassword ? 'Hide' : 'Show'} password!`"
-          @click="showPassword = !showPassword"
-        >
-          <icon :name="showPassword ? 'eye-slash' : 'eye'" />
-        </span>
-      </div>
+      <span
+        v-if="appliedOptions.password"
+        class="input-group-text show-password"
+        :title="`${showPassword ? 'Hide' : 'Show'} password!`"
+        @click="showPassword = !showPassword"
+      >
+        <icon :name="showPassword ? 'eye-slash' : 'eye'" />
+      </span>
     </div>
   </control-wrapper>
 </template>

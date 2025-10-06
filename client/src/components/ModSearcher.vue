@@ -53,11 +53,9 @@ defineExpose({
               placeholder="Search..."
               type="search"
             />
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="submit">
-                <Icon name="search" />
-              </button>
-            </div>
+            <button class="btn btn-primary" type="submit">
+              <Icon name="search" />
+            </button>
           </div>
         </div>
       </div>

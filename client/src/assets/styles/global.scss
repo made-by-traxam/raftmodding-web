@@ -82,12 +82,9 @@ body {
 
   input:not([type='submit']):not([type='button']),
   input:focus,
-  .custom-select,
-  .custom-file-label,
-  .custom-file-label::after,
+  .form-select,
   .CodeMirror,
-  .input-group-prepend span,
-  .input-group-append span {
+  .input-group span {
     transition: background-color variables.$dark-mode-transition-duration
         variables.$dark-mode-transition-type,
       color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type,
@@ -175,7 +172,7 @@ body {
       }
     }
 
-    .custom-select {
+    .form-select {
       option {
         background-color: variables.$dark-background;
         color: variables.$dark-text;
@@ -223,12 +220,9 @@ body {
 
     input:not([type='submit']):not([type='button']),
     input:focus,
-    .custom-select,
-    .custom-file-label,
-    .custom-file-label::after,
+    .form-select,
     .CodeMirror,
-    .input-group-prepend span,
-    .input-group-append span {
+    .input-group span {
       background-color: variables.$dark-input;
       color: variables.$dark-headline;
       border-color: variables.$dark-border;

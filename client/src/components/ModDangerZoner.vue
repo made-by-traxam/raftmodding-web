@@ -16,8 +16,8 @@
       </h5>
       <div class="collapse" id="danger-zone">
         <div class="big-form" id="transferForm">
-          <div class="form-group">
-            <label for="changeOwner">
+          <div class="mb-3">
+            <label class="form-label" for="changeOwner">
               Transfer this mod to another owner
             </label>
             <input
@@ -45,8 +45,8 @@
         </div>
         <hr />
         <div class="big-form" id="deleteForm">
-          <div class="form-group">
-            <label for="deleteMod"> Delete this mod </label>
+          <div class="mb-3">
+            <label class="form-label" for="deleteMod"> Delete this mod </label>
             <input
               v-model="deleteConfirm"
               id="deleteMod"

@@ -39,7 +39,7 @@
             <i class="fab fa-patreon me-2"></i> Support us on Patreon
           </a>
           <form
-              class="form-inline d-inline"
+              class="d-inline"
               action="https://www.paypal.com/cgi-bin/webscr"
               method="post"
               target="_blank"

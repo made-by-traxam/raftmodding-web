@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="card-text">
             <form>
-              <div class="form-group row">
+              <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="username"
                   >Username</label
                 >
@@ -26,7 +26,7 @@
                   </small>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="email"
                   >E-Mail</label
                 >
@@ -46,7 +46,7 @@
                   </small>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="email"
                   >Password:</label
                 >
