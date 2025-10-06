@@ -5,12 +5,9 @@
   "scripts": {
     "build": "npm run build --workspaces",
     "start": "concurrently --kill-others \"npm run start --workspace=@hmodding/client\" \"npm run start --workspace=@hmodding/server\"",
-    "server:start": "cd ./server && npm run start",
     "dev": "concurrently --kill-others \"npm run dev --workspace=@hmodding/client\" \"npm run dev --workspace=@hmodding/server\"",
     "prettier": "npx prettier --write .",
-    "clean": "rimraf \"**/build\" \"**/dist\" \"**/*.tsbuildinfo\"",
-    "lint": "",
-    "db:setup": "cd ./docker && docker compose up -d"
+    "clean": "rimraf --glob \"**/build\" \"**/dist\" \"**/*.tsbuildinfo\""
   },
   "engines": {
     "node": "22.x",
@@ -21,13 +18,8 @@
     "client"
   ],
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.7.0",
-    "@typescript-eslint/parser": "^5.7.0",
-    "concurrently": "^6.1.0",
-    "eslint": "^8.5.0",
-    "prettier": "^2.2.1",
-    "rimraf": "^2.7.1",
-    "typescript": "^4.2.4",
-    "vue-eslint-parser": "^9.1.0"
+    "concurrently": "^9.2.1",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1"
   }
 }
