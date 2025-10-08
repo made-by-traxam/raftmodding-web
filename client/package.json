@@ -7,7 +7,8 @@
     "build": "vite build",
     "build:strict": "vue-tsc --noEmit && vite build",
     "start": "vite preview",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "generate-api-client": "openapi-ts --input ../server/dist/server/swagger.json --output ./src/api"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
@@ -33,6 +34,7 @@
     "vue3-markdown-it": "^1.0.10"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "0.85.0",
     "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.33",
     "@types/lodash": "^4.17.20",

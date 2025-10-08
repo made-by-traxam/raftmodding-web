@@ -27,3 +27,6 @@ dist-ssr
 
 # docker mounted volumes
 /data
+
+# generated API client
+/client/src/api
