@@ -1,43 +1,38 @@
 <template>
   <changelog
+    v-if="loaderVersion !== undefined"
     :version="loaderVersion.rmlVersion"
-    :readme="loaderVersion.readme"
+    :readme="loaderVersion.readme! /* TODO: improve typing */"
     :release-date="loaderVersion.timestamp"
-    :last-update="loaderVersion.updatedAt"
-    software-name="RML LOADER"
+    :last-update="loaderVersion.updatedAt! /* TODO: improve typing */"
+    software-name="Raft Mod Loader"
   />
+  <changelog-placeholder v-else/>
 </template>
 
-<script lang="ts">
-import { defineComponent, Ref, ref } from 'vue';
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
-
-import { api } from '../modules/api';
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { LoaderVersion } from '../types';
-
-import { useHead } from '@unhead/vue';
+import { useSeoMeta } from '@unhead/vue';
 import Changelog from '../components/Changelog.vue';
+import ChangelogPlaceholder from '../components/ChangelogPlaceholder.vue';
+import { read3, read4 } from '../api';
 
-export default defineComponent({
-  name: 'LoaderChangelogPage',
-  components: { Changelog },
-  setup() {
-    const loaderVersion: Ref<LoaderVersion> = ref({} as LoaderVersion);
+const loaderVersion= ref<LoaderVersion | undefined>(undefined);
+const versionSlug = useRoute().params.version as string;
+const meta = useSeoMeta()
 
-    (async () => {
-      const route: RouteLocationNormalizedLoaded = useRoute();
-      loaderVersion.value = await api.getLoaderVersion(
-        route.params.version as string,
-      );
-
-      useHead({
-        title: `RML v${loaderVersion.value.rmlVersion}`,
-      });
-    })();
-
-    return {
-      loaderVersion,
-    };
-  },
-});
+async function loadLoaderVersion() {
+  const { data, error } = await read4({ path: { rmlVersion: versionSlug }});
+  if (error !== undefined) {
+    console.error(`Error while fetching RML version ${versionSlug}:`, error);
+  } else {
+    loaderVersion.value = data as unknown as LoaderVersion; // TODO: improve typing
+    meta.patch({
+      title: `RML v${loaderVersion.value.rmlVersion}`,
+    });
+  }
+}
+loadLoaderVersion();
 </script>

@@ -1,22 +1,34 @@
-<script setup lang="ts">import dayjs from 'dayjs';
-import { computed, onMounted } from 'vue';
+<script setup lang="ts">
+import dayjs from 'dayjs';
+import { computed } from 'vue';
 import { DATETIME_FORMAT, DATE_FORMAT } from '../const/formats.const';
 import TheSupportLabelModal from './modals/TheSupportLabelModal.vue';
+import Icon from './Icon.vue';
+import Markdown from 'vue3-markdown-it';
 
 interface ChangelogProps {
   version: string;
   readme: string;
   releaseDate: Date | string;
   softwareName: string;
-  downloadUrl: string;
+  downloadUrl?: string;
   lastUpdate: Date | string;
-  preview: boolean;
+  preview?: boolean;
 };
 
-const props = defineProps<ChangelogProps>();
+const {
+  version,
+  readme,
+  releaseDate,
+  softwareName,
+  downloadUrl,
+  lastUpdate,
+  preview = false,
+} = defineProps<ChangelogProps>();
 
-const vReleaseDate = computed<Date|string>(() => props.preview? new Date() : String(props.releaseDate));
-const vLastUpdate = computed<Date|string>(() => props.preview? new Date() : String(props.lastUpdate));
+
+const vReleaseDate = computed<Date|string>(() => preview ? new Date() : String(releaseDate));
+const vLastUpdate = computed<Date|string>(() => preview ? new Date() : String(lastUpdate));
 const fullReleaseDateStr = computed<string>(() => dayjs(vReleaseDate.value).format(DATETIME_FORMAT));
 const releaseDateStr = computed<string>(() => dayjs(vReleaseDate.value).format(DATE_FORMAT));
 const fullLastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format(DATETIME_FORMAT));
@@ -32,7 +44,7 @@ const lastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format
           <div class="card">
             <div class="card-body">
               <div class="card-text mod-readme">
-                <vue-markdown-it :source="readme" />
+                <markdown :source="readme" />
               </div>
               <p class="card-text">
                 <small class="text-muted" :title="fullLastUpdateDateStr"
@@ -87,6 +99,7 @@ const lastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format
               <b>
                 <a
                   class="text-white stretched-link"
+                  href="/discord"
                   :data-bs-toggle="preview ? '' : 'modal'"
                   :data-bs-target="preview ? '' : '#support-modal'"
                   >Need support?</a

@@ -170,18 +170,6 @@ class Api {
     return [];
   }
 
-  async getLauncherVersion(version: string): Promise<LauncherVersion> {
-    try {
-      const {data}: AxiosResponse = await this.axios.get(
-        `/launcherVersions/${version}`,
-      );
-      return data;
-    } catch (e) {
-      toaster.error(`Failed to get launcher version "${version}"`);
-    }
-    return {} as LauncherVersion;
-  }
-
   async addLauncherVersion(launcherVersion: LauncherVersion) {
     try {
       const {data}: AxiosResponse = await this.axios.post(
@@ -215,18 +203,6 @@ class Api {
       toaster.error('Failed to get loader versions');
     }
     return [];
-  }
-
-  async getLoaderVersion(version: string): Promise<LoaderVersion> {
-    try {
-      const {data}: AxiosResponse = await this.axios.get(
-        `/loaderVersions/${version}`,
-      );
-      return data;
-    } catch (e) {
-      toaster.error(`Failed to get loader version "${version}"`);
-    }
-    return {} as LoaderVersion;
   }
 
   async addLoaderVersion(loaderVersion: LoaderVersion) {

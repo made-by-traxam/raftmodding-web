@@ -1,48 +1,45 @@
 <template>
   <changelog
+    v-if="launcherVersion !== undefined"
     :version="launcherVersion.version"
     :readme="launcherVersion.changelog"
     :release-date="launcherVersion.timestamp"
-    :last-update="launcherVersion.updatedAt"
-    software-name="RML LAUNCHER"
-    :download-url="launcherVersion.downloadUrl"
-    :downloadable="$route.params.downloadable"
+    :last-update="launcherVersion.updatedAt! /* TODO: improve typing */"
+    software-name="RML Launcher"
+    :download-url="$route.params.downloadable ? launcherVersion.downloadUrl : ''"
+  />
+  <changelog-placeholder
+    v-else
+    :with-download="!!$route.params.downloadable"
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, Ref, ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
-
-import { api } from '../modules/api';
 import { LauncherVersion } from '../types';
-
 import Changelog from '../components/Changelog.vue';
+import ChangelogPlaceholder from '../components/ChangelogPlaceholder.vue';
 import { useSeoMeta } from '@unhead/vue';
+import { read5 } from '../api';
 
-export default defineComponent({
-  name: 'LauncherChangelogPage',
-  components: { Changelog },
-  setup() {
-    const launcherVersion: Ref<LauncherVersion> = ref({} as LauncherVersion);
-    const meta = useSeoMeta({
-      title: 'Loading launcher version...',
-    });
-
-    (async () => {
-      const route = useRoute();
-      launcherVersion.value = await api.getLauncherVersion(
-        route.params.version as string,
-      );
-
-      meta.patch({
-        title: `RML Launcher v${launcherVersion.value.version}`,
-      });
-    })();
-
-    return {
-      launcherVersion,
-    };
-  },
+const launcherVersion = ref<LauncherVersion | undefined>(undefined);
+const meta = useSeoMeta({
+  title: 'Loading launcher version...',
 });
+const versionSlug = useRoute().params.version as string;
+
+async function loadLauncherVersion() {
+  const { data, error } = await read5({ path: { version: versionSlug }});
+
+  if (error !== undefined) {
+    console.error(`Error while fetching launcher version ${data}:`, error);
+  } else {
+    launcherVersion.value = data as unknown as LauncherVersion; // TODO: improve typing
+    meta.patch({
+      title: `RML Launcher v${launcherVersion.value.version}`,
+    });
+  }
+}
+loadLauncherVersion();
 </script>
