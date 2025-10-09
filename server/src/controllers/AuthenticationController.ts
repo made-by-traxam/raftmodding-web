@@ -1,6 +1,6 @@
 // noinspection ES6PreferShortImport
 
-import { Body, Controller, Post, Route, Security } from 'tsoa';
+import { Body, Controller, OperationId, Post, Route, Security } from 'tsoa';
 import { DiscordAuthenticationDto } from '../../../shared/dto/DiscordAuthenticationDto';
 import { discordAuthenticator } from '../authenticators/DiscordAuthenticator';
 import { HttpStatusCode } from '../types/HttpStatusCode';
@@ -9,6 +9,7 @@ import { HttpStatusCode } from '../types/HttpStatusCode';
 export class AuthenticationController extends Controller {
   @Post('/discord')
   @Security('everyone')
+  @OperationId('signInWithDiscord')
   public async create(@Body() body: DiscordAuthenticationDto) {
     const { code } = body;
 

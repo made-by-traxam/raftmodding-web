@@ -4,6 +4,7 @@ import {
   Body,
   Controller,
   Get,
+  OperationId,
   Path,
   Post,
   Query,
@@ -18,18 +19,21 @@ import { HttpStatusCode } from '../types/HttpStatusCode';
 export class LauncherVersionController extends Controller {
   @Get()
   @Security('everyone')
+  @OperationId('listLauncherVersions')
   public async list(@Query() sort?: string) {
     return LauncherVersionService.getAll(sort);
   }
 
   @Get('/{version}')
   @Security('everyone')
+  @OperationId('getLauncherVersion')
   public async read(@Path() version: string) {
     return LauncherVersionService.getByVersion(version);
   }
 
   @Post()
   @Security('auth_token', ['admin'])
+  @OperationId('createLauncherVersion')
   public async create(@Body() body: LauncherVersionDto) {
     const newLauncherVersion = await LauncherVersionService.releaseNew(body);
 

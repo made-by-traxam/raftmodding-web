@@ -21,7 +21,7 @@ import { LauncherVersion } from '../types';
 import Changelog from '../components/Changelog.vue';
 import ChangelogPlaceholder from '../components/ChangelogPlaceholder.vue';
 import { useSeoMeta } from '@unhead/vue';
-import { read5 } from '../api';
+import { getLauncherVersion } from '../api';
 
 const launcherVersion = ref<LauncherVersion | undefined>(undefined);
 const meta = useSeoMeta({
@@ -30,7 +30,7 @@ const meta = useSeoMeta({
 const versionSlug = useRoute().params.version as string;
 
 async function loadLauncherVersion() {
-  const { data, error } = await read5({ path: { version: versionSlug }});
+  const { data, error } = await getLauncherVersion({ path: { version: versionSlug }});
 
   if (error !== undefined) {
     console.error(`Error while fetching launcher version ${data}:`, error);

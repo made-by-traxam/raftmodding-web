@@ -4,6 +4,7 @@ import {
   Body,
   Controller,
   Get,
+  OperationId,
   Path,
   Post,
   Put,
@@ -12,7 +13,6 @@ import {
   Security,
 } from 'tsoa';
 import { RaftVersionDto } from '../../../shared/dto/RaftVersionDto';
-import { ajv } from '../ajv';
 import { RaftVersionService } from '../services/RaftVersionService';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 
@@ -20,6 +20,7 @@ import { HttpStatusCode } from '../types/HttpStatusCode';
 export class RaftVersionController extends Controller {
   @Get()
   @Security('everyone')
+  @OperationId('listRaftVersions')
   public async list(@Query() sort?: string) {
     this.setStatus(HttpStatusCode.Ok);
     return RaftVersionService.getAll(sort);
@@ -27,6 +28,7 @@ export class RaftVersionController extends Controller {
 
   @Get('/{id}')
   @Security('everyone')
+  @OperationId('getRaftVersion')
   public async read(@Path() id: number) {
     this.setStatus(HttpStatusCode.Accepted);
     return RaftVersionService.getById(id);
@@ -34,6 +36,7 @@ export class RaftVersionController extends Controller {
 
   @Post()
   @Security('auth_token', ['user'])
+  @OperationId('createRaftVersion')
   public async create(@Body() body: RaftVersionDto) {
     const isValidCreateData = await RaftVersionService.isValidCreateData(body);
 
@@ -48,6 +51,7 @@ export class RaftVersionController extends Controller {
 
   @Put('/{id}')
   @Security('auth_token', ['admin'])
+  @OperationId('updateRaftVersion')
   public async update(@Path() id: number, @Body() body: RaftVersionDto) {
     const isValidUpdateData = RaftVersionService.isValidUpdateData(body);
 

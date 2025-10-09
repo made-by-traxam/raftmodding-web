@@ -12,7 +12,7 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import ModsCardDeck, { LoadingState } from '../components/ModsCardDeck.vue';
 import { useSeoMeta } from '@unhead/vue';
-import { list2 } from '../api';
+import { listMods } from '../api';
 import { ModDto } from '../../../shared/dto/ModDto';
 
 const route = useRoute();
@@ -26,7 +26,7 @@ const loadingState = ref<LoadingState>('loading');
 const mods = ref<ModDto[]>([]);
 
 async function loadMods() {
-  const { error, data } = await list2({ query: { author: username.value } });
+  const { error, data } = await listMods({ query: { author: username.value } });
   if (error !== undefined) {
     console.error('Failed to load mods:', error);
     loadingState.value = 'error';

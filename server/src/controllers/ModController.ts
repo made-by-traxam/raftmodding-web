@@ -1,6 +1,6 @@
 // noinspection ES6PreferShortImport
 
-import {Body, Controller, Delete, Get, Header, Path, Post, Put, Query, Request, Route, Security,} from 'tsoa';
+import {Body, Controller, Delete, Get, Header, OperationId, Path, Post, Put, Query, Request, Route, Security,} from 'tsoa';
 import {ModCreateDto, ModUpdateDto} from '../../../shared/dto/ModDto';
 import {ApiError} from '../errors/ApiError';
 import {ModService} from '../services/ModService';
@@ -14,6 +14,7 @@ import {ApiRequest} from "ApiRequest";
 export class ModController extends Controller {
   @Get()
   @Security('everyone')
+  @OperationId('listMods')
   public async list(
     @Query() author?: string,
     @Query() sort?: string,
@@ -32,6 +33,7 @@ export class ModController extends Controller {
    */
   @Get('/mostLiked')
   @Security('everyone')
+  @OperationId('listMostLikedMods')
   public async listMostLiked() {
     this.setStatus(200);
     return await ModService.getMostLiked();
@@ -43,6 +45,7 @@ export class ModController extends Controller {
    */
   @Get('/mostDownloaded')
   @Security('everyone')
+  @OperationId('listMostDownloadedMods')
   public async listMostDownloaded() {
     this.setStatus(200);
     return await ModService.getMostDownloaded();
@@ -50,6 +53,7 @@ export class ModController extends Controller {
 
   @Post('/{id}/like')
   @Security('auth_token', ['user'])
+  @OperationId('likeMod')
   public async like(
     @Path() id: string,
     @Request() request: ApiRequest,
@@ -65,12 +69,14 @@ export class ModController extends Controller {
    */
   @Get('/categories')
   @Security('everyone')
+  @OperationId('listModCategories')
   public async listModCategories() {
     return ModService.getCategories();
   }
 
   @Get('/{id}')
   @Security('everyone')
+  @OperationId('getMod')
   public async read(@Path() id: string) {
     console.log('read mod with id:', id);
     const mod = await ModService.getById(id,);
@@ -85,6 +91,7 @@ export class ModController extends Controller {
 
   @Post()
   @Security('auth_token', ['user'])
+  @OperationId('createMod')
   public async create(
     @Body()
       data: ModCreateDto,
@@ -107,6 +114,7 @@ export class ModController extends Controller {
 
   @Put('/{id}')
   @Security('auth_token', ['user'])
+  @OperationId('updateMod')
   public async update(
     @Header() authtoken: string,
     @Path() id: string,
@@ -126,6 +134,7 @@ export class ModController extends Controller {
 
   @Delete("/{id}/unlike")
   @Security('auth_token', ['user'])
+  @OperationId('unlikeMod')
   public async unlike(
     @Path() id: string,
     @Request() req: ApiRequest,

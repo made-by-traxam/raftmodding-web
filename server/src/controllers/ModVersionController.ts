@@ -5,6 +5,7 @@ import {
   Controller,
   Get,
   Header,
+  OperationId,
   Path,
   Post,
   Put,
@@ -24,12 +25,14 @@ import {User} from "../entities/User";
 export class ModVersionController extends Controller {
   @Get('/{id}')
   @Security('everyone')
+  @OperationId('getModVersion')
   public async read(@Path() id: number) {
     return ModVersion.findOne({ where: { id }, relations: { mod: true } });
   }
 
   @Post()
   @Security('auth_token', ['user'])
+  @OperationId('createModVersion')
   public async create(
     @Header() authtoken: string,
     @Body() data: ModVersionCreateDto,
@@ -53,6 +56,7 @@ export class ModVersionController extends Controller {
 
   @Put('/{id}')
   @Security('auth_token', ['user'])
+  @OperationId('updateModVersion')
   public async update(
     @Header() authtoken: string,
     @Path() id: number,

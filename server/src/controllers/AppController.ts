@@ -1,6 +1,6 @@
 // noinspection ES6PreferShortImport
 
-import { Controller, Get, Route, Security } from 'tsoa';
+import { Controller, Get, OperationId, Route, Security } from 'tsoa';
 
 import pkg from '../../package.json';
 import { HttpStatusCode } from '../types/HttpStatusCode';
@@ -9,6 +9,7 @@ import { HttpStatusCode } from '../types/HttpStatusCode';
 export class AppController extends Controller {
   @Get('/info')
   @Security('everyone')
+  @OperationId('getServiceInfo')
   public async signUp() {
     this.setStatus(HttpStatusCode.Ok);
     return {

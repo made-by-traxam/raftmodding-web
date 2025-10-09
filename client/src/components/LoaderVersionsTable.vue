@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { LoadingState, toDateStr } from '../utils';
 import { LoaderVersionDto } from '../../../shared/dto/LoaderVersionDto';
-import { list3 } from '../api';
+import { listLoaderVersions } from '../api';
 import Icon from './Icon.vue';
 
 const loaderVersions = ref<LoaderVersionDto[]>([]);
@@ -10,7 +10,7 @@ const loaderVersionsState = ref<LoadingState>('loading');
 
 async function loadLoaderVersions() {
   loaderVersionsState.value = 'loading';
-  const { data, error } = await list3();
+  const { data, error } = await listLoaderVersions();
   if (error !== undefined) {
     console.error('Error while loading loader versions:', error);
     loaderVersionsState.value = 'error';

@@ -253,7 +253,7 @@ import { LoadingState, toDateStr } from '../utils';
 import Icon from '../components/Icon.vue';
 import { useSeoMeta } from '@unhead/vue';
 import { LauncherVersionDto } from '../../../shared/dto/LauncherVersionDto';
-import { list4 } from '../api';
+import { listLauncherVersions } from '../api';
 import LoaderVersionsTable from '../components/LoaderVersionsTable.vue';
 
 useSeoMeta({
@@ -264,7 +264,7 @@ const launcherVersions = ref<LauncherVersionDto[]>([]);
 const launcherVersionsState = ref<LoadingState>('loading');
 async function loadLauncherVersions() {
   launcherVersionsState.value = 'loading';
-  const { data, error } = await list4();
+  const { data, error } = await listLauncherVersions();
   if (error !== undefined) {
     console.error('Error while loading launcher versions:', error);
     launcherVersionsState.value = 'error';

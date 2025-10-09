@@ -1,6 +1,6 @@
 // noinspection ES6PreferShortImport
 
-import { Controller, Get, Route, Security } from 'tsoa';
+import { Controller, Get, OperationId, Route, Security } from 'tsoa';
 import {
   schema as addLauncherSchema,
   uischema as addLauncherUischema,
@@ -63,6 +63,7 @@ import { HttpStatusCode } from '../types/HttpStatusCode';
 export class FormController extends Controller {
   @Get('/addLauncherVersion')
   @Security('auth_token', ['admin'])
+  @OperationId('getAddLauncherVersionForm')
   public async addLauncherVersion() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -73,6 +74,7 @@ export class FormController extends Controller {
 
   @Get('/addLoaderVersion')
   @Security('auth_token', ['admin'])
+  @OperationId('getAddLoaderVersionForm')
   public async addLoaderVersion() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -83,6 +85,7 @@ export class FormController extends Controller {
 
   @Get('/addMod')
   @Security('everyone')
+  @OperationId('getAddModForm')
   public async addMod() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -93,6 +96,7 @@ export class FormController extends Controller {
 
   @Get('/addModVersion')
   @Security('everyone')
+  @OperationId('getAddModVersionForm')
   public async addModVersion() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -103,6 +107,7 @@ export class FormController extends Controller {
 
   @Get('/addRaftVersion')
   @Security('auth_token', ['admin'])
+  @OperationId('getAddRaftVersionForm')
   public async addRaftVersion() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -113,6 +118,7 @@ export class FormController extends Controller {
 
   @Get('/changePassword')
   @Security('everyone')
+  @OperationId('getChangePasswordForm')
   public async changePassword() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -123,6 +129,7 @@ export class FormController extends Controller {
 
   @Get('/editMod')
   @Security('everyone')
+  @OperationId('getEditModForm')
   public async editMod() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -133,6 +140,7 @@ export class FormController extends Controller {
 
   @Get('/editModVersion')
   @Security('everyone')
+  @OperationId('getEditModVersionForm')
   public async editModVersion() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -143,6 +151,7 @@ export class FormController extends Controller {
 
   @Get('/editRaftVersion')
   @Security('everyone')
+  @OperationId('getEditRaftVersionForm')
   public async editRaftVersion() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -153,6 +162,7 @@ export class FormController extends Controller {
 
   @Get('/finishAccount')
   @Security('everyone')
+  @OperationId('getFinishAccountForm')
   public async finishAccount() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -163,6 +173,7 @@ export class FormController extends Controller {
 
   @Get('/login')
   @Security('everyone')
+  @OperationId('getLoginForm')
   public async login() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -173,6 +184,7 @@ export class FormController extends Controller {
 
   @Get('/resetPassword')
   @Security('everyone')
+  @OperationId('getResetPasswordForm')
   public async resetPassword() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -183,6 +195,7 @@ export class FormController extends Controller {
 
   @Get('/setNewPassword')
   @Security('everyone')
+  @OperationId('getSetNewPasswordForm')
   public async setNewPassword() {
     this.setStatus(HttpStatusCode.Ok);
     return {
@@ -193,6 +206,7 @@ export class FormController extends Controller {
 
   @Get('/signUp')
   @Security('everyone')
+  @OperationId('getSignUpForm')
   public async signUp() {
     this.setStatus(HttpStatusCode.Ok);
     return {

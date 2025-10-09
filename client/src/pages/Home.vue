@@ -76,7 +76,7 @@ import { ModDto } from '../../../shared/dto/ModDto';
 import ModsCardDeck, { LoadingState } from '../components/ModsCardDeck.vue';
 import {META_DEFAULT_TITLE} from "../const/meta.const";
 import { useSeoMeta } from '@unhead/vue';
-import { listMostDownloaded, listMostLiked } from '../api';
+import { listMostDownloadedMods, listMostLikedMods } from '../api';
 
 useSeoMeta({
   title: META_DEFAULT_TITLE
@@ -89,7 +89,7 @@ const mostDownloadedMods = ref<ModDto[]>([]);
 async function reloadMostDownloaded() {
   mostDownloadedState.value = 'loading';
 
-  const { data, error } = await listMostDownloaded();
+  const { data, error } = await listMostDownloadedMods();
   if (error !== undefined) {
     mostDownloadedState.value = 'error';
     return;
@@ -105,7 +105,7 @@ const mostLikedMods = ref<ModDto[]>([]);
 async function reloadMostLiked() {
   mostLikedState.value = 'loading';
 
-  const { data, error } = await listMostLiked();
+  const { data, error } = await listMostLikedMods();
   if (error !== undefined) {
     mostLikedState.value = 'error';
     return;

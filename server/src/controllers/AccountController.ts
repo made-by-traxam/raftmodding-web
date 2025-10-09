@@ -1,17 +1,16 @@
 // noinspection ES6PreferShortImport
 
-import {Body, Controller, Header, Post, Route, Security} from 'tsoa';
+import {Body, Controller, Header, OperationId, Post, Route, Security} from 'tsoa';
 import {AccountCreationDto} from '../../../shared/dto/AccountCreationDto';
 import {schema as finishAccountSchema} from '../../resources/schemas/finishAccountSchema';
-import {User} from '../entities/User';
 import {HttpStatusCode} from '../types/HttpStatusCode';
-import {generateToken, validateData} from '../utils';
-import {ILike} from 'typeorm'
+import {validateData} from '../utils';
 
 @Route('/account')
 export class AccountController extends Controller {
   @Post('/finish')
   @Security('auth_token', ['user'])
+  @OperationId('createAccount')
   public async create(
     @Header() authtoken: string,
     @Body() body: AccountCreationDto, //TODO: correct type?

@@ -7,6 +7,7 @@ import {
   Delete,
   Get,
   Header,
+  OperationId,
   Path,
   Post,
   Put,
@@ -25,14 +26,13 @@ import {HttpStatusCode} from '../types/HttpStatusCode';
 import jwt, {JwtPayload, SignOptions} from 'jsonwebtoken';
 import {cfg} from "../cfg";
 import {ApiRequest} from "ApiRequest";
-import {ModLike} from "../entities/ModLike";
 import {ModLikeService} from "../services/ModLikeService";
-import { UserPrivilege } from "../entities/UserPrivilege";
 
 @Route('/users')
 export class UserController extends Controller {
   @Put()
   @Security('auth_token', ['user'])
+  @OperationId('updateUser')
   public async update(
     @Header() authtoken: string,
     @Body() data: ChangePasswordDto,
@@ -68,6 +68,7 @@ export class UserController extends Controller {
 
   @Get('/resetPassword/{token}')
   @Security('anyone')
+  @OperationId('getPasswordReset')
   public async readPasswordResetToken(@Path() token: string) {
     const passwordReset = UserService.getPasswordResetByToken(token);
 
@@ -82,6 +83,7 @@ export class UserController extends Controller {
 
   @Post('/resetPassword')
   @Security('captcha')
+  @OperationId('createPasswordReset')
   public async createPasswordResetToken(@Body() body: ResetPasswordDto) {
     const user = await UserService.getByEmail(body.email);
 
@@ -112,6 +114,7 @@ export class UserController extends Controller {
 
   @Delete('/resetPassword/{token}')
   @Security('anyone')
+  @OperationId('deletePasswordReset')
   public async deletePasswordResetToken(
     @Path() token: string,
     @Query() password: string,
@@ -144,6 +147,7 @@ export class UserController extends Controller {
 
   @Post('/login')
   @Security('everyone')
+  @OperationId('login')
   public async login(
     @Request() request: Express.Request,
     @Body() loginDto: LoginDto,
@@ -163,6 +167,7 @@ export class UserController extends Controller {
 
   @Get('/modLikes')
   @Security('auth_token', ['user'])
+  @OperationId('getUserModLikes')
   public async getModLikes(
     @Request() request: ApiRequest
   ) {

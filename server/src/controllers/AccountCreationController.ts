@@ -1,6 +1,6 @@
 // noinspection ES6PreferShortImport
 
-import { Body, Controller, Delete, Path, Post, Route, Security } from 'tsoa';
+import { Body, Controller, Delete, OperationId, Path, Post, Route, Security } from 'tsoa';
 import { AccountCreationDto } from '../../../shared/dto/AccountCreationDto';
 import { AccountCreationService } from '../services/AccountCreationService';
 import {HttpStatusCode} from "../types/HttpStatusCode";
@@ -9,6 +9,7 @@ import {HttpStatusCode} from "../types/HttpStatusCode";
 export class AccountCreationController extends Controller {
   @Post()
   @Security('captcha')
+  @OperationId('createAccountCreation')
   public async create(@Body() data: AccountCreationDto) {
     const { username, email } = data;
 
@@ -24,6 +25,7 @@ export class AccountCreationController extends Controller {
   }
 
   @Delete('/{token}')
+  @OperationId('deleteAccountCreation')
   public async delete(@Path() token: string) {
     const accountCreation = await AccountCreationService.getByToken(token);
 

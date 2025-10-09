@@ -4,6 +4,7 @@ import {
   Body,
   Controller,
   Get,
+  OperationId,
   Path,
   Post,
   Query,
@@ -19,18 +20,21 @@ import { HttpStatusCode } from '../types/HttpStatusCode';
 export class LoaderVersionController extends Controller {
   @Get()
   @Security('everyone')
+  @OperationId('listLoaderVersions')
   public async list(@Query() sort?: string) {
     return LoaderVersionService.getAll(sort);
   }
 
   @Get('/{rmlVersion}')
   @Security('everyone')
+  @OperationId('getLoaderVersion')
   public async read(@Path() rmlVersion: string) {
     return LoaderVersionService.getByRmlVersion(rmlVersion);
   }
 
   @Post()
   @Security('auth_token', ['admin'])
+  @OperationId('createLoaderVersion')
   public async create(@Body() body: LoaderVersionDto) {
     try {
       const newLoaderVersion = await LoaderVersionService.releaseNew(body);

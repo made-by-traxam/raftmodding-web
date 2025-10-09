@@ -1,7 +1,7 @@
 // noinspection ES6PreferShortImport
 
 import dayjs, {UnitTypeShort} from 'dayjs';
-import {Body, Controller, Header, Post, Route, Security} from 'tsoa';
+import {Body, Controller, Header, OperationId, Post, Route, Security} from 'tsoa';
 import {ScheduledModDeletionDto} from '../../../shared/dto/ScheduledModDeletionDto';
 import {cfg} from '../cfg';
 import {ScheduledModDeletion} from '../entities/ScheduledModDeletion';
@@ -13,6 +13,7 @@ import {User} from "../entities/User";
 export class ScheduledModDeletionController extends Controller {
   @Post()
   @Security('auth_token', ['admin'])
+  @OperationId('createScheduledModDeletion')
   public async create(
     @Header() authtoken: string,
     @Body() body: ScheduledModDeletionDto,

@@ -17,14 +17,14 @@ import { LoaderVersion } from '../types';
 import { useSeoMeta } from '@unhead/vue';
 import Changelog from '../components/Changelog.vue';
 import ChangelogPlaceholder from '../components/ChangelogPlaceholder.vue';
-import { read3, read4 } from '../api';
+import { getLoaderVersion } from '../api';
 
 const loaderVersion= ref<LoaderVersion | undefined>(undefined);
 const versionSlug = useRoute().params.version as string;
 const meta = useSeoMeta()
 
 async function loadLoaderVersion() {
-  const { data, error } = await read4({ path: { rmlVersion: versionSlug }});
+  const { data, error } = await getLoaderVersion({ path: { rmlVersion: versionSlug }});
   if (error !== undefined) {
     console.error(`Error while fetching RML version ${versionSlug}:`, error);
   } else {

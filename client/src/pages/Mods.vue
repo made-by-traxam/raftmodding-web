@@ -29,7 +29,7 @@ import ModsCardDeck, { LoadingState } from '../components/ModsCardDeck.vue';
 import ModSearcher from '../components/ModSearcher.vue';
 import { useSeoMeta } from '@unhead/vue';
 import { ModDto } from '../../../shared/dto/ModDto';
-import { list2, List2Data } from '../api';
+import { listMods, ListModsData } from '../api';
 import { QueryParams } from '../../../shared/types/QueryParams';
 
 useSeoMeta({
@@ -44,7 +44,7 @@ const loadingState = ref<LoadingState>('loading');
 const mods = ref<ModDto[]>([]);
 
 async function loadMods(params: QueryParams) {
-  const { data, error } = await list2({ query: params } as List2Data); // TODO remove cast, check typing
+  const { data, error } = await listMods({ query: params } as ListModsData); // TODO remove cast, check typing
   if (error !== undefined) {
     console.error('Failed to load mods:', error);
     loadingState.value = 'error';
