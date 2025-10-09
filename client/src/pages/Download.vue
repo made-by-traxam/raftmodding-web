@@ -8,25 +8,34 @@
         </div>
         <div class="col-sm-8">
           <h1>Raft Mod Loader</h1>
-          <p class="lead">It's boring to go alone. Take this.</p>
-          <a
-            :href="latestLauncherVersion.downloadUrl"
-            target="_blank"
-            :class="{
-              disabled:
-                !latestLauncherVersion.downloadUrl &&
-                !latestLauncherVersion.version,
-            }"
-            class="btn btn-success btn-lg me-2 mb-2"
+          <p class="lead">It's boring to go alone. Take this!</p>
+          <button
+            v-if="latestLauncherVersion.state === 'loading'"
+            class="btn btn-lg btn-success disabled placeholder"
           >
-            Download launcher v{{ latestLauncherVersion.version }}
+            <icon name="circle-notch" animate="spin"/> Fetching latest version...
+          </button>
+          <button
+            v-else-if="latestLauncherVersion.state === 'error'"
+            class="btn btn-lg btn-danger disabled"
+          >
+            Download unavailable
+          </button>
+          <a
+            v-else-if="latestLauncherVersion.state === 'ready'"
+            class="btn btn-lg btn-success"
+            :href="latestLauncherVersion.value.downloadUrl"
+            target="_blank"
+          >
+            Download launcher v{{ latestLauncherVersion.value.version }}
           </a>
           <router-link
+            v-if="latestLauncherVersion.state === 'ready'"
             :to="{
               name: 'launcherChangelog',
-              params: { version: latestLauncherVersion.version },
+              params: { version: latestLauncherVersion.value.version },
             }"
-            class="btn btn-outline-secondary me-2 mb-2"
+            class="btn btn-outline-secondary mx-2"
           >
             <i class="fas fa-list-ul me-2"></i> View changelog
           </router-link>
@@ -36,7 +45,7 @@
         <div class="col-1"></div>
         <div class="col-3 d-none d-md-block"></div>
         <div class="col-sm-8">
-          <span class="text-muted">
+          <span class="text-muted pt-2">
             <i class="fas fa-info-circle me-1"></i>
             The Raft Mod Loader only supports the official
             <a
@@ -86,7 +95,7 @@
       </p>
       <div class="row row-cols-sm-1 row-cols-lg-2 my-3">
         <div class="col p-3">
-          <div class="card">
+          <div class="card h-100">
             <div class="card-body m-2">
               <h5 class="mb-3">
                 <i
@@ -103,7 +112,7 @@
           </div>
         </div>
         <div class="col p-3">
-          <div class="card">
+          <div class="card h-100">
             <div class="card-body m-2">
               <h5 class="mb-3">
                 <i>Something isn't working! Who can help me?</i>
@@ -117,7 +126,7 @@
       </div>
       <div class="row row-cols-sm-1 row-cols-lg-2 my-3">
         <div class="col p-3">
-          <div class="card">
+          <div class="card h-100">
             <div class="card-body m-2">
               <h5 class="mb-3"><i>What do I need to play with mods?</i></h5>
               The Raft Mod Loader should work with any Raft installation that was
@@ -126,7 +135,7 @@
           </div>
         </div>
         <div class="col p-3">
-          <div class="card">
+          <div class="card h-100">
             <div class="card-body m-2">
               <h5 class="mb-3"><i>Is the mod loader official?</i></h5>
               No, this project is
@@ -139,7 +148,7 @@
       </div>
       <div class="row row-cols-sm-1 row-cols-lg-2 my-3">
         <div class="col p-3">
-          <div class="card">
+          <div class="card h-100">
             <div class="card-body m-2">
               <h5 class="mb-3"><i>Where do I get mods?</i></h5>
               Find our best and most popular mods on our
@@ -151,7 +160,7 @@
           </div>
         </div>
         <div class="col p-3">
-          <div class="card">
+          <div class="card h-100">
             <div class="card-body m-2">
               <h5 class="mb-3"><i>Can I make mods myself?</i></h5>
               Sure! Whether you're a programmer, a graphic designer or a modeler,
@@ -191,7 +200,7 @@
               :class="{ 'table-success': i === 0 }"
             >
               <th scope="row">{{ launcherVersion.version }}</th>
-              <td>{{ toDateStr(launcherVersion.timestamp) }}</td>
+              <td>{{ toDateStr(launcherVersion.timestamp as Date /* TODO: improve typing */) }}</td>
               <td>
                 <a
                   v-if="i === 0"
@@ -231,85 +240,62 @@
         to the changelogs. <br />
       </p>
       <div class="wide-content">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">RML version</th>
-              <th scope="col">Raft version</th>
-              <th scope="col">Release date</th>
-              <th scope="col">Changelog</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(loaderVersion, i) in loaderVersions"
-              :key="loaderVersion.rmlVersion"
-              :class="{ 'table-success': i === 0 }"
-            >
-              <th scope="row">{{ loaderVersion.rmlVersion }}</th>
-              <td>{{ loaderVersion.raftVersion.title }}</td>
-              <td>{{ toDateStr(loaderVersion.timestamp) }}</td>
-              <td>
-                <router-link
-                  :to="{
-                    name: 'loaderChangelog',
-                    params: { version: loaderVersion.rmlVersion },
-                  }"
-                >
-                  Link
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <LoaderVersionsTable />
       </div>
       <p></p>
     </section>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, Ref } from 'vue';
-
-import { api } from '../modules/api';
-import { LauncherVersion, LoaderVersion } from '../types';
-import { toDateStr } from '../utils';
-
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+import { LoadingState, toDateStr } from '../utils';
 import Icon from '../components/Icon.vue';
 import { useSeoMeta } from '@unhead/vue';
+import { LauncherVersionDto } from '../../../shared/dto/LauncherVersionDto';
+import { list4 } from '../api';
+import LoaderVersionsTable from '../components/LoaderVersionsTable.vue';
 
-export default defineComponent({
-  name: 'DownloadPage',
-  components: { Icon },
-  setup() {
-    const launcherVersions: Ref<LauncherVersion[]> = ref([]);
-    const loaderVersions: Ref<LoaderVersion[]> = ref([]);
+useSeoMeta({
+  title: 'Download',
+});
 
-    useSeoMeta({
-      title: 'Download',
-    });
+const launcherVersions = ref<LauncherVersionDto[]>([]);
+const launcherVersionsState = ref<LoadingState>('loading');
+async function loadLauncherVersions() {
+  launcherVersionsState.value = 'loading';
+  const { data, error } = await list4();
+  if (error !== undefined) {
+    console.error('Error while loading launcher versions:', error);
+    launcherVersionsState.value = 'error';
+  } else {
+    launcherVersions.value = data as LauncherVersionDto[]; // TODO: improve API typing
+    launcherVersionsState.value = 'ready';
+  }
+}
+loadLauncherVersions();
 
-    (async () => {
-      launcherVersions.value = await api.getLauncherVersions();
-      loaderVersions.value = await api.getLoaderVersions();
-    })();
+type LatestLauncherVersionState = {
+  state: 'loading' | 'error';
+} | {
+  state: 'ready';
+  value: LauncherVersionDto;
+}
 
+const latestLauncherVersion = computed<LatestLauncherVersionState>(() => {
+  if (launcherVersionsState.value !== 'ready') {
     return {
-      launcherVersions,
-      loaderVersions,
+      state: launcherVersionsState.value,
     };
-  },
-  computed: {
-    latestLauncherVersion(): LauncherVersion {
-      return this.launcherVersions[0] || {};
-    },
-  },
-  async created() {
-    this.launcherVersions = await api.getLauncherVersions();
-    this.loaderVersions = await api.getLoaderVersions();
-  },
-  methods: {
-    toDateStr,
-  },
+  } else if (launcherVersions.value.length === 0) {
+    return {
+      state: 'error',
+    };
+  } else {
+    return {
+      state: 'ready',
+      value: launcherVersions.value[0],
+    };
+  }
 });
 </script>

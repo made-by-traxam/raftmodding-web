@@ -155,21 +155,6 @@ class Api {
     return false;
   }
 
-  async getLauncherVersions(params: QueryParams = {sort: '-createdAt'}) {
-    try {
-      const {data}: AxiosResponse = await this.axios.get(
-        '/launcherVersions',
-        {
-          params,
-        },
-      );
-      return data;
-    } catch (e) {
-      toaster.error(`Failed to get launcher versions`);
-    }
-    return [];
-  }
-
   async addLauncherVersion(launcherVersion: LauncherVersion) {
     try {
       const {data}: AxiosResponse = await this.axios.post(
@@ -189,20 +174,6 @@ class Api {
     }
 
     return null;
-  }
-
-  async getLoaderVersions(
-    params = {sort: '-createdAt'},
-  ): Promise<LoaderVersion[] | LoaderVersionDto[]> {
-    try {
-      const {data}: AxiosResponse = await this.axios.get('/loaderVersions', {
-        params,
-      });
-      return data;
-    } catch (e) {
-      toaster.error('Failed to get loader versions');
-    }
-    return [];
   }
 
   async addLoaderVersion(loaderVersion: LoaderVersion) {

@@ -105,3 +105,5 @@ export const getTitle = (
  * helper method to set as default for method that you don't want to check for null/undefined
  */
 export const doNothing = () => {};
+
+export type LoadingState = 'loading' | 'error' | 'ready';
