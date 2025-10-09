@@ -2,37 +2,38 @@
   <div class="container">
     <section class="my-5">
       <h1 class="my-3 mw-100 text-break">{{ username }}'s mods</h1>
-      <mods-card-deck :mods="mods" group-cls="my-3" />
+      <mods-card-deck :mods="mods" :state="loadingState" :reload="loadMods" class="my-3" />
     </section>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
-import ModsCardDeck from '../components/ModsCardDeck.vue';
-import { useMods } from '../compositions/useMods';
+import ModsCardDeck, { LoadingState } from '../components/ModsCardDeck.vue';
 import { useSeoMeta } from '@unhead/vue';
+import { list2 } from '../api';
+import { ModDto } from '../../../shared/dto/ModDto';
 
-export default defineComponent({
-  name: 'UserPage',
-  components: { ModsCardDeck },
-  setup() {
-    const route = useRoute();
-    const username = ref(route.params.username as string);
-    const defaultQuery = {
-      author: username.value,
-    };
+const route = useRoute();
+const username = ref(route.params.username as string);
 
-    useSeoMeta({
-      title: username.value,
-    });
-
-    return {
-      username,
-      defaultQuery,
-      ...useMods(defaultQuery),
-    };
-  },
+useSeoMeta({
+  title: username.value,
 });
+
+const loadingState = ref<LoadingState>('loading');
+const mods = ref<ModDto[]>([]);
+
+async function loadMods() {
+  const { error, data } = await list2({ query: { author: username.value } });
+  if (error !== undefined) {
+    console.error('Failed to load mods:', error);
+    loadingState.value = 'error';
+  } else {
+    mods.value = data as ModDto[]; // TODO avoid cast
+    loadingState.value = 'ready';
+  }
+}
+loadMods();
 </script>

@@ -49,57 +49,72 @@
         </div>
         <div class="row mb-5">
           <h2 class="my-3">Popular mods</h2>
-          <mods-card-deck :mods="mods.mostDownloaded" />
+          <mods-card-deck
+            :mods="mostDownloadedMods"
+            :state="mostDownloadedState"
+            :reload="reloadMostDownloaded"
+          />
         </div>
         <div class="row mb-5">
           <h2 class="my-3">Most liked mods</h2>
-          <mods-card-deck :mods="mods.mostLiked" />
+          <mods-card-deck
+            :mods="mostLikedMods"
+            :state="mostLikedState"
+            :reload="reloadMostLiked"
+          />
         </div>
       </section>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 
-import { api } from '../modules/api';
-import { Mod } from '../types';
+import { ModDto } from '../../../shared/dto/ModDto';
 
-import ModsCardDeck from '../components/ModsCardDeck.vue';
+import ModsCardDeck, { LoadingState } from '../components/ModsCardDeck.vue';
 import {META_DEFAULT_TITLE} from "../const/meta.const";
 import { useSeoMeta } from '@unhead/vue';
+import { listMostDownloaded, listMostLiked } from '../api';
 
-interface ModCollection {
-  mostDownloaded: Mod[];
-  mostLiked: Mod[];
-}
-
-export default defineComponent({
-  name: 'HomePage',
-  components: { ModsCardDeck },
-  setup() {
-    useSeoMeta({
-      title: META_DEFAULT_TITLE
-    });
-
-    const brand = import.meta.env.VITE_BRAND;
-    const mods: ModCollection = reactive({
-      mostDownloaded: [],
-      mostLiked: [],
-    });
-
-    (async () => {
-      mods.mostDownloaded = await api.getMostDownloadedMods();
-      mods.mostLiked = await api.getMostLikedMods();
-    })();
-
-    return {
-      mods,
-      brand,
-    };
-  },
+useSeoMeta({
+  title: META_DEFAULT_TITLE
 });
+
+const brand = import.meta.env.VITE_BRAND;
+
+const mostDownloadedState = ref<LoadingState>('loading');
+const mostDownloadedMods = ref<ModDto[]>([]);
+async function reloadMostDownloaded() {
+  mostDownloadedState.value = 'loading';
+
+  const { data, error } = await listMostDownloaded();
+  if (error !== undefined) {
+    mostDownloadedState.value = 'error';
+    return;
+  }
+
+  mostDownloadedMods.value = data as ModDto[]; // TODO remove cast when API has better typing
+  mostDownloadedState.value = 'ready';
+}
+reloadMostDownloaded();
+
+const mostLikedState = ref<LoadingState>('loading');
+const mostLikedMods = ref<ModDto[]>([]);
+async function reloadMostLiked() {
+  mostLikedState.value = 'loading';
+
+  const { data, error } = await listMostLiked();
+  if (error !== undefined) {
+    mostLikedState.value = 'error';
+    return;
+  }
+
+  mostLikedMods.value = data as ModDto[]; // TODO remove cast when API has better typing
+  mostLikedState.value = 'ready';
+}
+reloadMostLiked();
 </script>
 
 <style lang="scss">

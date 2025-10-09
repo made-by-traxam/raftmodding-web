@@ -1,7 +1,7 @@
 <template>
   <div
     class="container"
-    :class="{ 'mt-0': !loading && (!mods || mods.length <= 0) }"
+    :class="{ 'mt-0': (loadingState !== 'loading') && (!mods || mods.length <= 0) }"
   >
     <section class="my-3">
       <h1>Raft mods directory</h1>
@@ -14,72 +14,51 @@
     <section class="my-3">
       <mod-searcher :default-query="defaultQuery" @search="onSearch" />
     </section>
-    <template v-if="!loading">
-      <mods-card-deck
-        v-if="mods && mods.length > 0"
-        :mods="mods"
-        v-show="!loading"
-        group-cls="my-3"
-        class="search-result"
-      />
-
-      <div v-else class="mx-auto w-100 search-results-empty">
-        <div class="row row-cols-3">
-          <div class="col p-3">
-            <placeholder-mod-card
-              transparent
-              class="d-flex justify-content-center align-items-center"
-            >
-              <div class="">No results</div>
-            </placeholder-mod-card>
-          </div>
-          <div class="col p-3">
-            <placeholder-mod-card transparent />
-          </div>
-          <div class="col p-3">
-            <placeholder-mod-card />
-          </div>
-        </div>
-      </div>
-    </template>
-    <loading-spinner v-else />
+    <mods-card-deck
+      :mods="mods"
+      :state="loadingState"
+      group-cls="my-3"
+      class="search-result"
+    />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import Icon from '../components/Icon.vue';
-import LoadingSpinner from '../components/LoadingSpinner.vue';
-import ModsCardDeck from '../components/ModsCardDeck.vue';
+<script setup lang="ts">
+import { ref } from 'vue';
+import ModsCardDeck, { LoadingState } from '../components/ModsCardDeck.vue';
 import ModSearcher from '../components/ModSearcher.vue';
-import PlaceholderModCard from '../components/PlaceholderModCard.vue';
-import { useMods } from '../compositions/useMods';
 import { useSeoMeta } from '@unhead/vue';
+import { ModDto } from '../../../shared/dto/ModDto';
+import { list2, List2Data } from '../api';
+import { QueryParams } from '../../../shared/types/QueryParams';
 
-export default defineComponent({
-  name: 'ModsPage',
-  components: {
-    ModSearcher,
-    LoadingSpinner,
-    Icon,
-    ModsCardDeck,
-    PlaceholderModCard,
-  },
-  setup() {
-    const defaultQuery = {
-      sort: '-createdAt',
-    };
-
-    useSeoMeta({
-      title: 'Mods',
-    });
-
-    return {
-      defaultQuery,
-      ...useMods(defaultQuery),
-    };
-  },
+useSeoMeta({
+  title: 'Mods',
 });
+
+const defaultQuery = {
+  sort: '-createdAt',
+};
+
+const loadingState = ref<LoadingState>('loading');
+const mods = ref<ModDto[]>([]);
+
+async function loadMods(params: QueryParams) {
+  const { data, error } = await list2({ query: params } as List2Data); // TODO remove cast, check typing
+  if (error !== undefined) {
+    console.error('Failed to load mods:', error);
+    loadingState.value = 'error';
+  } else {
+    mods.value = data as ModDto[];
+    loadingState.value = 'ready';
+  }
+}
+
+async function onSearch(query: QueryParams): Promise<void> {
+  loadingState.value = "loading";
+  await loadMods(query);
+}
+onSearch(defaultQuery);
 </script>
 
 <style scoped lang="scss">

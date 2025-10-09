@@ -12,7 +12,6 @@ import {
   FormResponse,
   LauncherVersion,
   LoaderVersion,
-  Mod,
   ModVersion,
   RaftVersion,
 } from '../types';
@@ -156,28 +155,6 @@ class Api {
     return false;
   }
 
-  async getMostDownloadedMods(): Promise<Mod[]> {
-    try {
-      const {data}: AxiosResponse = await this.axios.get(
-        '/mods/mostDownloaded',
-      );
-      return data;
-    } catch (e) {
-      toaster.error(`Failed to get "Most Downloaded Mods"`);
-    }
-    return [];
-  }
-
-  async getMostLikedMods() {
-    try {
-      const {data}: AxiosResponse = await this.axios.get('/mods/mostLiked');
-      return data;
-    } catch (e) {
-      toaster.error(`Failed to get "Most Liked Mods"`);
-    }
-    return [];
-  }
-
   async getLauncherVersions(params: QueryParams = {sort: '-createdAt'}) {
     try {
       const {data}: AxiosResponse = await this.axios.get(
@@ -279,18 +256,6 @@ class Api {
       return data;
     } catch (e) {
       toaster.error('Failed to get mod categories');
-    }
-    return [];
-  }
-
-  async getMods(params?: QueryParams): Promise<ModDto[]> {
-    try {
-      const {data}: AxiosResponse = await this.axios.get(`/mods`, {
-        params,
-      });
-      return data;
-    } catch (e) {
-      toaster.error('Failed to get mods');
     }
     return [];
   }
