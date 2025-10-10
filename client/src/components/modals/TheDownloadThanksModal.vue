@@ -5,7 +5,7 @@
     role="dialog"
     aria-labelledby="download-warning-modal-label"
     aria-hidden="true"
-    id="download-warning-modal"
+    id="download-thanks-modal"
   >
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content border-0">
@@ -14,13 +14,11 @@
             This might be dangerous
           </h4>
           <button
-            class="close"
+            class="btn-close"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
           <b
@@ -30,25 +28,26 @@
           computer but you can
           <router-link
             :to="{ name: 'contact' }"
-            data-dismiss="modal"
             aria-label="Close"
-            >contact us</router-link
           >
+            <span data-bs-dismiss="modal">contact us</span>
+          </router-link>
           if you find anything suspicious. We will take down everything from our
           website that does not comply with
           <router-link
             :to="{ name: 'terms' }"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             aria-label="Close"
-            >our terms</router-link
-          >.
+          >
+            <span data-bs-dismiss="modal">our terms</span>
+          </router-link>.
           <hr class="mb-0" />
         </div>
         <div
           class="modal-footer border-top-0 pt-0 d-flex justify-content-between align-items-center"
         >
           <a
-            class="btn btn-sm btn-outline-danger mr-auto"
+            class="btn btn-sm btn-outline-danger me-auto"
             href="/mods/extra-settings-api/1.5.8/ExtraSettingsAPI.rmod?ignoreVirusScan=true"
             target="_blank"
             id="download-warning-download-button"
@@ -60,7 +59,7 @@
             target="_blank"
             >View scan report</a
           -->
-          <button class="btn btn-success" data-dismiss="modal">Go back</button>
+          <button class="btn btn-success" data-bs-dismiss="modal">Go back</button>
         </div>
       </div>
     </div>

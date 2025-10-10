@@ -4,10 +4,10 @@
       <h5 class="card-title">
         Danger zone
         <button
-          class="btn btn-sm float-right btn-outline-danger"
+          class="btn btn-sm float-end btn-outline-danger"
           type="button"
-          data-toggle="collapse"
-          data-target="#danger-zone"
+          data-bs-toggle="collapse"
+          data-bs-target="#danger-zone"
           aria-expanded="false"
           aria-controls="danger-zone"
         >
@@ -16,8 +16,8 @@
       </h5>
       <div class="collapse" id="danger-zone">
         <div class="big-form" id="transferForm">
-          <div class="form-group">
-            <label for="changeOwner">
+          <div class="mb-3">
+            <label class="form-label" for="changeOwner">
               Transfer this mod to another owner
             </label>
             <input
@@ -36,9 +36,8 @@
           </div>
           <button
             class="btn btn-danger"
-            data-toggle="modal"
-            data-target="#confirmModal"
-            data-action="transfer"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmModal"
             @click="onTransfer"
           >
             Transfer mod
@@ -46,8 +45,8 @@
         </div>
         <hr />
         <div class="big-form" id="deleteForm">
-          <div class="form-group">
-            <label for="deleteMod"> Delete this mod </label>
+          <div class="mb-3">
+            <label class="form-label" for="deleteMod"> Delete this mod </label>
             <input
               v-model="deleteConfirm"
               id="deleteMod"
@@ -66,9 +65,8 @@
           </div>
           <button
             class="btn btn-danger"
-            data-toggle="modal"
-            data-target="#confirmModal"
-            data-action="delete"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmModal"
             @click="onDelete"
           >
             Delete mod

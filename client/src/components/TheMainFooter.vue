@@ -14,17 +14,17 @@ const submitAnIssueLink = SUBMIT_AN_ISSUE_LINK;
       <small class="text-muted">
         <hr />
         <div class="row my-3">
-          <div class="col-9 col-sm-7 text-left">
+          <div class="col-9 col-sm-7 text-start">
             © {{fullYear || '2021'}} | Made by
             <a href="https://github.com/made-by-traxam" target="_blank">traxam</a>,
             <a href="https://github.com/Felix-Staud" target="_blank">zer0</a> and
             <a href="https://www.hytekgames.net" target="_blank">TeKGameR</a>
             Not affiliated with Raft, Redbeet Interactive or Axolot Games.
           </div>
-          <div class="d-sm-none col-3 text-right">
+          <div class="d-sm-none col-3 text-end">
             <theme-switch />
           </div>
-          <div class="col-12 col-sm-4 text-md-right">
+          <div class="col-12 col-sm-4 text-md-end">
             <a
               :href="submitAnIssueLink"
               target="_blank"
@@ -44,7 +44,7 @@ const submitAnIssueLink = SUBMIT_AN_ISSUE_LINK;
               >Privacy policy</router-link
             >
           </div>
-          <div class="d-none d-sm-block col-1 text-right">
+          <div class="d-none d-sm-block col-1 text-end">
             <theme-switch />
           </div>
         </div>

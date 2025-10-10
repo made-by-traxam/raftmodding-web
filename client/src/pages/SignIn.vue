@@ -44,19 +44,19 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
 import { useForm } from '../compositions/useForm';
 import { api } from '../modules/api';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'SignInPage',
   components: { ApiProvidedForm, Icon },
   setup(_props, ctx) {
-    const meta = useActiveMeta();
-
-    meta.title = `Sign in`;
+    useSeoMeta({
+      title: 'Sign in',
+    });
 
     return {
       ...useForm(ctx),
@@ -87,9 +87,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables';
+@use '../assets/styles/variables';
 
 .discord-login {
-  background-color: $discord;
+  background-color: variables.$discord;
 }
 </style>

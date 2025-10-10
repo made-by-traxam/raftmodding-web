@@ -20,7 +20,6 @@
 </template>
 
 <script lang="ts">
-import { data } from 'jquery';
 import { defineComponent } from 'vue';
 
 import { useForm } from '../compositions/useForm';

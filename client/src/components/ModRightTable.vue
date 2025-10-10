@@ -3,11 +3,19 @@
     <ul class="list-group text-break">
       <li class="list-group-item">
         <router-link
+          v-if="!preview"
           :to="{ name: 'mod', params: { id: mod.id } }"
-          class="font-weight-bolder"
+          class="fw-bolder"
         >
           {{ mod.title }}
         </router-link>
+        <a
+          v-else
+          href="#preview"
+          class="fw-bolder"
+        >
+          {{ mod.title }}
+        </a>
       </li>
       <li class="list-group-item">
         <icon name="list-ul" />This is a
@@ -76,14 +84,15 @@
         </li>
       </template>
       <li class="list-group-item">
-        <icon name="arrow-alt-circle-down" class="mr-2" />
+        <icon name="arrow-alt-circle-down" class="me-2" />
         <a
           :href="preview ? '#preview' : currentVersion.downloadUrl || '#'"
           :target="preview ? '_self' : '_blank'"
-          class="download-link"
-          >Download this mod<small class="float-right mx-1"
+          :data-bs-toggle="preview ? '' : 'modal'"
+          :data-bs-target="preview ? '' : '#download-warning-modal'"
+          >Download this mod<small class="float-end mx-1"
             ><span
-              class="badge badge-pill badge-secondary"
+              class="badge rounded-pill bg-secondary"
               :title="`${currentVersionDownloads} downloads`"
             >
               {{ currentVersionDownloads }}
@@ -94,12 +103,14 @@
     </ul>
     <ul class="list-group my-4">
       <li class="list-group-item bg-success d-none d-sm-inline-block">
-        <icon name="play-circle" type="r" size="lg" class="mr-2 text-white" />
+        <icon name="play-circle" type="r" size="lg" class="me-2 text-white" />
         <b>
           <a
             :href="preview ? '#preview' : `rmllauncher://installmod/${mod.id}`"
             :target="preview ? '_self' : '_blank'"
             class="text-white stretched-link install-button"
+            :data-bs-toggle="preview ? '' : 'modal'"
+            :data-bs-target="preview ? '' : '#install-modal'"
             >Install mod</a
           >
         </b>
@@ -111,13 +122,13 @@
           name="question-circle"
           type="r"
           size="lg"
-          class="mr-2 text-white"
+          class="me-2 text-white"
         />
         <b
           ><a
-            :href="preview ? '#preview' : '#'"
-            :target="preview ? '_self' : '_blank'"
             class="text-white stretched-link support-button"
+            :data-bs-toggle="preview ? '' : 'modal'"
+            :data-bs-target="preview ? '' : '#support-modal'"
             >Need support?</a
           ></b
         >
@@ -139,7 +150,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useMod } from '../compositions/useMod';
-import { $modDetails } from '../_legacy/modDetails';
 import AdminUsageInfo from './AdminUsageInfo.vue';
 import Icon from './Icon.vue';
 import TheDownloadThanksModal from './modals/TheDownloadThanksModal.vue';
@@ -171,10 +181,6 @@ export default defineComponent({
       ...props,
       ...useMod(props),
     };
-  },
-  async mounted() {
-    await this.$nextTick();
-    $modDetails();
   },
   methods: {
     onDownload() {

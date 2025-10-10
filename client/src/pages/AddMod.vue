@@ -37,8 +37,8 @@
                 class="btn btn-outline-primary m-2"
                 :disabled="loading"
                 :class="{ disabled: loading }"
-                data-toggle="collapse"
-                data-target="#preview"
+                data-bs-toggle="collapse"
+                data-bs-target="#preview"
                 aria-expanded="false"
                 aria-controls="preview"
               >
@@ -81,9 +81,7 @@
 </template>
 
 <script lang="ts">
-import { ready } from 'jquery';
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { ModDto } from '../../../shared/dto/ModDto';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
@@ -93,14 +91,15 @@ import { useModEditing } from '../compositions/useModEditing';
 import { TOAST_FORM_INVALID } from '../const/toasts.const';
 import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'AddModPage',
   components: { Icon, ApiProvidedForm, ModDetails, ConfirmModal },
   setup() {
-    const meta = useActiveMeta();
-
-    meta.title = 'Add a mod';
+    useSeoMeta({
+      title: 'Add a mod',
+    });
 
     return {
       ...useModEditing(true),

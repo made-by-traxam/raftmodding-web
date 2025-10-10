@@ -5,7 +5,7 @@ import {
   deletePersistedAuthtoken, getPersistedAuthtoken,
 } from '../persistence.store';
 import {state} from '../store';
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 export const isSessionExpired = (): boolean => {
   const session = state.jwt;

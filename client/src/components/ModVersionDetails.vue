@@ -8,7 +8,7 @@
             <small class="text-muted mx-1">
               <span
                 v-if="installable"
-                class="badge badge-pill badge-success mx-1"
+                class="badge rounded-pill bg-success mx-1"
                 >Latest</span
               >
               <raft-version-matching-badge :mod-version="version" />
@@ -43,11 +43,13 @@
             <a
               :href="preview ? '#preview' : version.downloadUrl"
               :target="preview ? '_self' : '_blank'"
-              class="btn btn-sm btn-primary mx-1 download-link"
+              :data-bs-toggle="preview ? '' : 'modal'"
+              :data-bs-target="preview ? '' : '#download-warning-modal'"
+              class="btn btn-sm btn-primary mx-1"
             >
               Download
               <span
-                class="ml-2 badge badge-pill badge-light text-primary"
+                class="ms-2 badge rounded-pill bg-light text-primary"
                 :title="`${version.downloadCount} downloads`"
               >
                 {{ version.downloadCount }}
@@ -61,7 +63,7 @@
       </div>
       <p class="card-text">
         <small class="text-muted" :title="fullReleaseDateStr">
-          <icon name="clock" class="mr-1" />
+          <icon name="clock" class="me-1" />
           Released on {{ releaseDateStr }}
         </small>
       </p>
@@ -76,7 +78,6 @@ import { defineComponent, PropType, version } from 'vue';
 import VueMarkdownIt from 'vue3-markdown-it';
 import { ModVersionDto } from '../../../shared/dto/ModVersionDto';
 import { DATETIME_FORMAT, DATE_FORMAT } from '../const/formats.const';
-import { $modDetails } from '../_legacy/modDetails';
 import FileHashes from './FileHashes.vue';
 import Icon from './Icon.vue';
 import RaftVersionMatchingBadge from './RaftVersionMatchingBadge.vue';
@@ -105,10 +106,6 @@ export default defineComponent({
     releaseDateStr(): string {
       return dayjs(this.vReleaseDate).format(DATE_FORMAT);
     },
-  },
-  async mounted() {
-    await this.$nextTick();
-    $modDetails();
   },
 });
 </script>

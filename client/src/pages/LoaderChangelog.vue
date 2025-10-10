@@ -15,14 +15,13 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import { api } from '../modules/api';
 import { LoaderVersion } from '../types';
 
-import { useActiveMeta } from 'vue-meta';
+import { useHead } from '@unhead/vue';
 import Changelog from '../components/Changelog.vue';
 
 export default defineComponent({
   name: 'LoaderChangelogPage',
   components: { Changelog },
   setup() {
-    const meta = useActiveMeta();
     const loaderVersion: Ref<LoaderVersion> = ref({} as LoaderVersion);
 
     (async () => {
@@ -31,7 +30,9 @@ export default defineComponent({
         route.params.version as string,
       );
 
-      meta.title = `RML v${loaderVersion.value.rmlVersion}`;
+      useHead({
+        title: `RML v${loaderVersion.value.rmlVersion}`,
+      });
     })();
 
     return {

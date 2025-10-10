@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import {defineComponent, Ref, ref} from 'vue';
-import {useActiveMeta} from 'vue-meta';
 import {useRoute, useRouter} from 'vue-router';
 import {ModDto} from '../../../shared/dto/ModDto';
 import ModDetails from '../components/ModDetails.vue';
@@ -14,6 +13,7 @@ import {useLikes} from '../compositions/useLikes';
 import {api} from '../modules/api';
 import {toaster} from '../modules/toaster';
 import {META_BANNER} from "../const/meta.const";
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'ModPage',
@@ -22,7 +22,9 @@ export default defineComponent({
   },
   setup() {
     const mod = ref<ModDto>();
-    const meta = useActiveMeta();
+    const meta = useSeoMeta({
+      title: 'Loading mod...',
+    });
 
     (async () => {
       const route = useRoute();
@@ -35,9 +37,11 @@ export default defineComponent({
         toaster.error(`Mod ${modId} not found`);
       }
 
-      meta.title = mod.value?.title;
-      meta.description = mod.value?.description;
-      meta.og.image = mod.value?.bannerImageUrl || META_BANNER;
+      meta.patch({
+        title: mod.value?.title,
+        description: mod.value?.description,
+        ogImage:  mod.value?.bannerImageUrl || META_BANNER,
+      });
     })();
 
     return {

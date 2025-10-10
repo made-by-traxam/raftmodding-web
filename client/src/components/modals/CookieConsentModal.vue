@@ -67,7 +67,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import '../../assets/styles/variables';
+@use '../../assets/styles/variables';
 
 .cc-window {
   position: fixed;
@@ -78,7 +78,7 @@ export default defineComponent({
   line-height: 1.5em;
   display: flex;
   flex-wrap: nowrap;
-  z-index: $z-index-cookie-consent;
+  z-index: variables.$z-index-cookie-consent;
   background-color: #edeff5;
   color: #838391;
 }

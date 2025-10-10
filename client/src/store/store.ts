@@ -1,7 +1,6 @@
 import { reactive } from 'vue';
 import { RaftVersion, Session } from '../types';
 import { getPersistedTheme } from './persistence.store';
-import {JwtDecodeOptions, JwtPayload} from "jwt-decode";
 import JwtState from "JwtState";
 
 export default interface RootState {

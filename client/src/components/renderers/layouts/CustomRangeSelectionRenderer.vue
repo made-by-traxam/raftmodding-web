@@ -1,8 +1,8 @@
 // Highly specified renderer, not suitable for general usage!
 
 <template>
-  <div v-if="layout.visible" class="form-group custom-range-selection">
-    <label v-if="label">{{ label }}</label>
+  <div v-if="layout.visible" class="mb-3 form-range-selection">
+    <label v-if="label" class="form-label">{{ label }}</label>
     <div class="input-group">
       <template
         v-for="(element, index) in elements"
@@ -18,7 +18,7 @@
         />
         <div
           v-if="index !== elements.length - 1"
-          class="input-group-prepend input-group-append d-none d-sm-flex flex-column"
+          class="d-none d-sm-flex flex-column"
         >
           <span class="input-group-text">-</span>
           <div class="error validation-feedback valid-feedback opacity-0">
@@ -69,10 +69,8 @@ export const entry: JsonFormsRendererRegistryEntry = {
 </script>
 
 <style scoped lang="scss">
-@import '../../../assets/styles/variables';
-
-.custom-range-selection {
-  .input-group-prepend {
+.form-range-selection {
+  div {
     width: 33px;
 
     .input-group-text {
@@ -113,7 +111,7 @@ export const entry: JsonFormsRendererRegistryEntry = {
 }
 
 @media (min-width: 576px) {
-  .custom-range-selection {
+  .form-range-selection {
     ::v-deep(.control) {
       width: calc(50% - 33px / 2);
 

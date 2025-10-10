@@ -1,7 +1,7 @@
 <script setup lang="ts">import dayjs from 'dayjs';
 import { computed, onMounted } from 'vue';
 import { DATETIME_FORMAT, DATE_FORMAT } from '../const/formats.const';
-import { $changelog } from '../_legacy/changelog';
+import TheSupportLabelModal from './modals/TheSupportLabelModal.vue';
 
 interface ChangelogProps {
   version: string;
@@ -21,10 +21,6 @@ const fullReleaseDateStr = computed<string>(() => dayjs(vReleaseDate.value).form
 const releaseDateStr = computed<string>(() => dayjs(vReleaseDate.value).format(DATE_FORMAT));
 const fullLastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format(DATETIME_FORMAT));
 const lastUpdateDateStr = computed<string>(() => dayjs(vLastUpdate.value).format(DATE_FORMAT));
-
-onMounted(() => {
-  $changelog();
-})
 </script>
 
 <template>
@@ -40,7 +36,7 @@ onMounted(() => {
               </div>
               <p class="card-text">
                 <small class="text-muted" :title="fullLastUpdateDateStr"
-                  ><i class="far fa-clock mr-1"></i> Changelog last updated on
+                  ><i class="far fa-clock me-1"></i> Changelog last updated on
                   {{ lastUpdateDateStr }}</small
                 >
               </p>
@@ -57,7 +53,7 @@ onMounted(() => {
               <b>{{ releaseDateStr }}</b>
             </li>
             <li v-if="downloadUrl" class="list-group-item download">
-              <i class="fas fa-arrow-alt-circle-down mr-2"></i>
+              <i class="fas fa-arrow-alt-circle-down me-2"></i>
               <b>
                 <a :href="preview ? '#preview' : downloadUrl">Download</a>
               </b>
@@ -69,7 +65,7 @@ onMounted(() => {
                 name="download"
                 type="s"
                 size="lg"
-                class="mr-2 text-white"
+                class="me-2 text-white"
               />
               <b>
                 <router-link
@@ -86,14 +82,13 @@ onMounted(() => {
                 name="question-circle"
                 type="r"
                 size="lg"
-                class="mr-2 text-white"
+                class="me-2 text-white"
               />
               <b>
                 <a
-                  :href="preview ? '#preview' : '/discord'"
                   class="text-white stretched-link"
-                  :class="{ 'support-button': !preview }"
-                  :target="preview ? '_self' : '_blank'"
+                  :data-bs-toggle="preview ? '' : 'modal'"
+                  :data-bs-target="preview ? '' : '#support-modal'"
                   >Need support?</a
                 >
               </b>

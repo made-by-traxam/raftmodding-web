@@ -2,7 +2,7 @@ name: "raftmodding-web"
 
 services:
   db:
-    image: "postgres:16"
+    image: "postgres:17"
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "./postgres-data:/var/lib/postgresql/data"
+      - "./data/postgres:/var/lib/postgresql/data"
   
   storage:
     image: "quay.io/minio/minio"
@@ -22,4 +22,4 @@ services:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - "./minio-data:/data"
+      - "./data/minio:/data"

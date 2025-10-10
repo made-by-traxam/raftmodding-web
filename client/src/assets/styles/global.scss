@@ -1,11 +1,16 @@
-@import 'bootstrap/scss/bootstrap';
+@use './variables';
+@use 'sass:meta';
+
+// TODO tree-shake imports
+// for bootstrap, see https://github.com/twbs/bootstrap/issues/40962
+@include meta.load-css('bootstrap/scss/bootstrap.scss');
+@include meta.load-css('easymde/dist/easymde.min.css');
+@include meta.load-css('notyf/notyf.min.css');
+@include meta.load-css('./multiselect.scss');
+
 @import '@fortawesome/fontawesome-free/css/all.css';
 @import 'vue-multiselect/dist/vue-multiselect.css';
 @import 'animate.css/animate.css';
-
-@import './variables';
-@import './simplemde.min.css';
-@import './multiselect';
 
 html,
 body {
@@ -16,21 +21,15 @@ body {
 }
 
 body {
-  background-color: $light-background;
-  color: $light-text;
-  transition: background-color $dark-mode-transition-duration
-      $dark-mode-transition-type,
-    color $dark-mode-transition-duration $dark-mode-transition-type,
-    background-image $dark-mode-transition-duration $dark-mode-transition-type;
+  background-color: variables.$light-background;
+  color: variables.$light-text;
+  transition: background-color variables.$dark-mode-transition-duration
+      variables.$dark-mode-transition-type,
+    color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type,
+    background-image variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
 
   #app {
     max-height: 100%;
-  }
-
-  .jumbotron {
-    background-color: $light-background;
-    transition: background-color $dark-mode-transition-duration
-      $dark-mode-transition-type;
   }
 
   h1,
@@ -38,71 +37,72 @@ body {
   h3,
   h4,
   h5 {
-    color: $light-headline;
-    transition: color $dark-mode-transition-duration $dark-mode-transition-type;
+    color: variables.$light-headline;
+    transition: color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   .card {
-    background-color: $light-card;
-    transition: background-color $dark-mode-transition-duration
-      $dark-mode-transition-type;
+    background-color: variables.$light-card;
+    transition: background-color variables.$dark-mode-transition-duration
+      variables.$dark-mode-transition-type;
 
     .card-footer {
-      background-color: $light-card;
-      transition: background-color $dark-mode-transition-duration
-        $dark-mode-transition-type;
+      background-color: variables.$light-card;
+      transition: background-color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type;
     }
   }
 
   .table {
-    color: $light-text;
-    transition: border-color $dark-mode-transition-duration
-        $dark-mode-transition-type,
-      color $dark-mode-transition-duration $dark-mode-transition-type;
+    color: variables.$light-text;
+    transition: border-color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type,
+      color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
 
     th,
     td {
-      transition: border-color $dark-mode-transition-duration
-        $dark-mode-transition-type;
+      transition: border-color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type;
     }
 
     tr {
       &.table-success,
       &.table-success > th,
       &.table-success > td {
-        transition: background-color $dark-mode-transition-duration
-            $dark-mode-transition-type,
-          color $dark-mode-transition-duration $dark-mode-transition-type;
+        transition: background-color variables.$dark-mode-transition-duration
+            variables.$dark-mode-transition-type,
+          color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
       }
     }
   }
 
   input:not([type='submit']):not([type='button']),
   input:focus,
-  .custom-select,
-  .custom-file-label,
-  .custom-file-label::after,
+  .form-select,
   .CodeMirror,
-  .input-group-prepend span,
-  .input-group-append span {
-    transition: background-color $dark-mode-transition-duration
-        $dark-mode-transition-type,
-      color $dark-mode-transition-duration $dark-mode-transition-type,
-      border-color $dark-mode-transition-duration $dark-mode-transition-type;
+  .input-group span {
+    transition: background-color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type,
+      color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type,
+      border-color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
   }
 
   input:not([type='submit']):not([type='button']) {
     &[disabled],
     &[readonly] {
-      transition: background-color $dark-mode-transition-duration
-          $dark-mode-transition-type,
-        color $dark-mode-transition-duration $dark-mode-transition-type;
+      transition: background-color variables.$dark-mode-transition-duration
+          variables.$dark-mode-transition-type,
+        color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
     }
   }
 
   .editor-toolbar {
     &.fullscreen {
-      z-index: $z-index-editor-fullscreen;
+      z-index: variables.$z-index-editor-fullscreen;
 
       &::after,
       &::before {
@@ -111,76 +111,72 @@ body {
     }
 
     a {
-      transition: color $dark-mode-transition-duration
-        $dark-mode-transition-type;
+      transition: color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type;
     }
   }
 
   .CodeMirror-cursor {
-    transition: border-left-color $dark-mode-transition-duration
-      $dark-mode-transition-type;
+    transition: border-left-color variables.$dark-mode-transition-duration
+      variables.$dark-mode-transition-type;
   }
 
   .list-group-item {
-    transition: background-color $dark-mode-transition-duration
-      $dark-mode-transition-type;
+    transition: background-color variables.$dark-mode-transition-duration
+      variables.$dark-mode-transition-type;
   }
 
   .modal-content {
-    transition: background-color $dark-mode-transition-duration
-      $dark-mode-transition-type;
+    transition: background-color variables.$dark-mode-transition-duration
+      variables.$dark-mode-transition-type;
   }
 
-  .close {
-    transition: color $dark-mode-transition-duration $dark-mode-transition-type;
+  .btn-close {
+    transition: color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
   }
 
   .editor-toolbar {
     &.fullscreen {
-      transition: background-color $dark-mode-transition-duration
-        $dark-mode-transition-type;
+      transition: background-color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type;
     }
   }
 
   .CodeMirror {
     &.CodeMirror-fullscreen {
-      z-index: $z-index-editor-fullscreen;
+      z-index: variables.$z-index-editor-fullscreen;
     }
   }
 
   &[data-theme='dark'] {
-    background-color: $dark-background;
-    color: $dark-text;
+    background-color: variables.$dark-background;
+    color: variables.$dark-text;
 
     .btn-success {
-      background-color: $dark-success;
-      border-color: $dark-success;
+      background-color: variables.$dark-success;
+      border-color: variables.$dark-success;
 
       &:hover {
-        background-color: $dark-success-hover;
-        border-color: $dark-success-hover;
+        background-color: variables.$dark-success-hover;
+        border-color: variables.$dark-success-hover;
       }
     }
 
-    .badge-success {
-      background-color: $dark-success;
-      border-color: $dark-success;
+    .badge.bg-success {
+      background-color: variables.$dark-success;
+      border-color: variables.$dark-success;
 
       &:hover {
-        background-color: $dark-success-hover;
-        border-color: $dark-success-hover;
+        background-color: variables.$dark-success-hover;
+        border-color: variables.$dark-success-hover;
       }
     }
 
-    .custom-select {
+    .form-select {
       option {
-        background-color: $dark-background;
-        color: $dark-text;
+        background-color: variables.$dark-background;
+        color: variables.$dark-text;
       }
-    }
-
-    .jumbotron {
-      background-color: $dark-background;
     }
 
     h1,
@@ -188,100 +184,97 @@ body {
     h3,
     h4,
     h5 {
-      color: $dark-headline;
+      color: variables.$dark-headline;
     }
 
     .card {
-      background-color: $dark-card;
+      background-color: variables.$dark-card;
 
       .card-footer {
-        background-color: $dark-card;
+        background-color: variables.$dark-card;
       }
     }
 
     .table {
-      color: $dark-text;
-      border-color: $dark-border;
+      color: variables.$dark-text;
+      border-color: variables.$dark-border;
 
       th,
       td {
-        border-color: $dark-border;
+        border-color: variables.$dark-border;
       }
 
       tr {
         &:hover {
-          color: $dark-headline;
+          color: variables.$dark-headline;
         }
 
         &.table-success,
         &.table-success > th,
         &.table-success > td {
           background-color: #2ecc71;
-          color: $dark-headline;
+          color: variables.$dark-headline;
         }
       }
     }
 
     input:not([type='submit']):not([type='button']),
     input:focus,
-    .custom-select,
-    .custom-file-label,
-    .custom-file-label::after,
+    .form-select,
     .CodeMirror,
-    .input-group-prepend span,
-    .input-group-append span {
-      background-color: $dark-input;
-      color: $dark-headline;
-      border-color: $dark-border;
+    .input-group span {
+      background-color: variables.$dark-input;
+      color: variables.$dark-headline;
+      border-color: variables.$dark-border;
     }
 
     input:not([type='submit']):not([type='button']) {
       &[disabled],
       &[readonly] {
-        background-color: $dark-card;
-        color: $dark-text;
+        background-color: variables.$dark-card;
+        color: variables.$dark-text;
       }
     }
 
     .editor-toolbar a {
-      color: $dark-headline !important;
+      color: variables.$dark-headline !important;
 
       &:hover,
       &.active {
-        background-color: $dark-input !important;
+        background-color: variables.$dark-input !important;
       }
     }
 
     .CodeMirror-cursor {
-      border-left-color: $dark-text;
-      transition: border-left-color $dark-mode-transition-duration
-        $dark-mode-transition-type;
+      border-left-color: variables.$dark-text;
+      transition: border-left-color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type;
     }
 
     .list-group-item {
-      background-color: $dark-card;
-      transition: background-color $dark-mode-transition-duration
-        $dark-mode-transition-type;
+      background-color: variables.$dark-card;
+      transition: background-color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type;
     }
 
     .modal-content {
-      background-color: $dark-card;
-      transition: background-color $dark-mode-transition-duration
-        $dark-mode-transition-type;
+      background-color: variables.$dark-card;
+      transition: background-color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type;
     }
 
-    .close {
-      color: $dark-text;
-      transition: color $dark-mode-transition-duration
-        $dark-mode-transition-type;
+    .btn-close {
+      color: variables.$dark-text;
+      transition: color variables.$dark-mode-transition-duration
+        variables.$dark-mode-transition-type;
     }
 
     .editor-toolbar {
       &.fullscreen {
-        background-color: $dark-background;
-        z-index: $z-index-editor-fullscreen;
-        transition: background-color $dark-mode-transition-duration
-          $dark-mode-transition-type;
+        background-color: variables.$dark-background;
+        z-index: variables.$z-index-editor-fullscreen;
+        transition: background-color variables.$dark-mode-transition-duration
+          variables.$dark-mode-transition-type;
       }
 
       &.disabled-for-preview {
@@ -295,12 +288,12 @@ body {
     }
 
     .editor-preview {
-      background-color: $dark-background;
+      background-color: variables.$dark-background;
     }
 
     .editor-preview-side {
-      background-color: $dark-background;
-      z-index: $z-index-editor-fullscreen;
+      background-color: variables.$dark-background;
+      z-index: variables.$z-index-editor-fullscreen;
     }
   }
 }
@@ -490,12 +483,6 @@ div.g-recaptcha.g-recaptcha-disabled {
 @media (max-width: 575px) {
   .responsive-3-col-arrow {
     transform: rotate(90deg);
-  }
-}
-
-@media (min-width: 576px) {
-  .card-columns.card-columns-2 {
-    column-count: 2;
   }
 }
 

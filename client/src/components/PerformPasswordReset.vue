@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts">
-import { data } from 'jquery';
 import { defineComponent } from 'vue';
 import { useForm } from '../compositions/useForm';
 import { TOAST_FORM_INVALID, TOAST_PASSWORD_RESET_SET_FAILED, TOAST_PASSWORD_RESET_SET_SUCCESS } from '../const/toasts.const';

@@ -3,14 +3,14 @@
     <h6>
       File Hashes
       <template v-if="forVersion">
-        for <span class="badge badge-info mx-1">Version {{ forVersion }}</span>
+        for <span class="badge bg-info mx-1">Version {{ forVersion }}</span>
       </template>
     </h6>
     <template v-if="hashes">
       <div class="row" v-for="(hash, name) in hashes" :key="hash">
         <div class="col-sm-2">{{ name }}:</div>
         <div class="col-10">
-          <span class="badge badge-secondary mx-1 text-wrap mw-100">
+          <span class="badge bg-secondary mx-1 text-wrap mw-100">
             {{ hash }}
           </span>
         </div>

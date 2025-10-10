@@ -21,7 +21,7 @@
             </div>
             <p class="card-text">
               <small class="text-muted">
-                <i class="far fa-clock mr-1"></i>
+                <i class="far fa-clock me-1"></i>
                 Description last changed on 2021-03-22
               </small>
             </p>
@@ -44,7 +44,6 @@ import { defineComponent, PropType } from 'vue';
 import VueMarkdownIt from 'vue3-markdown-it';
 import { ModDto } from '../../../shared/dto/ModDto';
 import { useMod } from '../compositions/useMod';
-import { $modDetails } from '../_legacy/modDetails';
 import FileHashes from './FileHashes.vue';
 import Icon from './Icon.vue';
 import ModHeader from './ModHeader.vue';
@@ -72,10 +71,6 @@ export default defineComponent({
       ...useMod(props),
     };
   },
-  async mounted() {
-    await this.$nextTick();
-    $modDetails();
-  },
 });
 </script>
 
@@ -86,9 +81,5 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-}
-
-.download-link {
-  cursor: pointer;
 }
 </style>

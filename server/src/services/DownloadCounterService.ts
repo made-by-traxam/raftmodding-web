@@ -1,6 +1,5 @@
 import {createHash} from 'crypto';
-import {EventEmitter} from 'events';
-import {Client} from 'minio';
+import {Client, NotificationPoller} from 'minio';
 import {MoreThan} from 'typeorm';
 import { Cfg, StorageCfg } from "../cfg";
 import {DownloadTracker} from '../entities/DownloadTracker';
@@ -69,7 +68,7 @@ const TRACKING_DURATION = 1000 * 60; // 1 hour
 export class DownloadCounterService {
   private cfg: Cfg;
   private client: Client | null;
-  private modNotificationEmitter?: EventEmitter;
+  private modNotificationEmitter?: NotificationPoller;
   private removalTask?: NodeJS.Timeout;
 
   /**
@@ -87,6 +86,8 @@ export class DownloadCounterService {
         accessKey: storage.accessKey,
         secretKey: storage.secretKey,
         endPoint: storage.endPoint,
+        port: storage.port,
+        useSSL: storage.useSsl,
       });
     } else {
       console.log(
@@ -116,11 +117,11 @@ export class DownloadCounterService {
     );
 
     this.modNotificationEmitter.on('error', (err) => {
-      console.error(err);
+      console.error("Error in bucket notification listener:", err);
     });
     this.modNotificationEmitter.on(
       'notification',
-      (notif: ObjectAccessedGetNotification) => this.processNotification(notif),
+      (notif) => this.processNotification(notif as ObjectAccessedGetNotification),
     );
 
     this.removalTask = setInterval(

@@ -53,8 +53,7 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { data, ready } from 'jquery';
-import { defineComponent } from 'vue';
+import { defineComponent, watch } from 'vue';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
 import ConfirmModal from '../components/modals/ConfirmModal.vue';
@@ -62,6 +61,7 @@ import { useEditRaftVersion } from '../compositions/useEditRaftVersion';
 import { TOAST_FORM_INVALID } from '../const/toasts.const';
 import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'EditRaftVersionPage',
@@ -71,8 +71,20 @@ export default defineComponent({
     ConfirmModal,
   },
   setup(props, ctx) {
+    const editingProps = useEditRaftVersion(ctx);
+    const meta = useSeoMeta({
+      title: `Edit Raft version v${editingProps.data.value.version}`,
+    });
+
+    watch(
+      () => editingProps.data.value.version,
+      (version) => {
+        meta.patch({ title: `Edit Raft version v${version}` });
+      },
+    );
+
     return {
-      ...useEditRaftVersion(ctx),
+      ...editingProps,
     };
   },
   methods: {

@@ -12,13 +12,11 @@
         <div class="modal-header border-bottom-0">
           <h5 class="modal-title" id="confirmModalLabel">Are you sure?</h5>
           <button
-            class="close"
+            class="btn-close"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
           <span id="confirmModalText"></span> Only press continue if you know
@@ -29,7 +27,7 @@
             class="btn btn-outline-danger btn-danger"
             type="button"
             id="confirmModalRedButton"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             @click="$emit('confirm')"
           >
             I know what I am doing, continue
@@ -37,7 +35,7 @@
           <button
             class="btn btn-success"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             @click="$emit('cancel')"
           >
             I've changed my mind

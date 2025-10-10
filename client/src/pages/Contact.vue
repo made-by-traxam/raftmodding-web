@@ -67,16 +67,17 @@
 </template>
 
 <script lang="ts">
+import { useSeoMeta } from '@unhead/vue';
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 
 export default defineComponent({
   name: 'ContactPage',
   setup() {
-    const meta = useActiveMeta();
-    const brand = import.meta.env.VITE_BRAND;
+    useSeoMeta({
+      title: 'Contact',
+    });
 
-    meta.title = 'Contact';
+    const brand = import.meta.env.VITE_BRAND;
 
     return {
       brand,

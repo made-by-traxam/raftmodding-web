@@ -5,7 +5,7 @@ export const defaultStyles: Styles = {
     root: 'control',
     withLabelWrapper: 'with-label-wrapper',
     wrapper: 'wrapper',
-    label: 'label',
+    label: 'form-label',
     description: 'description',
     input: 'input',
     checkbox: 'checkbox',
@@ -45,6 +45,6 @@ export const defaultStyles: Styles = {
     itemDelete: 'array-list-item-delete',
   },
   label: {
-    root: 'label-element',
+    root: 'form-label',
   },
 };

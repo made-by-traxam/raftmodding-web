@@ -49,14 +49,14 @@
 </template>
 
 <script lang="ts">
+import { useSeoMeta } from '@unhead/vue';
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 
 export default defineComponent({
   setup() {
-    const meta = useActiveMeta();
-
-    meta.title = `Terms of Service`;
+    useSeoMeta({
+      title: 'Terms of Service',
+    });
   },
 });
 </script>

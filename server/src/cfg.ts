@@ -57,6 +57,8 @@ export interface StorageCfg {
   accessKey: string;
   secretKey: string;
   endPoint: string;
+  port: number;
+  useSsl: boolean;
   publicBucket: string;
   privateBucket: string;
 }
@@ -286,6 +288,30 @@ const readStorageConfig = (): StorageCfg | undefined => {
       throw new Error(`STORAGE_ENDPOINT`);
     }
 
+    const storagePortString = process.env.STORAGE_PORT;
+    let storagePort: number = 9000;
+    if (storagePortString === undefined) {
+      throw new Error(`STORAGE_PORT`);
+    } else {
+      storagePort = parseInt(storagePortString, 10);
+      if (Number.isNaN(storagePort)) {
+        throw new Error(`STORAGE_PORT`);
+      }
+    }
+
+    const storageUseSslString = process.env.STORAGE_SSL;
+    if (storageUseSslString === undefined) {
+      throw new Error(`STORAGE_SSL`);
+    }
+    let storageUseSsl: boolean = false;
+    if (storageUseSslString === `true`) {
+      storageUseSsl = true;
+    } else if (storageUseSslString === `false`) {
+      storageUseSsl = false;
+    } else {
+      throw new Error(`STORAGE_SSL`);
+    }
+
     const storagePublicBucket = process.env.STORAGE_PUBLIC_BUCKET;
     if (storagePublicBucket === undefined) {
       throw new Error(`STORAGE_PUBLIC_BUCKET`);
@@ -300,6 +326,8 @@ const readStorageConfig = (): StorageCfg | undefined => {
       accessKey: storageAccessKey,
       secretKey: storageSecretKey,
       endPoint: storageEndPoint,
+      port: storagePort,
+      useSsl: storageUseSsl,
       publicBucket: storagePublicBucket,
       privateBucket: storagePrivateBucket
     }

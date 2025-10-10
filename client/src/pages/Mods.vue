@@ -24,15 +24,21 @@
       />
 
       <div v-else class="mx-auto w-100 search-results-empty">
-        <div class="card-deck">
-          <placeholder-mod-card
-            transparent
-            class="d-flex justify-content-center align-items-center"
-          >
-            <div class="">No results</div>
-          </placeholder-mod-card>
-          <placeholder-mod-card transparent />
-          <placeholder-mod-card />
+        <div class="row row-cols-3">
+          <div class="col p-3">
+            <placeholder-mod-card
+              transparent
+              class="d-flex justify-content-center align-items-center"
+            >
+              <div class="">No results</div>
+            </placeholder-mod-card>
+          </div>
+          <div class="col p-3">
+            <placeholder-mod-card transparent />
+          </div>
+          <div class="col p-3">
+            <placeholder-mod-card />
+          </div>
         </div>
       </div>
     </template>
@@ -42,13 +48,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import Icon from '../components/Icon.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import ModsCardDeck from '../components/ModsCardDeck.vue';
 import ModSearcher from '../components/ModSearcher.vue';
 import PlaceholderModCard from '../components/PlaceholderModCard.vue';
 import { useMods } from '../compositions/useMods';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'ModsPage',
@@ -60,13 +66,13 @@ export default defineComponent({
     PlaceholderModCard,
   },
   setup() {
-    const meta = useActiveMeta();
     const defaultQuery = {
       sort: '-createdAt',
     };
 
-    meta.title = 'Mods';
-    meta.ogTitle = meta.titleTemplate('Mods');
+    useSeoMeta({
+      title: 'Mods',
+    });
 
     return {
       defaultQuery,

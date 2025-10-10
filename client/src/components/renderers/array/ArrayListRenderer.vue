@@ -8,7 +8,7 @@
       >
         +
       </button>
-      <label :class="styles.arrayList.label">
+      <label class="form-label" :class="styles.arrayList.label">
         {{ control.label }}
       </label>
     </legend>

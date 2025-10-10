@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="card-text">
             <form>
-              <div class="form-group row">
+              <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="username"
                   >Username</label
                 >
@@ -26,7 +26,7 @@
                   </small>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="email"
                   >E-Mail</label
                 >
@@ -46,7 +46,7 @@
                   </small>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="email"
                   >Password:</label
                 >
@@ -86,16 +86,15 @@ import { defineComponent } from 'vue';
 
 import { Session, User } from '../types';
 
-import { useActiveMeta } from 'vue-meta';
 import { state } from '../store/store';
-import { $tooltip } from '../_legacy/tooltip';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'AccountPage',
   setup() {
-    const meta = useActiveMeta();
-
-    meta.title = 'Account';
+    useSeoMeta({
+      title: 'Account',
+    });
   },
   computed: {
     session(): Session {
@@ -105,20 +104,17 @@ export default defineComponent({
       return state.jwt?.user || ({} as User);
     },
   },
-  mounted() {
-    $tooltip();
-  },
 });
 </script>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables';
+@use '../assets/styles/variables';
 
 body {
   label.btn.btn-outline-secondary {
     opacity: 1;
     color: #000;
-    transition: color $dark-mode-transition-duration $dark-mode-transition-type;
+    transition: color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
   }
 
   &[data-theme='dark'] {

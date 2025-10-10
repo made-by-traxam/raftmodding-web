@@ -7,12 +7,12 @@
     :appliedOptions="appliedOptions"
     :show-errors="showErrors"
   >
-    <div class="custom-file">
+    <div class="input-group">
       <input
         type="file"
         :id="control.id + '-input'"
         :accept="appliedOptions.accept"
-        class="custom-file-input"
+        class="form-control"
         :class="[styles.control.file, { [validationCls]: showErrors }]"
         :disabled="!control.enabled"
         :autofocus="appliedOptions.focus"
@@ -21,11 +21,6 @@
         @focus="isFocused = true"
         @blur="isFocused = false"
       />
-      <label
-        class="custom-file-label"
-        for="customFile"
-        v-html="filename || placeholder"
-      ></label>
     </div>
   </control-wrapper>
 </template>
@@ -57,13 +52,11 @@ const controlRenderer = defineComponent({
     ...rendererProps<ControlElement>(),
   },
   setup(props) {
-    const filename = ref<string>();
     return {
       ...useVanillaControl(useJsonFormsControl(props), (target) => ({
         name: target._$name,
         base64: target._$base64,
       })),
-      filename,
     };
   },
   methods: {
@@ -74,7 +67,6 @@ const controlRenderer = defineComponent({
 
       if (files?.[0]) {
         file = files[0];
-        this.filename = `&#8230;/${file.name}`;
         value = await toBase64(file);
         console.log(value);
       }
@@ -94,11 +86,3 @@ export const entry: JsonFormsRendererRegistryEntry = {
   tester: rankWith(2, isFileControl),
 };
 </script>
-
-<style scoped lang="scss">
-.custom-file {
-  .custom-file-label {
-    color: #a3a3a3;
-  }
-}
-</style>

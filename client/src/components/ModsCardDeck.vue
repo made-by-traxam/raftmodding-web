@@ -3,16 +3,24 @@
     <div
       v-for="(modGroup, i) in modGroups"
       :key="`mod-group-${i}`"
-      class="card-deck"
+      class="row row-cols-sm-1 row-cols-lg-3"
       :class="groupCls"
     >
-      <mod-card
+      <div
         v-for="(mod, ii) in modGroup"
         :key="`mod-${mod.id}`"
-        :mod="mod"
-      />
-      <placeholder-mod-card v-if="modGroup.length <= 2" />
-      <placeholder-mod-card v-if="modGroup.length <= 1" transparent />
+        class="col p-3"
+      >
+        <mod-card
+          :mod="mod"
+        />
+      </div>
+      <div class="col p-3" v-if="modGroup.length <= 2">
+        <placeholder-mod-card/>
+      </div>
+      <div class="col p-3" v-if="modGroup.length <= 1">
+        <placeholder-mod-card transparent />
+      </div>
     </div>
   </div>
 </template>

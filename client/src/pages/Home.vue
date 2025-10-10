@@ -1,14 +1,12 @@
 <template>
   <div class="wrapper">
     <div class="container">
-      <section class="my-5">
-        <div class="jumbotron my-5 mx-1 bg-transparent">
-          <div>
-            <h1 class="display-4">Welcome to {{ brand }}!</h1>
-            <p class="lead">
-              The largest community for mods, scripts and utilities for Raft!
-            </p>
-          </div>
+      <section class="my-5 py-5 mx-1">
+        <div>
+          <h1 class="display-4">Welcome to {{ brand }}!</h1>
+          <p class="lead">
+            The largest community for mods, scripts and utilities for Raft!
+          </p>
         </div>
       </section>
       <section class="my-5">
@@ -23,7 +21,7 @@
           </div>
           <div class="col-sm-8">
             <h2>Modding your game</h2>
-            <p class="text-left">
+            <p class="text-start">
               To get started with modding, you will first need to install
               <router-link :to="{ name: 'download' }"
                 >our ModLoader</router-link
@@ -36,15 +34,15 @@
             </p>
             <router-link
               :to="{ name: 'download' }"
-              class="btn btn-success btn-lg mr-2 mt-2"
+              class="btn btn-success btn-lg me-2 mt-2"
             >
-              <i class="fas fa-download mr-2"></i> Download ModLoader
+              <i class="fas fa-download me-2"></i> Download ModLoader
             </router-link>
             <router-link
               :to="{ name: 'mods' }"
-              class="btn btn-primary btn-lg mr-2 mt-2"
+              class="btn btn-primary btn-lg me-2 mt-2"
             >
-              <i class="fas fa-plug mr-2"></i> Browse mods
+              <i class="fas fa-plug me-2"></i> Browse mods
             </router-link>
           </div>
           <div class="col-sm-1"></div>
@@ -68,9 +66,9 @@ import { defineComponent, reactive } from 'vue';
 import { api } from '../modules/api';
 import { Mod } from '../types';
 
-import { useActiveMeta } from 'vue-meta';
 import ModsCardDeck from '../components/ModsCardDeck.vue';
 import {META_DEFAULT_TITLE} from "../const/meta.const";
+import { useSeoMeta } from '@unhead/vue';
 
 interface ModCollection {
   mostDownloaded: Mod[];
@@ -81,14 +79,15 @@ export default defineComponent({
   name: 'HomePage',
   components: { ModsCardDeck },
   setup() {
-    const meta = useActiveMeta();
+    useSeoMeta({
+      title: META_DEFAULT_TITLE
+    });
+
     const brand = import.meta.env.VITE_BRAND;
     const mods: ModCollection = reactive({
       mostDownloaded: [],
       mostLiked: [],
     });
-
-    meta.title = META_DEFAULT_TITLE;
 
     (async () => {
       mods.mostDownloaded = await api.getMostDownloadedMods();

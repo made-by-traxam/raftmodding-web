@@ -1,5 +1,4 @@
 import { computed, ref, watch } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { useRoute } from 'vue-router';
 import { ModCreateDto } from '../../../shared/dto/ModDto';
 import { api } from '../modules/api';
@@ -14,7 +13,6 @@ export interface ExtendedMod extends Mod {
 }
 
 export const useModEditing = (create: boolean = false) => {
-  const meta = useActiveMeta();
   const routeLeaveConfirm = useRouteLeaveConfirm();
   const route = useRoute();
   const ready = ref(false);
@@ -52,11 +50,6 @@ export const useModEditing = (create: boolean = false) => {
       }
     }
 
-    if (create) {
-      meta.title = `Create new mod`;
-    } else {
-      meta.title = `Edit ${mod.value.title || 'MISSING_TITLE'}"`;
-    }
 
     ready.value = true;
   })();
@@ -68,7 +61,6 @@ export const useModEditing = (create: boolean = false) => {
         if (!ready.value) return;
 
         mod.value.id = title ? slugify(title) : '';
-        meta.title = `Edit ${mod.value.title || ''}`;
       },
     );
   }

@@ -21,7 +21,6 @@
 
 <script lang="ts">
 import { defineComponent, Ref, ref } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { useRoute } from 'vue-router';
 import { ModDto } from '../../../shared/dto/ModDto';
 import ModDetails from '../components/ModDetails.vue';
@@ -30,6 +29,7 @@ import ModRightTable from '../components/ModRightTable.vue';
 import ModVersionDetails from '../components/ModVersionDetails.vue';
 import { useLikes } from '../compositions/useLikes';
 import { api } from '../modules/api';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'ModVersionsPage',
@@ -40,13 +40,17 @@ export default defineComponent({
     ModDetails,
   },
   setup() {
-    const meta = useActiveMeta();
+    const meta = useSeoMeta({
+      title: 'Loading mod versions...',
+    });
     const mod = ref<ModDto>();
 
     (async () => {
       const route = useRoute();
       mod.value = await api.getMod(route.params.id as string);
-      meta.title = `${mod.value?.title} versions`;
+      meta.patch({
+        title: `${mod.value?.title} versions`
+      });
     })();
 
     return {

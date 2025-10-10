@@ -20,10 +20,10 @@
       <p class="card-text">{{ mod.description }}</p>
     </div>
     <div class="pt-0 pb-3 card-footer border-0 d-flex justify-space-between">
-      <div class="mr-auto">
+      <div class="me-auto">
         <router-link
           :to="{ name: 'mod', params: { id: mod.id } }"
-          class="btn btn-primary mr-2 stretched-link"
+          class="btn btn-primary me-2 stretched-link"
         >
           View mod
         </router-link>

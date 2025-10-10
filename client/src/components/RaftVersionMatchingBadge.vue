@@ -38,11 +38,11 @@ const vTitle = computed<string>(() => {
   <component
     :is="component"
     :to="to"
-    class="badge badge-pill mx-1"
+    class="badge rounded-pill mx-1"
     :class="{
-      'badge-success': isUpToDate,
-      'badge-warning': !isUpToDate && isUntested,
-      'badge-danger': !isUpToDate && !isUntested,
+      'bg-success': isUpToDate,
+      'bg-warning': !isUpToDate && isUntested,
+      'bg-danger': !isUpToDate && !isUntested,
     }"
     :title="vTitle"
   >

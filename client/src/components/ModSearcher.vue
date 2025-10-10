@@ -48,33 +48,17 @@ defineExpose({
               v-model="search"
               aria-describedby="addon1"
               aria-label="test"
-              class="form-control form-control-lg border-top-0 border-right-0 border-left-0 border-bottom-0"
+              class="form-control form-control-lg border-top-0 border-end-0 border-start-0 border-bottom-0"
               name="q"
               placeholder="Search..."
               type="search"
             />
-            <div class="input-group-append">
-              <!-- button
-                aria-controls="search-filters"
-                class="btn btn-outline-primary border-0"
-                data-target="#search-filters"
-                data-toggle="collapse"
-                type="button"
-              >
-                <icon name="filter" />
-              </button -->
-              <button class="btn btn-primary" type="submit">
-                <Icon name="search" />
-              </button>
-            </div>
+            <button class="btn btn-primary" type="submit">
+              <Icon name="search" />
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <!-- div id="search-filters" class="collapse w-100">
-      <div class="card card-body mt-3">
-        <fieldset class="form-group mb-0"></fieldset>
-      </div>
-    </div -->
   </form>
 </template>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {computed, watch} from 'vue';
+import {computed, onMounted, watch} from 'vue';
 import {useRouter} from 'vue-router';
 import {useToaster} from '../compositions/useToaster';
 import {isSessionExpired as isSessionExpiredAction, killSession} from '../store/actions/session.actions';
-import {state, Theme} from '../store/store';
-import {Session, User} from '../types';
+import {state} from '../store/store';
 import Icon from './Icon.vue';
-import JwtState from "JwtState";
+import JwtState from "../types/JwtState";
+import TheDonationModal from './modals/TheDonationModal.vue';
 
 const router = useRouter();
 const toaster = useToaster();
@@ -14,7 +14,6 @@ const toaster = useToaster();
 const session = computed<JwtState | null>(() => state.jwt);
 const username = computed<string>(() => session.value?.username || '');
 const isAdmin = computed<boolean>(() => session.value?.roles.includes('admin') || false);
-const theme = computed<Theme>(() => state.theme);
 const isSessionExpired = computed<boolean>(() => isSessionExpiredAction());
 const vUsername = computed<string>(() => {
   if (username.value.length <= 10) {
@@ -25,7 +24,7 @@ const vUsername = computed<string>(() => {
 });
 
 watch(session, async () => {
-  console.log(session.value);
+  console.log('Session:', session.value);
 }, { immediate: true })
 
 const logout = async () => {
@@ -38,14 +37,14 @@ const logout = async () => {
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-blue sticky-top">
     <div class="container">
-      <router-link :to="{ name: 'home' }" class="navbar-brand mr-2 logo">
+      <router-link :to="{ name: 'home' }" class="navbar-brand me-2 logo">
         <img src="/logo.png" alt="logo"/>
       </router-link>
       <button
           class="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -53,25 +52,32 @@ const logout = async () => {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
           <li
               class="mx-2 nav-item"
-              :class="{
-              active:
-                $route.path.startsWith('/download') ||
-                $route.path.startsWith('/loader'),
-            }"
           >
-            <router-link :to="{ name: 'download' }" class="nav-link">
+            <router-link :to="{ name: 'download' }"
+              :class="{
+                'nav-link': true,
+                active:
+                  $route.path.startsWith('/download') ||
+                  $route.path.startsWith('/loader'),
+              }"
+            >
               <Icon name="bolt" class="mx-1"/>
               Mod loader
             </router-link>
           </li>
           <li
               class="mx-2 nav-item"
-              :class="{ active: $route.path.startsWith('/mods') }"
           >
-            <router-link :to="{ name: 'mods' }" class="nav-link">
+            <router-link
+              :to="{ name: 'mods' }"
+              :class="{
+                'nav-link': true,
+                active: $route.path.startsWith('/mods'),
+              }"
+            >
               <Icon name="plug" class="mx-1"/>
               Mods
             </router-link>
@@ -82,10 +88,10 @@ const logout = async () => {
             <a
                 class="nav-link"
                 href="/discord"
-                data-toggle="tooltip"
-                title=""
+                data-bs-toggle="tooltip"
+                data-bs-title="Discord server"
+                data-bs-placement="bottom"
                 target="_blank"
-                data-original-title="Discord server"
             >
               <Icon type="b" name="discord" class="mx-2"/>
               <span class="d-inline d-lg-none">Discord server</span>
@@ -96,21 +102,20 @@ const logout = async () => {
                 class="nav-link"
                 href="/docs"
                 target="_blank"
-                data-toggle="tooltip"
-                title=""
-                data-original-title="Documentation"
+                data-bs-toggle="tooltip"
+                data-bs-title="Documentation"
+                data-bs-placement="bottom"
             >
               <Icon name="book" class="mx-2"/>
               <span class="d-inline d-lg-none">Documentation</span>
             </a>
           </li>
-          <li class="mx-1 nav-item">
+          <li class="mx-1 nav-item" data-bs-toggle="tooltip" data-bs-title="Support us" data-bs-placement="bottom">
             <a
-                class="nav-link donate-button"
+                class="nav-link"
                 href="#"
-                data-toggle="tooltip"
-                title=""
-                data-original-title="Donate"
+                data-bs-toggle="modal"
+                data-bs-target="#donate-modal"
             >
               <Icon name="donate" class="mx-2"/>
               <span class="d-inline d-lg-none">Support us</span>
@@ -132,7 +137,7 @@ const logout = async () => {
                   class="nav-link d-lg-flex justify-content-between align-items-center"
                   href="#"
                   role="button"
-                  data-toggle="dropdown"
+                  data-bs-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                   id="navbarDropdownMenuLink"
@@ -140,7 +145,7 @@ const logout = async () => {
               >
                 <Icon name="user" class="mx-2"/>
                 {{ vUsername }}
-                <icon name="caret-down" class="float-right ml-md-1"/>
+                <icon name="caret-down" class="float-end ms-md-1"/>
               </a>
               <div
                   class="dropdown-menu mb-2"
@@ -150,37 +155,37 @@ const logout = async () => {
                     :to="{ name: 'user', params: { username } }"
                     class="dropdown-item"
                 >
-                  <i class="fas fa-user-circle mr-1"></i>
+                  <i class="fas fa-user-circle me-1"></i>
                   {{ username }} profile
                 </router-link>
                 <router-link :to="{ name: 'account' }" class="dropdown-item">
-                  <i class="fas fa-cog mr-1"></i> Account settings
+                  <i class="fas fa-cog me-1"></i> Account settings
                 </router-link>
                 <button class="dropdown-item" @click="logout">
-                  <i class="fas fa-sign-out-alt mr-1"></i> Sign out
+                  <i class="fas fa-sign-out-alt me-1"></i> Sign out
                 </button>
               </div>
             </li>
-            <li class="mx-1 nav-item dropdown active">
+            <li class="mx-1 nav-item dropdown">
               <a
                   class="nav-link"
                   href="#"
                   role="button"
-                  data-toggle="dropdown"
+                  data-bs-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="true"
                   id="navbarAddDropdown"
               >
                 <span class="d-none d-lg-inline">
                   <i
-                      class="fas fa-plus-circle ml-3"
+                      class="fas fa-plus-circle ms-3"
                       style="transform: scale(2)"
                   ></i>
                 </span>
                 <span class="d-inline d-lg-none">
                   <i class="fas fa-plus mx-2"></i>
                   Add
-                  <icon name="caret-down" class="float-right"/>
+                  <icon name="caret-down" class="float-end"/>
                 </span>
               </a>
               <div
@@ -188,31 +193,31 @@ const logout = async () => {
                   aria-labelledby="navbarAddDropdown"
               >
                 <router-link :to="{ name: 'addMod' }" class="dropdown-item">
-                  <i class="fas fa-plug mr-1" style="width: 20px"></i>
+                  <i class="fas fa-plug me-1" style="width: 20px"></i>
                   Add a mod
                 </router-link>
                 <template v-if="isAdmin">
                   <hr class="mt-2 mb-1"/>
-                  <small class="text-muted ml-4">ADMIN TOOLS</small>
+                  <small class="text-muted ms-4">ADMIN TOOLS</small>
                   <router-link
                       :to="{ name: 'addLoaderVersion' }"
                       class="dropdown-item"
                   >
-                    <i class="fas fa-bolt mr-1" style="width: 20px"></i>
+                    <i class="fas fa-bolt me-1" style="width: 20px"></i>
                     Add a loader version
                   </router-link>
                   <router-link
                       :to="{ name: 'addLauncherVersion' }"
                       class="dropdown-item"
                   >
-                    <i class="fas fa-desktop mr-1" style="width: 20px"></i>
+                    <i class="fas fa-desktop me-1" style="width: 20px"></i>
                     Add a launcher version
                   </router-link>
                   <router-link
                       :to="{ name: 'addRaftVersion' }"
                       class="dropdown-item"
                   >
-                    <i class="fas fa-anchor mr-1" style="width: 20px"></i>
+                    <i class="fas fa-anchor me-1" style="width: 20px"></i>
                     Add a Raft version
                   </router-link>
                 </template>
@@ -223,13 +228,13 @@ const logout = async () => {
                   class="nav-link"
                   href="#"
                   role="button"
-                  data-toggle="dropdown"
+                  data-bs-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                   id="navbarAdminDropdown"
               >
                 <span class="d-none d-lg-inline">
-                  <i class="fas fa-cogs ml-3"></i>
+                  <i class="fas fa-cogs ms-3"></i>
                 </span>
                 <span class="d-inline d-lg-none">
                   <i class="fas fa-cogs mx-2"></i> Admin options
@@ -243,21 +248,21 @@ const logout = async () => {
                     :to="{ name: 'launcherVersionManagement' }"
                     class="dropdown-item"
                 >
-                  <i class="fas fa-desktop mr-1" style="width: 20px"></i>
+                  <i class="fas fa-desktop me-1" style="width: 20px"></i>
                   Launcher version management
                 </router-link>
                 <router-link
                     :to="{ name: 'loaderVersionManagement' }"
                     class="dropdown-item"
                 >
-                  <i class="fas fa-bolt mr-1" style="width: 20px"></i>
+                  <i class="fas fa-bolt me-1" style="width: 20px"></i>
                   Loader version management
                 </router-link>
                 <router-link
                     :to="{ name: 'raftVersionManagement' }"
                     class="dropdown-item"
                 >
-                  <i class="fas fa-anchor mr-1" style="width: 20px"></i>
+                  <i class="fas fa-anchor me-1" style="width: 20px"></i>
                   Raft version management
                 </router-link>
               </div>
@@ -271,10 +276,10 @@ const logout = async () => {
 </template>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables';
+@use '../assets/styles/variables';
 
 .navbar {
-  transition: background-color $dark-mode-transition-duration $dark-mode-transition-type;
+  transition: background-color variables.$dark-mode-transition-duration variables.$dark-mode-transition-type;
 
   .nav-link {
     transition: color 0.25s ease-in-out;

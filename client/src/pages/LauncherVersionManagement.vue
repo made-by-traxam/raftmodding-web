@@ -3,7 +3,7 @@
     <section>
       <h1>Launcher Version Management</h1>
       <router-link :to="{ name: 'addLauncherVersion' }" class="btn btn-success">
-        <icon name="plus" class="mr-2" /> Add a version
+        <icon name="plus" class="me-2" /> Add a version
       </router-link>
     </section>
     <section class="my-5">
@@ -33,20 +33,20 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import { LauncherVersionDto } from '../../../shared/dto/LauncherVersionDto';
 import Icon from '../components/Icon.vue';
 import { api } from '../modules/api';
 import { toDateStr } from '../utils';
+import { useSeoMeta } from '@unhead/vue';
 export default defineComponent({
   components: { Icon },
   name: 'LauncherVersionManagement',
   setup() {
-    const meta = useActiveMeta();
+    useSeoMeta({
+      title: 'Launcher version management',
+    });
+
     const versions: Ref<LauncherVersionDto[]> = ref([]);
-
-    meta.title = 'Raft versionm anagement';
-
     (async () => {
       versions.value = await api.getLauncherVersions();
     })();

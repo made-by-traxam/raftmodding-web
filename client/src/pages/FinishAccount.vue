@@ -30,9 +30,7 @@
 </template>
 
 <script lang="ts">
-import { data } from 'jquery';
 import { defineComponent, ref } from 'vue';
-import { useActiveMeta } from 'vue-meta';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
 import { useForm } from '../compositions/useForm';
@@ -41,14 +39,15 @@ import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
 import { isSessionExpired } from '../store/actions/session.actions';
 import { state } from '../store/store';
+import { useSeoMeta } from '@unhead/vue';
 
 export default defineComponent({
   name: 'FinishAccountPage',
   components: { ApiProvidedForm, Icon },
   setup(_props, ctx) {
-    const meta = useActiveMeta();
-
-    meta.title = 'Finish account setup';
+    useSeoMeta({
+      title: 'Finish account setup',
+    });
 
     return {
       ...useForm(ctx),
@@ -92,9 +91,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables';
+@use '../assets/styles/variables';
 
 .discord-login {
-  background-color: $discord;
+  background-color: variables.$discord;
 }
 </style>

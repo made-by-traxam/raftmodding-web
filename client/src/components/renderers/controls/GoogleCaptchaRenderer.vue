@@ -1,6 +1,6 @@
 <template>
-  <div class="form-group">
-    <label :for="control.id">Google Captcha</label>
+  <div class="mb-3">
+    <label class="form-label" :for="control.id">Google Captcha</label>
     <re-captcha
       :site-key="appliedOptions.siteKey"
       @verify="onVerify"
