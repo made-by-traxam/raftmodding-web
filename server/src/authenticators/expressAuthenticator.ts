@@ -7,6 +7,8 @@ import {cfg} from "../cfg";
 import {AuthenticationError} from "../errors/AuthenticationError";
 import {ApiRequest} from "ApiRequest";
 import {AuthtokenPayload} from "AuthtokenPayload";
+import { UserService } from '../services/UserService';
+import { User } from '../entities/User';
 
 /**
  *
@@ -88,3 +90,27 @@ const validateAdminPrivileges = async (jwtPayload: JwtPayload | string) => {
   console.log('validate admin privileges: ', jwtPayload);
   throw new AuthenticationError('Admin privileges check not implemented yet!');
 };
+
+const BEARER_PREFIX = "Bearer: ";
+/**
+ * Returns the user database object associated with a given auth token and throws an error if that could not be resolved.
+ */
+export async function getUserFromAuthToken(tokenWithPrefix: string): Promise<User> {
+  if (!tokenWithPrefix.startsWith(BEARER_PREFIX)) {
+    throw new Error(`Invalid token format, missing '${BEARER_PREFIX}' prefix!`);
+  }
+  const token = tokenWithPrefix.substring(BEARER_PREFIX.length);
+
+  const payload = jwt.verify(token, cfg.server.jwtSecret);
+  if (typeof payload !== 'object' || !('username' in payload) || typeof payload.username !== 'string') {
+    throw new Error(`Missing 'username' in JWT payload!`);
+  }
+
+  const username = payload.username;
+  const user = await UserService.getByUsername(username);
+  if (!user) {
+    throw new Error(`Could not find user associated with username '${username}' from JWT payload!`);
+  }
+
+  return user;
+}

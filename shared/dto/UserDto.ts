@@ -6,8 +6,8 @@ import { UserPrivilegeDto } from './UserPriviligeDto';
 import { WithCreatedAndUpdatedDto } from './WithCreatedAndUpdatedDto';
 
 export interface UserDto extends WithCreatedAndUpdatedDto {
-  id?: number;
-  username?: string;
+  id: number;
+  username: string;
   email?: string;
   password?: string;
   role?: UserRole;

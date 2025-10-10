@@ -27,6 +27,8 @@ import jwt, {JwtPayload, SignOptions} from 'jsonwebtoken';
 import {cfg} from "../cfg";
 import {ApiRequest} from "ApiRequest";
 import {ModLikeService} from "../services/ModLikeService";
+import { getUserFromAuthToken } from '../authenticators/expressAuthenticator';
+import { UserDto } from '../../../shared/dto/UserDto';
 
 @Route('/users')
 export class UserController extends Controller {
@@ -64,6 +66,21 @@ export class UserController extends Controller {
       password: passwordConfirm,
     });
     await User.save(userToUpdate);
+  }
+
+  @Get('/self')
+  @Security('auth_token', ['user'])
+  @OperationId('getSelfUser')
+  public async getSelfUser(
+    @Header() authtoken: string,
+  ): Promise<UserDto> {
+    const selfUser = await getUserFromAuthToken(authtoken);
+    return {
+      id: selfUser.id,
+      username: selfUser.username,
+      email: selfUser.email,
+    };
+    // TODO: can we improve UserDto typing to avoid accidentally leaking emails in other places through our typing model?
   }
 
   @Get('/resetPassword/{token}')

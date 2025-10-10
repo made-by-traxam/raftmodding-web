@@ -7,18 +7,19 @@
           <div class="card-text">
             <form>
               <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="username"
+                <label class="col-sm-2" for="username"
                   >Username</label
                 >
                 <div class="col-sm-10">
                   <div class="w-100">
-                    <label
-                      class="btn btn-outline-secondary disabled"
+                    <input
+                      type="text"
                       aria-describedby="usernameHelp"
                       id="username"
-                    >
-                      {{ user.username }}
-                    </label>
+                      :value="user?.username"
+                      class="form-control"
+                      disabled
+                    />
                   </div>
                   <small class="text-muted" id="usernameHelp">
                     This name will be used in URLs and is shown on your account
@@ -27,18 +28,19 @@
                 </div>
               </div>
               <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="email"
+                <label class="col-sm-2" for="email"
                   >E-Mail</label
                 >
                 <div class="col-sm-10">
                   <div class="w-100">
-                    <label
-                      class="btn btn-outline-secondary disabled"
+                    <input
+                      type="text"
                       aria-describedby="emailHelp"
                       id="email"
-                    >
-                      {{ user.email }}
-                    </label>
+                      :value="user?.email"
+                      class="form-control"
+                      disabled
+                    />
                   </div>
                   <small class="text-muted" id="emailHelp">
                     This address will be used to contact you. It's
@@ -47,13 +49,22 @@
                 </div>
               </div>
               <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label" for="email"
+                <label class="col-sm-2" for="email"
                   >Password:</label
                 >
-                <div class="col-sm-10">
+                <div class="col-sm-7">
+                  <input
+                    type="password"
+                    id="password"
+                    value="Oh no, you found me!"
+                    class="form-control col-sm-8"
+                    disabled
+                  />
+                </div>
+                <div class="col-sm-3">
                   <router-link
                     :to="{ name: 'changePassword' }"
-                    class="btn btn-warning stretched-link"
+                    class="btn btn-primary w-100"
                   >
                     Change password
                   </router-link>
@@ -66,8 +77,8 @@
       <ul>
         <li>
           Go to your
-          <router-link
-            :to="{ name: 'user', params: { username: user.username } }"
+          <router-link v-if="loadingState === 'ready'"
+            :to="{ name: 'user', params: { username: user!.username } }"
           >
             public profile
           </router-link>
@@ -81,30 +92,34 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-import { Session, User } from '../types';
-
-import { state } from '../store/store';
+<script setup lang="ts">
 import { useSeoMeta } from '@unhead/vue';
+import { ref } from 'vue';
+import { LoadingState } from '../utils';
+import { getSelfUser, UserDto } from '../api';
+import { getPersistedAuthtoken } from '../store/persistence.store';
 
-export default defineComponent({
-  name: 'AccountPage',
-  setup() {
-    useSeoMeta({
-      title: 'Account',
-    });
-  },
-  computed: {
-    session(): Session {
-      return state.jwt!;
-    },
-    user(): User {
-      return state.jwt?.user || ({} as User);
-    },
-  },
+useSeoMeta({
+  title: 'Account',
 });
+
+// session is required for this route, as defined in the router action
+const authtoken = getPersistedAuthtoken()!;
+
+const user = ref<UserDto>();
+const loadingState = ref<LoadingState>('loading');
+async function loadSelfUser() {
+  loadingState.value = 'loading';
+  const { data, error } = await getSelfUser({ headers: { authtoken: `Bearer: ${authtoken}` } }); // TODO: move authentication to some more general place
+  if (error !== undefined) {
+    console.error('Error while fetching self user:', error);
+    loadingState.value = 'error';
+  } else {
+    user.value = data;
+    loadingState.value = 'ready';
+  }
+}
+loadSelfUser();
 </script>
 
 <style scoped lang="scss">
