@@ -34,7 +34,7 @@ export class AccountCreationController extends Controller {
       return { error: 'Invalid token!' };
     }
 
-    const user = AccountCreationService.finishRegistration(
+    const user = await AccountCreationService.finishRegistration(
       accountCreation,
       token,
     );

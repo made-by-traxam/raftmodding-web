@@ -30,13 +30,13 @@ export class AccountCreationService extends AbstractService {
    * @param token
    * @returns
    */
-  static finishRegistration(data: AccountCreationDto, token: string) {
-    AccountCreation.delete({ token });
+  static async finishRegistration(data: AccountCreationDto, token: string) {
+    await AccountCreation.delete({ token }); // TODO wrap these ops in a transaction
 
-    return UserService.create(data);
+    return await UserService.create(data);
   }
 
-  static async alreadyExists(username: string, email: string) {
+  static async alreadyExists(username: string, email: string) { // TODO might be prone to race condition
     const existingUser = await UserService.getByUsernameOrEmail(
       username,
       email,
@@ -46,6 +46,6 @@ export class AccountCreationService extends AbstractService {
       email,
     );
 
-    return existingUser || existingAccountCreation;
+    return existingUser !== null || existingAccountCreation !== null;
   }
 }

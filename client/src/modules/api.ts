@@ -413,23 +413,6 @@ class Api {
     return false;
   }
 
-  async deleteAccountCreation(token: string): Promise<boolean> {
-    try {
-      await this.axios.delete(`/accountCreations/${token}`);
-      return true;
-    } catch ({response}) {
-      const {
-        data: {error},
-      } = response as AxiosResponse<ErrorDto>;
-
-      if (error) {
-        toaster.error(error);
-      }
-    }
-
-    return false;
-  }
-
   async likeMod(modId: string) {
     try {
       const {data}: AxiosResponse = await this.axios.post(`/mods/${modId}/like`);

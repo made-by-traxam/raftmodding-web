@@ -13,8 +13,8 @@ import { AuthenticationError } from "../errors/AuthenticationError";
 import { UserPrivilege } from "../entities/UserPrivilege";
 
 export class UserService extends AbstractService {
-  static create(params: DeepPartial<User>) {
-    return User.create(params);
+  static async create(params: DeepPartial<User>) {
+    return await User.save(User.create(params));
   }
 
   static getByEmail(email: string) {

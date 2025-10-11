@@ -51,10 +51,9 @@ import { defineComponent } from 'vue';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import { useForm } from '../compositions/useForm';
 import { TOAST_FORM_INVALID, TOAST_SIGNUP_MAIL_SENT } from '../const/toasts.const';
-import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
 import { useSeoMeta } from '@unhead/vue';
-import { AccountCreationDto, beginAccountCreation } from '../api';
+import { AccountCreationDto, beginAccountCreation, completeAccountCreation } from '../api';
 
 export default defineComponent({
   name: 'SignUpPage',
@@ -72,10 +71,18 @@ export default defineComponent({
   async beforeRouteEnter(to) {
     const { token } = to.query;
 
-    if (token) {
-      await api.deleteAccountCreation(token as string);
+    if (typeof token === 'string') {
+      const { error } = await completeAccountCreation({
+        path: {
+          token,
+        }
+      });
+      if (error !== undefined) {
+        toaster.error('Account confirmation failed. Maybe it has expired?');
+        return
+      }
       toaster.success({
-        message: `You account has been successfully created and confirmed.`,
+        message: `You account has been successfully created and confirmed. You can log in now.`,
         duration: 30 * 1000,
       });
 
