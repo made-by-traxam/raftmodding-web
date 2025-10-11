@@ -22,7 +22,7 @@
       deselect-label="✓"
       select-label=""
       selected-label="✓"
-      @select="onChange"
+      @select="handleSelect"
       @open="isFocused = true"
       @close="isFocused = false"
     >

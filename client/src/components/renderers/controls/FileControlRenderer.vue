@@ -68,7 +68,6 @@ const controlRenderer = defineComponent({
       if (files?.[0]) {
         file = files[0];
         value = await toBase64(file);
-        console.log(value);
       }
       return this.onChange({
         target: { _$base64: value, _$name: file?.name || null, value },
