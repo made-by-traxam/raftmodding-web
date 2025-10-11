@@ -109,6 +109,7 @@ export interface ReCaptchaCfg {
 
 export interface ViteCfg {
   baseUrl: string;
+  frontendUrl: string;
   port: string | number;
   brand: string;
 }
@@ -394,6 +395,12 @@ if (!viteBaseUrl) {
   );
 }
 
+const viteFrontendUrl = process.env.VITE_FRONTEND_URL;
+const viteFrontendUrlDefault = 'http://localhost:3001';
+if(!viteFrontendUrl) {
+  console.warn(`VITE_FRONTEND_URL is not configured! Using default '${viteFrontendUrlDefault}'.`);
+}
+
 const vitePort = process.env.VITE_PORT;
 const vitePortDefault = 3001;
 if (!vitePort) {
@@ -538,7 +545,8 @@ export const cfg: Cfg = {
   vite: {
     baseUrl: viteBaseUrl || viteBaseUrlDefault,
     port: vitePort || vitePortDefault,
-    brand: viteBrand || viteBrandDefault
+    brand: viteBrand || viteBrandDefault,
+    frontendUrl: viteFrontendUrl || viteFrontendUrlDefault,
   },
   reCaptcha: readReCaptchaConfig(),
   discord: readDiscordConfig(),

@@ -23,3 +23,11 @@ services:
       - "9001:9001"
     volumes:
       - "./data/minio:/data"
+
+  email:
+    image: "axllent/mailpit"
+    ports:
+      - "8025:8025" # Web UI
+      - "1025:1025" # SMTP
+    volumes:
+      - "./data/mailpit:/data"
