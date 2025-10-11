@@ -45,31 +45,6 @@ class Api {
     return this.axios.defaults.baseURL;
   }
 
-  async signUp(
-    username: string,
-    email: string,
-    password: string,
-    recaptcha: string,
-  ): Promise<boolean> {
-    try {
-      await this.axios.post('/accountCreations', {
-        username,
-        email,
-        password,
-        recaptcha,
-      });
-      return true;
-    } catch ({response}) {
-      const {
-        data: {error},
-      } = response as AxiosResponse<ErrorDto>;
-      if (error) {
-        toaster.error(error);
-      }
-    }
-    return false;
-  }
-
   async login(username: string, password: string): Promise<boolean> {
     const path = '/users/login';
     try {

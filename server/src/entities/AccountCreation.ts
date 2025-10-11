@@ -21,7 +21,7 @@ export class AccountCreation extends AbstractEntityWithGeneratedId {
 
   @BeforeInsert()
   hashPassword() {
-    this.password = hashSync(this.password);
+    this.password = hashSync(this.password); // TODO: this should not be in the DB logic! Also rename password to passwordHash
   }
 
   @BeforeInsert()

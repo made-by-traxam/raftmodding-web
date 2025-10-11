@@ -9,7 +9,7 @@ import {HttpStatusCode} from "../types/HttpStatusCode";
 export class AccountCreationController extends Controller {
   @Post()
   @Security('captcha')
-  @OperationId('createAccountCreation')
+  @OperationId('beginAccountCreation')
   public async create(@Body() data: AccountCreationDto) {
     const { username, email } = data;
 
@@ -20,12 +20,12 @@ export class AccountCreationController extends Controller {
 
     //TODO: validate body - lol
 
-    AccountCreationService.create(data);
+    await AccountCreationService.create(data);
     this.setStatus(HttpStatusCode.NoContent);
   }
 
   @Delete('/{token}')
-  @OperationId('deleteAccountCreation')
+  @OperationId('completeAccountCreation')
   public async delete(@Path() token: string) {
     const accountCreation = await AccountCreationService.getByToken(token);
 

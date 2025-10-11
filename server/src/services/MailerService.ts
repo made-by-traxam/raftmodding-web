@@ -24,9 +24,9 @@ export class MailerService {
    */
   async sendPasswordResetMail(user: User, token: string): Promise<void> {
     const { email, username } = user;
-    const baseUrl = cfg.vite.baseUrl;
+    const baseUrl = cfg.vite.frontendUrl;
     const brand = cfg.vite.brand;
-    const url = `${baseUrl}forgotpassword?token=${token}`;
+    const url = `${baseUrl}/forgotpassword?token=${token}`;
 
     const mailData = {
       from: this.opts.from,
@@ -46,9 +46,9 @@ export class MailerService {
     accountCreation: AccountCreation,
   ): Promise<void> {
     const { token, username, email } = accountCreation;
-    const baseUrl = cfg.vite.baseUrl;
+    const baseUrl = cfg.vite.frontendUrl;
     const brand = cfg.vite.brand;
-    const url = `${baseUrl}signup?token=${token}`;
+    const url = `${baseUrl}/signup?token=${token}`;
 
     const mailData = {
       from: this.opts.from,
@@ -66,7 +66,7 @@ export class MailerService {
     try {
       await this.transporter.sendMail(mailData);
     } catch (e) {
-      console.error('failed to send reset-password-mail: ', e);
+      console.error('failed to send account creation email: ', e);
     }
   }
 

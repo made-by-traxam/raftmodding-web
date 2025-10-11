@@ -17,10 +17,9 @@ export class AccountCreationService extends AbstractService {
 
   /**
    * create a new AccountCreation and send an email
-   * @param data
    */
-  static create(data: AccountCreationDto) {
-    const accountCreation = AccountCreation.create(data as AccountCreation);
+  static async create(data: AccountCreationDto) {
+    const accountCreation = await AccountCreation.save(AccountCreation.create(data as AccountCreation))
 
     mailer.sendAccountCreationMail(accountCreation);
   }
