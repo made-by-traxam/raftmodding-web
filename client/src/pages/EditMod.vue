@@ -96,8 +96,8 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, watch } from 'vue';
+<script setup lang="ts">
+import { watch } from 'vue';
 
 import { useModEditing } from '../compositions/useModEditing';
 import { api } from '../modules/api';
@@ -109,52 +109,49 @@ import ConfirmModal from '../components/modals/ConfirmModal.vue';
 import ModDangerZone from '../components/ModDangerZoner.vue';
 import ModDetails from '../components/ModDetails.vue';
 import { useSeoMeta } from '@unhead/vue';
+import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  name: 'EditModPage',
-  components: {
-    ModDangerZone,
-    Icon,
-    ApiProvidedForm,
-    ModDetails,
-    ConfirmModal,
-  },
-  setup() {
-    const modEditingProps = useModEditing();
-    const meta = useSeoMeta({
-      title: `Edit ${modEditingProps.mod.value.title}`,
-    });
-    watch(
-      () => modEditingProps.mod.value.title,
-      (title) => {
-        meta.patch({ title: `Edit ${title}` });
-      },
-    );
-
-    return {
-      ...modEditingProps,
-    };
-  },
-  methods: {
-    async onSubmit(): Promise<void> {
-      if (!this.loading) {
-        this.loading = true;
-        this.showErrors = true;
-        delete this.mod.versions;
-        const updatedMod = await api.updateMod(this.mod);
-        if (!!updatedMod) {
-          this.hasUnsavedChanges = false;
-          await this.$router.push({
-            name: 'mod',
-            params: { id: updatedMod.id },
-          });
-          toaster.success(
-            `Your mod <b>"${updatedMod.title}"</b> has been updated!`,
-          );
-        }
-        this.loading = false;
-      }
-    },
-  },
+const router = useRouter();
+const modEditingProps = useModEditing();
+const {
+  mod,
+  loading,
+  showErrors,
+  hasUnsavedChanges,
+  showModal,
+  onRouteLeaveCancel,
+  onRouteLeaveConfirm,
+  ready,
+  onChange
+} = modEditingProps;
+const meta = useSeoMeta({
+  title: `Edit ${mod.value.title}`,
 });
+
+watch(
+  () => mod.value.title,
+  (title) => {
+    meta.patch({ title: `Edit ${title}` });
+  },
+);
+
+async function onSubmit() {
+  if (!loading.value) {
+    loading.value = true;
+    showErrors.value = true;
+    delete mod.value.versions;
+    const updatedMod = await api.updateMod(mod.value);
+    if (!!updatedMod) {
+      hasUnsavedChanges.value = false;
+      await router.push({
+        name: 'mod',
+        params: { id: updatedMod.id },
+      });
+      toaster.success(
+        `Your mod <b>"${updatedMod.title}"</b> has been updated!`,
+      );
+    }
+    loading.value = false;
+  }
+}
 </script>

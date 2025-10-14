@@ -80,8 +80,8 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { ModDto } from '../../../shared/dto/ModDto';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
@@ -93,43 +93,46 @@ import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
 import { useSeoMeta } from '@unhead/vue';
 
-export default defineComponent({
-  name: 'AddModPage',
-  components: { Icon, ApiProvidedForm, ModDetails, ConfirmModal },
-  setup() {
-    useSeoMeta({
-      title: 'Add a mod',
-    });
-
-    return {
-      ...useModEditing(true),
-    };
-  },
-  methods: {
-    async onSubmit(): Promise<void> {
-      console.log('submit');
-      if (!this.loading) {
-        this.showErrors = true;
-        console.log('showErrors:', this.showErrors);
-
-        if (this.errorCount <= 0) {
-          this.loading = true;
-          const newMod = await api.addMod(this.mod as ModDto);
-          if (!!newMod) {
-            this.hasUnsavedChanges = false;
-            await this.$router.push({ name: 'mod', params: { id: newMod.id } });
-            toaster.success(
-              `Your new mod <b>"${newMod.title}"</b> has been created!`,
-            );
-          }
-          this.loading = false;
-        }
-      } else {
-        if (this.errorCount > 0) {
-          toaster.error(TOAST_FORM_INVALID);
-        }
-      }
-    },
-  },
+useSeoMeta({
+  title: 'Add a mod',
 });
+const router = useRouter();
+
+const {
+  answer,
+  errorCount,
+  errors,
+  hasUnsavedChanges,
+  loading,
+  mod,
+  onChange,
+  onRouteLeaveCancel,
+  onRouteLeaveConfirm,
+  ready,
+  showErrors,
+  showModal
+} = useModEditing(true);
+
+async function onSubmit(): Promise<void> {
+  if (!loading.value) {
+    showErrors.value = true;
+
+    if (errorCount.value <= 0) {
+      loading.value = true;
+      const newMod = await api.addMod(mod.value as ModDto);
+      if (!!newMod) {
+        hasUnsavedChanges.value = false;
+        await router.push({ name: 'mod', params: { id: newMod.id } });
+        toaster.success(
+          `Your new mod <b>"${newMod.title}"</b> has been created!`, // TODO: arbitrary HTML? Is this vulnerable to XSS?
+        );
+      }
+      loading.value = false;
+    }
+  } else {
+    if (errorCount.value > 0) {
+      toaster.error(TOAST_FORM_INVALID);
+    }
+  }
+}
 </script>
