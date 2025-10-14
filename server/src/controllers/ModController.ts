@@ -9,6 +9,7 @@ import {User} from "../entities/User";
 import {ModLikeService} from "../services/ModLikeService";
 import {UserService} from "../services/UserService";
 import {ApiRequest} from "ApiRequest";
+import { getUserFromAuthToken } from '../authenticators/expressAuthenticator';
 
 @Route('/mods')
 export class ModController extends Controller {
@@ -120,9 +121,9 @@ export class ModController extends Controller {
     @Path() id: string,
     @Body() data: ModUpdateDto,
   ) {
-    const session = {user: {} as User};
+    const user = await getUserFromAuthToken(authtoken);
 
-    if (!(await ModService.isUpdateAllowed(id, session.user!))) {
+    if (!(await ModService.isUpdateAllowed(id, user))) {
       this.setStatus(403);
       return {error: 'You are not the owner of the mod!'};
     }
