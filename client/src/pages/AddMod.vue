@@ -66,62 +66,108 @@
       </ul>
     </section>
     <section class="collapse my-3 mx-1" id="preview">
-      <mod-details :mod="mod" :preview="true" />
+      <mod-details :mod="modPreview" :preview="true" />
     </section>
   </div>
   <confirm-modal
-    v-if="showModal"
+    v-if="routeLeaveConfirm.showModal.value"
     title="Are you sure you want to leave?"
     message="You have unsaved Changes"
     btn-confirm="Yes"
     btn-cancel="No"
-    @confirm="onRouteLeaveConfirm"
-    @cancel="onRouteLeaveCancel"
+    @confirm="routeLeaveConfirm.onRouteLeaveConfirm"
+    @cancel="routeLeaveConfirm.onRouteLeaveCancel"
   />
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { ModDto } from '../../../shared/dto/ModDto';
+import { ModCreateDto, ModDto } from '../../../shared/dto/ModDto';
 import ApiProvidedForm from '../components/ApiProvidedForm.vue';
 import Icon from '../components/Icon.vue';
 import ConfirmModal from '../components/modals/ConfirmModal.vue';
 import ModDetails from '../components/ModDetails.vue';
-import { useModEditing } from '../compositions/useModEditing';
 import { TOAST_FORM_INVALID } from '../const/toasts.const';
 import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
 import { useSeoMeta } from '@unhead/vue';
+import { useRouteLeaveConfirm } from '../compositions/useRouteLeaveConfirm';
+import { computed, ref, watch } from 'vue';
+import { slugify } from '../utils';
+import _ from 'lodash';
+import { CreateModData, listRaftVersions, RaftVersion } from '../api';
+import { state } from '../store/store';
 
 useSeoMeta({
   title: 'Add a mod',
 });
 const router = useRouter();
+const routeLeaveConfirm = useRouteLeaveConfirm();
 
-const {
-  answer,
-  errorCount,
-  errors,
-  hasUnsavedChanges,
-  loading,
-  mod,
-  onChange,
-  onRouteLeaveCancel,
-  onRouteLeaveConfirm,
-  ready,
-  showErrors,
-  showModal
-} = useModEditing(true);
+const loading = ref(false);
+type AddModFormData = Partial<CreateModData["body"]> & {
+  id?: string;
+}
+const mod = ref<AddModFormData>({});
+const ready = ref(false);
+const showErrors = ref(false);
+const hasErrors = ref(false);
+
+const modPreview = computed<ModDto>(() => ({
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  id: mod.value.id || '(missing slug)',
+  title: mod.value.title || '(missing title)',
+  description: mod.value.description || '(missing description)',
+  readme: mod.value.readme || '(missing readme)',
+  category: mod.value.category || '(???)',
+  author: state.jwt!.username, // user must be logged in on this route
+  bannerImageUrl: mod.value.bannerImageUrl,
+  iconImageUrl: mod.value.iconImageUrl,
+  repositoryUrl: mod.value.repositoryUrl,
+  versions: [
+    {
+      id: -1,
+      modId: mod.value.id || '(missing slug)',
+      version: mod.value.version,
+      changelog: 'This is the first version.',
+      downloadUrl: '#',
+      downloadCount: 9001,
+      minRaftVersionId: mod.value.minRaftVersionId,
+      maxRaftVersionId: mod.value.maxRaftVersionId,
+      definiteMaxRaftVersion: mod.value.definiteMaxRaftVersion,
+    }
+  ],
+  likes: 42
+}));
+
+watch(
+  () => mod.value.title,
+  (title) => {
+    if (!ready.value) return;
+
+    mod.value.id = title ? slugify(title) : '';
+  },
+);
+
+function onChange(event: { data: AddModFormData; errors: any[] }) {
+  if (!_.isEqual(event.data, mod.value)) {
+    routeLeaveConfirm.hasUnsavedChanges.value = true;
+  }
+
+  mod.value = event.data;
+  hasErrors.value = event.errors.length > 0;
+}
 
 async function onSubmit(): Promise<void> {
   if (!loading.value) {
     showErrors.value = true;
 
-    if (errorCount.value <= 0) {
+    if (!hasErrors.value) {
       loading.value = true;
       const newMod = await api.addMod(mod.value as ModDto);
       if (!!newMod) {
-        hasUnsavedChanges.value = false;
+        routeLeaveConfirm.hasUnsavedChanges.value = false;
         await router.push({ name: 'mod', params: { id: newMod.id } });
         toaster.success(
           `Your new mod <b>"${newMod.title}"</b> has been created!`, // TODO: arbitrary HTML? Is this vulnerable to XSS?
@@ -130,9 +176,25 @@ async function onSubmit(): Promise<void> {
       loading.value = false;
     }
   } else {
-    if (errorCount.value > 0) {
+    if (hasErrors.value) {
       toaster.error(TOAST_FORM_INVALID);
     }
   }
 }
+
+async function loadFormData() {
+  ready.value = false;
+
+  const { data, error } = await listRaftVersions();
+  if (error !== undefined) {
+    throw new Error(); // TODO
+  }
+
+  const castedRaftVersion = data as RaftVersion[]; // TODO better typing
+  mod.value.minRaftVersionId = castedRaftVersion[castedRaftVersion.length - 1].id;
+  mod.value.maxRaftVersionId = castedRaftVersion[0].id; // TODO check if nonempty
+  
+  ready.value = true;
+}
+loadFormData();
 </script>

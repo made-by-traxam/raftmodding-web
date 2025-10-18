@@ -86,20 +86,19 @@
     </section>
   </div>
   <confirm-modal
-    v-if="showModal"
+    v-if="routeLeaveConfirm.showModal.value"
     title="Are you sure you want to leave?"
     message="You have unsaved Changes"
     btn-confirm="Yes"
     btn-cancel="No"
-    @confirm="onRouteLeaveConfirm"
-    @cancel="onRouteLeaveCancel"
+    @confirm="routeLeaveConfirm.onRouteLeaveConfirm"
+    @cancel="routeLeaveConfirm.onRouteLeaveCancel"
   />
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 
-import { useModEditing } from '../compositions/useModEditing';
 import { api } from '../modules/api';
 import { toaster } from '../modules/toaster';
 
@@ -109,21 +108,26 @@ import ConfirmModal from '../components/modals/ConfirmModal.vue';
 import ModDangerZone from '../components/ModDangerZoner.vue';
 import ModDetails from '../components/ModDetails.vue';
 import { useSeoMeta } from '@unhead/vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { useRouteLeaveConfirm } from '../compositions/useRouteLeaveConfirm';
+import _ from 'lodash';
+import { getMod, UpdateModData } from '../api';
+import { ModDto } from '../../../shared/dto/ModDto';
 
 const router = useRouter();
-const modEditingProps = useModEditing();
-const {
-  mod,
-  loading,
-  showErrors,
-  hasUnsavedChanges,
-  showModal,
-  onRouteLeaveCancel,
-  onRouteLeaveConfirm,
-  ready,
-  onChange
-} = modEditingProps;
+const modId = useRoute().params.id as string; // routing ensures this value is present
+
+type EditModFormData = Partial<ModDto> & { id: string; };
+const mod = ref<EditModFormData>({
+  id: modId,
+});
+
+const loading = ref(false);
+const showErrors = ref(false);
+const ready = ref(false);
+const hasErrors = ref(false);
+
+const routeLeaveConfirm = useRouteLeaveConfirm();
 const meta = useSeoMeta({
   title: `Edit ${mod.value.title}`,
 });
@@ -135,6 +139,15 @@ watch(
   },
 );
 
+function onChange(event: { data: EditModFormData; errors: any[] }) {
+  if (!_.isEqual(event.data, mod.value)) {
+    routeLeaveConfirm.hasUnsavedChanges.value = true;
+  }
+
+  mod.value = event.data;
+  hasErrors.value = event.errors.length > 0;
+}
+
 async function onSubmit() {
   if (!loading.value) {
     loading.value = true;
@@ -142,7 +155,7 @@ async function onSubmit() {
     delete mod.value.versions;
     const updatedMod = await api.updateMod(mod.value);
     if (!!updatedMod) {
-      hasUnsavedChanges.value = false;
+      routeLeaveConfirm.hasUnsavedChanges.value = false;
       await router.push({
         name: 'mod',
         params: { id: updatedMod.id },
@@ -154,4 +167,17 @@ async function onSubmit() {
     loading.value = false;
   }
 }
+
+async function loadFormData() {
+  ready.value = false;
+
+  const { data, error } = await getMod({ path: { id: modId } });
+  if (error !== undefined) {
+    throw new Error(); // TODO
+  }
+  mod.value = data as EditModFormData; // TODO better typing
+
+  ready.value = true;
+}
+loadFormData();
 </script>
