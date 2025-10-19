@@ -93,7 +93,7 @@ export const saveExampleDbData = async () => {
           Morbi quis varius enim. Donec varius lectus vitae porttitor vehicula. Curabitur metus quam, cursus eget lorem ornare, sodales auctor ex. \
           Aenean mauris mauris, aliquet eleifend risus in, rutrum venenatis est. Nulla pretium faucibus erat eu efficitur. \
           Suspendisse rutrum elit vitae aliquam iaculis. ',
-    category: 'Fun',
+    category: 'fun',
     author: 'admin',
     bannerImageUrl: '/logo.png',
     iconImageUrl: '/logo.png',
@@ -114,7 +114,7 @@ export const saveExampleDbData = async () => {
           Morbi quis varius enim. Donec varius lectus vitae porttitor vehicula. Curabitur metus quam, cursus eget lorem ornare, sodales auctor ex. \
           Aenean mauris mauris, aliquet eleifend risus in, rutrum venenatis est. Nulla pretium faucibus erat eu efficitur. \
           Suspendisse rutrum elit vitae aliquam iaculis. ',
-    category: 'Fun',
+    category: 'fun',
     author: 'admin',
     bannerImageUrl: '/logo.png',
     iconImageUrl: '/logo.png',
@@ -135,7 +135,7 @@ export const saveExampleDbData = async () => {
           Morbi quis varius enim. Donec varius lectus vitae porttitor vehicula. Curabitur metus quam, cursus eget lorem ornare, sodales auctor ex. \
           Aenean mauris mauris, aliquet eleifend risus in, rutrum venenatis est. Nulla pretium faucibus erat eu efficitur. \
           Suspendisse rutrum elit vitae aliquam iaculis. ',
-    category: 'Fun',
+    category: 'fun',
     author: 'admin',
     bannerImageUrl: '/logo.png',
     iconImageUrl: '/logo.png',
@@ -156,7 +156,7 @@ export const saveExampleDbData = async () => {
           Morbi quis varius enim. Donec varius lectus vitae porttitor vehicula. Curabitur metus quam, cursus eget lorem ornare, sodales auctor ex. \
           Aenean mauris mauris, aliquet eleifend risus in, rutrum venenatis est. Nulla pretium faucibus erat eu efficitur. \
           Suspendisse rutrum elit vitae aliquam iaculis. ',
-    category: 'Fun',
+    category: 'fun',
     author: 'admin',
     bannerImageUrl: '/logo.png',
     iconImageUrl: '/logo.png',
@@ -177,7 +177,7 @@ export const saveExampleDbData = async () => {
           Morbi quis varius enim. Donec varius lectus vitae porttitor vehicula. Curabitur metus quam, cursus eget lorem ornare, sodales auctor ex. \
           Aenean mauris mauris, aliquet eleifend risus in, rutrum venenatis est. Nulla pretium faucibus erat eu efficitur. \
           Suspendisse rutrum elit vitae aliquam iaculis. ',
-    category: 'Fun',
+    category: 'fun',
     author: 'admin',
     bannerImageUrl: '/logo.png',
     iconImageUrl: '/logo.png',
@@ -198,7 +198,7 @@ export const saveExampleDbData = async () => {
           Morbi quis varius enim. Donec varius lectus vitae porttitor vehicula. Curabitur metus quam, cursus eget lorem ornare, sodales auctor ex. \
           Aenean mauris mauris, aliquet eleifend risus in, rutrum venenatis est. Nulla pretium faucibus erat eu efficitur. \
           Suspendisse rutrum elit vitae aliquam iaculis. ',
-    category: 'Fun',
+    category: 'fun',
     author: 'admin',
     bannerImageUrl: '/logo.png',
     iconImageUrl: '/logo.png',
@@ -219,7 +219,7 @@ export const saveExampleDbData = async () => {
           Morbi quis varius enim. Donec varius lectus vitae porttitor vehicula. Curabitur metus quam, cursus eget lorem ornare, sodales auctor ex. \
           Aenean mauris mauris, aliquet eleifend risus in, rutrum venenatis est. Nulla pretium faucibus erat eu efficitur. \
           Suspendisse rutrum elit vitae aliquam iaculis. ',
-    category: 'Fun',
+    category: 'fun',
     author: 'admin',
     bannerImageUrl: '/logo.png',
     iconImageUrl: '/logo.png',
