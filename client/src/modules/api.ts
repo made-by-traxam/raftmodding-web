@@ -172,35 +172,6 @@ class Api {
     return null;
   }
 
-  async getModCategories(): Promise<string[]> {
-    try {
-      const {data}: AxiosResponse = await this.axios.get(`/mods/categories`);
-      return data;
-    } catch (e) {
-      toaster.error('Failed to get mod categories');
-    }
-    return [];
-  }
-
-  async getMod(id: string) {
-    try {
-      const {data}: AxiosResponse = await this.axios.get<ModDto>(
-        `/mods/${id}`,
-      );
-      return data;
-    } catch ({response}) {
-      const {
-        data: {error},
-      } = response as AxiosResponse<ErrorDto>;
-
-      if (error) {
-        toaster.error(error);
-      }
-    }
-
-    return null;
-  }
-
   async addMod(mod: ModDto) {
     try {
       const response = await this.axios.post<ModDto>('/mods', mod);

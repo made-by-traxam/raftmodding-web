@@ -4,50 +4,41 @@
   </div>
 </template>
 
-<script lang="ts">
-import {defineComponent, Ref, ref} from 'vue';
+<script setup lang="ts">
+import {Ref, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import {ModDto} from '../../../shared/dto/ModDto';
 import ModDetails from '../components/ModDetails.vue';
 import {useLikes} from '../compositions/useLikes';
-import {api} from '../modules/api';
 import {toaster} from '../modules/toaster';
 import {META_BANNER} from "../const/meta.const";
 import { useSeoMeta } from '@unhead/vue';
+import { getMod } from '../api';
 
-export default defineComponent({
-  name: 'ModPage',
-  components: {
-    ModDetails,
-  },
-  setup() {
-    const mod = ref<ModDto>();
-    const meta = useSeoMeta({
-      title: 'Loading mod...',
-    });
-
-    (async () => {
-      const route = useRoute();
-      const router = useRouter();
-      mod.value = await api.getMod(route.params.id as string);
-
-      if (!mod.value) {
-        const modId = route.params.id;
-        await router.replace({name: 'mods'});
-        toaster.error(`Mod ${modId} not found`);
-      }
-
-      meta.patch({
-        title: mod.value?.title,
-        description: mod.value?.description,
-        ogImage:  mod.value?.bannerImageUrl || META_BANNER,
-      });
-    })();
-
-    return {
-      mod,
-      ...useLikes(mod as Ref<ModDto>),
-    };
-  },
+const modId = useRoute().params.id as string; // routing ensures this value is present
+const mod = ref<ModDto>();
+const { onToggleLike } = useLikes(mod as Ref<ModDto>); // TODO improve typing, move useLikes to respective component
+const meta = useSeoMeta({
+  title: `Loading ${modId}...`,
 });
+
+async function loadMod() {
+  const route = useRoute();
+  const router = useRouter();
+  const { data, error } = await getMod({path: { id: modId }});
+
+  if (error !== undefined) {
+    // TODO distinguish between not found and other errors
+    toaster.error(`Mod ${modId} not found`);
+    await router.replace({name: 'mods'});
+  } else {
+    mod.value = data as ModDto; // TODO improve typing
+    meta.patch({
+      title: mod.value?.title,
+      description: mod.value?.description,
+      ogImage:  mod.value?.bannerImageUrl || META_BANNER,
+    });
+  }
+}
+loadMod();
 </script>

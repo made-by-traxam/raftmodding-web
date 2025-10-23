@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent, Ref, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { ModDto } from '../../../shared/dto/ModDto';
@@ -30,33 +30,29 @@ import ModVersionDetails from '../components/ModVersionDetails.vue';
 import { useLikes } from '../compositions/useLikes';
 import { api } from '../modules/api';
 import { useSeoMeta } from '@unhead/vue';
+import { getMod } from '../api';
+import { toaster } from '../modules/toaster';
+import { router } from '../router/router';
 
-export default defineComponent({
-  name: 'ModVersionsPage',
-  components: {
-    ModVersionDetails,
-    ModHeader,
-    ModRightTable,
-    ModDetails,
-  },
-  setup() {
-    const meta = useSeoMeta({
-      title: 'Loading mod versions...',
-    });
-    const mod = ref<ModDto>();
-
-    (async () => {
-      const route = useRoute();
-      mod.value = await api.getMod(route.params.id as string);
-      meta.patch({
-        title: `${mod.value?.title} versions`
-      });
-    })();
-
-    return {
-      mod,
-      ...useLikes(mod as Ref<ModDto>)
-    };
-  },
+const meta = useSeoMeta({
+  title: 'Loading mod versions...',
 });
+const modId = useRoute().params.id as string; // routing ensures this value is present
+const mod = ref<ModDto>();
+const { onToggleLike } = useLikes(mod as Ref<ModDto>); // TODO: improve typing
+
+async function loadMod() {
+  const { data, error } = await getMod({ path: { id: modId } });
+  if (error !== undefined) {
+    // TODO distinguish between not found and other errors
+    toaster.error(`Mod ${modId} not found`);
+    await router.replace({name: 'mods'});
+  } else {
+    meta.patch({
+      title: `${mod.value?.title} versions`
+    });
+    mod.value = data as ModDto; // TODO improve typing
+  }
+}
+loadMod()
 </script>
