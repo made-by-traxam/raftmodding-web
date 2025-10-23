@@ -111,8 +111,9 @@ import { useSeoMeta } from '@unhead/vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useRouteLeaveConfirm } from '../compositions/useRouteLeaveConfirm';
 import _ from 'lodash';
-import { getMod, UpdateModData } from '../api';
+import { getMod, updateMod } from '../api';
 import { ModDto } from '../../../shared/dto/ModDto';
+import { getPersistedAuthtoken } from '../store/persistence.store';
 
 const router = useRouter();
 const modId = useRoute().params.id as string; // routing ensures this value is present
@@ -152,16 +153,36 @@ async function onSubmit() {
   if (!loading.value) {
     loading.value = true;
     showErrors.value = true;
-    delete mod.value.versions;
-    const updatedMod = await api.updateMod(mod.value);
-    if (!!updatedMod) {
+
+    const { error } = await updateMod({
+      body: _.pick(mod.value, [
+        'id',
+        'bannerImageUrl',
+        'iconImageUrl',
+        'category',
+        'description',
+        'readme',
+        'repositoryUrl',
+        'title',
+      ]),
+      path: {
+        id: modId,
+      },
+      headers: {
+        authtoken: `Bearer: ${getPersistedAuthtoken()}`,
+      },
+    });
+    if (error) {
+      toaster.error('Mod could not be updated!');
+      console.error('Error while updating mod:', error);
+    } else {
       routeLeaveConfirm.hasUnsavedChanges.value = false;
       await router.push({
         name: 'mod',
-        params: { id: updatedMod.id },
+        params: { id: modId },
       });
       toaster.success(
-        `Your mod <b>"${updatedMod.title}"</b> has been updated!`,
+        `Your mod <b>"${mod.value.title}"</b> has been updated!`,
       );
     }
     loading.value = false;
@@ -176,6 +197,10 @@ async function loadFormData() {
     throw new Error(); // TODO
   }
   mod.value = data as EditModFormData; // TODO better typing
+
+  if (!mod.value.repositoryUrl) {
+    mod.value.repositoryUrl = '';
+  }
 
   ready.value = true;
 }

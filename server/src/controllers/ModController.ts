@@ -1,7 +1,7 @@
 // noinspection ES6PreferShortImport
 
 import {Body, Controller, Delete, Get, Header, OperationId, Path, Post, Put, Query, Request, Route, Security,} from 'tsoa';
-import {ModCreateDto, ModUpdateDto} from '../../../shared/dto/ModDto';
+import {ModCreateDto, ModDto, ModUpdateDto} from '../../../shared/dto/ModDto';
 import {ApiError} from '../errors/ApiError';
 import {ModService} from '../services/ModService';
 import {HttpStatusCode} from '../types/HttpStatusCode';
@@ -121,7 +121,9 @@ export class ModController extends Controller {
     @Path() id: string,
     @Body() data: ModUpdateDto,
   ) {
+    console.log('in update 1');
     const user = await getUserFromAuthToken(authtoken);
+    console.log('in update 2');
 
     if (!(await ModService.isUpdateAllowed(id, user))) {
       this.setStatus(403);
@@ -130,7 +132,12 @@ export class ModController extends Controller {
 
     data.id = id;
 
-    return await ModService.update(data);
+    const newModDto: ModDto = {
+      ...data,
+      repositoryUrl: data.repositoryUrl === null || data.repositoryUrl === '' ? undefined : data.repositoryUrl,
+    }; // TODO: use custom DTO for update instead of using ModDto
+
+    return await ModService.update(newModDto);
   }
 
   @Delete("/{id}/unlike")
